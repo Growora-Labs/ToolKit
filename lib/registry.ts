@@ -86,10 +86,10 @@ export const TOOLS: ToolMeta[] = [
     slug:        'case-converter',
     name:        'Case Converter',
     tagline:     'UPPER, lower, Title, camelCase & more',
-    description: 'Convert text between uppercase, lowercase, title case, camelCase, snake_case and more.',
+    description: 'Convert text between uppercase, lowercase, title case, camelCase, snake_case, kebab-case and more. Free, instant, browser-based.',
     category:    'Text & Writing',
-    keywords:    ['case converter', 'text case converter', 'uppercase lowercase converter'],
-    live:        false,
+    keywords:    ['case converter', 'camelcase converter', 'snake case converter', 'text case converter', 'uppercase lowercase converter'],
+    live:        true,
   },
   {
     slug:        'markdown-editor',

@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28d87ed4-e495-4f64-b71e-05de9470371c" name="Changes" comment="зміна структури проєкту, додали word counter tool">
-      <change afterPath="$PROJECT_DIR$/favicon.ico" afterDir="false" />
+    <list default="true" id="28d87ed4-e495-4f64-b71e-05de9470371c" name="Changes" comment="favicon">
+      <change afterPath="$PROJECT_DIR$/tools/case-converter/component.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/case-converter/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/case-converter/use-case-converter.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/registry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/registry.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/tools/[slug].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/tools/[slug].tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +49,7 @@
     "js.debugger.nextJs.config.created.client": "true",
     "js.debugger.nextJs.config.created.server": "true",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "D:/My/business/ToolKit",
+    "last_opened_file_path": "D:/My/business/ToolKit/tools/case-converter",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -56,6 +60,14 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\My\business\ToolKit\tools\case-converter" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\My\business\ToolKit" />
+    </key>
+  </component>
   <component name="RunManager" selected="npm.Next.js: server-side">
     <configuration name="Next.js: debug client-side" type="JavascriptDebugType" uri="http://localhost:3000/">
       <method v="2" />
@@ -86,7 +98,7 @@
       <option name="presentableId" value="Default" />
       <updated>1774369989777</updated>
       <workItem from="1774369990934" duration="2365000" />
-      <workItem from="1774373008345" duration="1334000" />
+      <workItem from="1774373008345" duration="4892000" />
     </task>
     <task id="LOCAL-00001" summary="зміна структури проєкту, додали word counter tool">
       <option name="closed" value="true" />
@@ -96,7 +108,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774373427040</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="favicon">
+      <option name="closed" value="true" />
+      <created>1774374869243</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1774374869243</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -104,6 +124,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="зміна структури проєкту, додали word counter tool" />
-    <option name="LAST_COMMIT_MESSAGE" value="зміна структури проєкту, додали word counter tool" />
+    <MESSAGE value="favicon" />
+    <option name="LAST_COMMIT_MESSAGE" value="favicon" />
   </component>
 </project>
