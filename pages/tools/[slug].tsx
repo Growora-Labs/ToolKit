@@ -29,12 +29,14 @@ export const getStaticProps: GetStaticProps = ({ params }) => {
 const TOOL_DATA: Record<string, () => Promise<{ faq: FaqItem[]; [key: string]: unknown }>> = {
     'word-counter':   () => import('../../tools/word-counter'),
     'case-converter': () => import('../../tools/case-converter'),
+    'color-palette':  () => import('../../tools/color-palette'),
 };
 
 // Map slug → dynamic import of the widget component
 const TOOL_WIDGETS: Record<string, React.ComponentType> = {
     'word-counter':   dynamic(() => import('../../tools/word-counter/component'),   { ssr: false }) as React.ComponentType,
     'case-converter': dynamic(() => import('../../tools/case-converter/component'), { ssr: false }) as React.ComponentType,
+    'color-palette':  dynamic(() => import('../../tools/color-palette/component'),  { ssr: false }) as React.ComponentType,
 };
 
 /* ── Word counter sidebar (specific to this tool) ──────── */
@@ -105,10 +107,52 @@ const CaseConverterSidebar = dynamic(
     { ssr: false }
 ) as React.ComponentType;
 
+const ColorPaletteSidebar = dynamic(
+    () => import('../../tools/color-palette').then(m => {
+        const { harmonySidebar, colorTips } = m as {
+            harmonySidebar: { label: string; desc: string }[];
+            colorTips: { tip: string; desc: string }[];
+        };
+        return function Sidebar() {
+            return (
+                <div className="a2" style={{ paddingTop: 44 }}>
+                    <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 16 }}>
+                        Color harmony modes
+                    </p>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        {harmonySidebar.map(({ label, desc }) => (
+                            <div key={label} style={{ display: 'flex', gap: 12, padding: '11px 0', borderBottom: '1px solid var(--border)' }}>
+                                <div style={{ minWidth: 0 }}>
+                                    <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 2 }}>{label}</div>
+                                    <div style={{ fontSize: 12, color: 'var(--ink-3)' }}>{desc}</div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', margin: '20px 0 12px' }}>
+                        Color tips
+                    </p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                        {colorTips.map(({ tip, desc }) => (
+                            <div key={tip} style={{ padding: '12px 14px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-m)' }}>
+                                <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink)', marginBottom: 4 }}>{tip}</div>
+                                <div style={{ fontSize: 12, color: 'var(--ink-3)', lineHeight: 1.5 }}>{desc}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+    }),
+    { ssr: false }
+) as React.ComponentType;
+
 /* ── Sidebar router ────────────────────────────────────── */
 function ToolSidebar({ slug }: { slug: string }) {
     if (slug === 'word-counter')   return <WordCounterSidebar />;
     if (slug === 'case-converter') return <CaseConverterSidebar />;
+    if (slug === 'color-palette')  return <ColorPaletteSidebar />;
     return null;
 }
 

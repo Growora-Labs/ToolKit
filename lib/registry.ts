@@ -104,10 +104,10 @@ export const TOOLS: ToolMeta[] = [
     slug:        'color-palette',
     name:        'Color Palette Generator',
     tagline:     'Generate beautiful color palettes',
-    description: 'Generate harmonious color palettes for your design projects. Free, instant, no signup.',
+    description: 'Generate harmonious color palettes instantly. Choose from analogous, complementary, triadic and more. Copy HEX, RGB, HSL or CSS variables with one click.',
     category:    'Design',
-    keywords:    ['color palette generator', 'color scheme generator', 'color picker'],
-    live:        false,
+    keywords:    ['color palette generator', 'color scheme generator', 'color picker', 'color harmony'],
+    live:        true,
   },
   {
     slug:        'username-generator',

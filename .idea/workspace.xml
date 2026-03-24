@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28d87ed4-e495-4f64-b71e-05de9470371c" name="Changes" comment="favicon">
-      <change afterPath="$PROJECT_DIR$/tools/case-converter/component.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tools/case-converter/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tools/case-converter/use-case-converter.ts" afterDir="false" />
+    <list default="true" id="28d87ed4-e495-4f64-b71e-05de9470371c" name="Changes" comment="case converter">
+      <change afterPath="$PROJECT_DIR$/tools/color-palette/component.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/color-palette/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/color-palette/use-color-palette.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/registry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/registry.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/tools/[slug].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/tools/[slug].tsx" afterDir="false" />
@@ -49,7 +49,7 @@
     "js.debugger.nextJs.config.created.client": "true",
     "js.debugger.nextJs.config.created.server": "true",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "D:/My/business/ToolKit/tools/case-converter",
+    "last_opened_file_path": "D:/My/business/ToolKit/tools/color-palette",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -62,6 +62,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\My\business\ToolKit\tools\color-palette" />
       <recent name="D:\My\business\ToolKit\tools\case-converter" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -98,7 +99,7 @@
       <option name="presentableId" value="Default" />
       <updated>1774369989777</updated>
       <workItem from="1774369990934" duration="2365000" />
-      <workItem from="1774373008345" duration="4892000" />
+      <workItem from="1774373008345" duration="7546000" />
     </task>
     <task id="LOCAL-00001" summary="зміна структури проєкту, додали word counter tool">
       <option name="closed" value="true" />
@@ -116,7 +117,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774374869243</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="case converter">
+      <option name="closed" value="true" />
+      <created>1774378564020</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1774378564020</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,6 +134,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="зміна структури проєкту, додали word counter tool" />
     <MESSAGE value="favicon" />
-    <option name="LAST_COMMIT_MESSAGE" value="favicon" />
+    <MESSAGE value="case converter" />
+    <option name="LAST_COMMIT_MESSAGE" value="case converter" />
   </component>
 </project>
