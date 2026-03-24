@@ -27,16 +27,25 @@ export const getStaticProps: GetStaticProps = ({ params }) => {
 
 // Map slug → dynamic import of { faq, ...sidebar data }
 const TOOL_DATA: Record<string, () => Promise<{ faq: FaqItem[]; [key: string]: unknown }>> = {
-    'word-counter':   () => import('../../tools/word-counter'),
-    'case-converter': () => import('../../tools/case-converter'),
-    'color-palette':  () => import('../../tools/color-palette'),
+    'word-counter':       () => import('../../tools/word-counter'),
+    'case-converter':     () => import('../../tools/case-converter'),
+    'color-palette':      () => import('../../tools/color-palette'),
+    'uuid-generator':     () => import('../../tools/uuid-generator'),
+    'lorem-ipsum':        () => import('../../tools/lorem-ipsum'),
+    'base64':             () => import('../../tools/base64'),
+    'username-generator': () => import('../../tools/username-generator'),
+    'json-formatter':     () => import('../../tools/json-formatter'),
 };
 
-// Map slug → dynamic import of the widget component
 const TOOL_WIDGETS: Record<string, React.ComponentType> = {
-    'word-counter':   dynamic(() => import('../../tools/word-counter/component'),   { ssr: false }) as React.ComponentType,
-    'case-converter': dynamic(() => import('../../tools/case-converter/component'), { ssr: false }) as React.ComponentType,
-    'color-palette':  dynamic(() => import('../../tools/color-palette/component'),  { ssr: false }) as React.ComponentType,
+    'word-counter':       dynamic(() => import('../../tools/word-counter/component'),       { ssr: false }) as React.ComponentType,
+    'case-converter':     dynamic(() => import('../../tools/case-converter/component'),     { ssr: false }) as React.ComponentType,
+    'color-palette':      dynamic(() => import('../../tools/color-palette/component'),      { ssr: false }) as React.ComponentType,
+    'uuid-generator':     dynamic(() => import('../../tools/uuid-generator/component'),     { ssr: false }) as React.ComponentType,
+    'lorem-ipsum':        dynamic(() => import('../../tools/lorem-ipsum/component'),        { ssr: false }) as React.ComponentType,
+    'base64':             dynamic(() => import('../../tools/base64/component'),             { ssr: false }) as React.ComponentType,
+    'username-generator': dynamic(() => import('../../tools/username-generator/component'), { ssr: false }) as React.ComponentType,
+    'json-formatter':     dynamic(() => import('../../tools/json-formatter/component'),     { ssr: false }) as React.ComponentType,
 };
 
 /* ── Word counter sidebar (specific to this tool) ──────── */
@@ -148,11 +157,85 @@ const ColorPaletteSidebar = dynamic(
     { ssr: false }
 ) as React.ComponentType;
 
+/* ── Generic info sidebar (UUID, Base64, JSON) ─────────── */
+function InfoSidebar({ items }: { items: { label: string; value?: string; desc?: string }[] }) {
+    return (
+        <div className="a2" style={{ paddingTop: 44 }}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {items.map(({ label, value, desc }) => (
+                    <div key={label} style={{ padding: '11px 0', borderBottom: '1px solid var(--border)' }}>
+                        <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink)', marginBottom: value ? 2 : 4 }}>{label}</div>
+                        {value && <div style={{ fontSize: 13, color: 'var(--ink-2)', fontFamily: 'JetBrains Mono, monospace' }}>{value}</div>}
+                        {desc  && <div style={{ fontSize: 12, color: 'var(--ink-3)', lineHeight: 1.5 }}>{desc}</div>}
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+const UuidSidebar = dynamic(
+    () => import('../../tools/uuid-generator').then(m => {
+        const { sidebarInfo } = m as { sidebarInfo: { label: string; value: string }[] };
+        return function Sidebar() { return <InfoSidebar items={sidebarInfo} />; };
+    }), { ssr: false }
+) as React.ComponentType;
+
+const Base64Sidebar = dynamic(
+    () => import('../../tools/base64').then(m => {
+        const { sidebarInfo } = m as { sidebarInfo: { label: string; value: string }[] };
+        return function Sidebar() { return <InfoSidebar items={sidebarInfo} />; };
+    }), { ssr: false }
+) as React.ComponentType;
+
+const JsonSidebar = dynamic(
+    () => import('../../tools/json-formatter').then(m => {
+        const { sidebarInfo } = m as { sidebarInfo: { label: string; desc: string }[] };
+        return function Sidebar() { return <InfoSidebar items={sidebarInfo} />; };
+    }), { ssr: false }
+) as React.ComponentType;
+
+const LoremSidebar = dynamic(
+    () => import('../../tools/lorem-ipsum').then(m => {
+        const { useCases } = m as { useCases: { label: string; desc: string }[] };
+        return function Sidebar() { return <InfoSidebar items={useCases.map(u => ({ label: u.label, desc: u.desc }))} />; };
+    }), { ssr: false }
+) as React.ComponentType;
+
+const UsernameSidebar = dynamic(
+    () => import('../../tools/username-generator').then(m => {
+        const { styleGuide } = m as { styleGuide: { style: string; example: string; desc: string }[] };
+        return function Sidebar() {
+            return (
+                <div className="a2" style={{ paddingTop: 44 }}>
+                    <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 16 }}>Style guide</p>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        {styleGuide.map(({ style, example, desc }) => (
+                            <div key={style} style={{ padding: '11px 0', borderBottom: '1px solid var(--border)' }}>
+                                <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 3 }}>
+                                    <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)' }}>{style}</span>
+                                    <span style={{ fontSize: 12, fontFamily: 'JetBrains Mono, monospace', color: 'var(--ink-3)' }}>{example}</span>
+                                </div>
+                                <div style={{ fontSize: 12, color: 'var(--ink-3)' }}>{desc}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+    }), { ssr: false }
+) as React.ComponentType;
+
 /* ── Sidebar router ────────────────────────────────────── */
 function ToolSidebar({ slug }: { slug: string }) {
-    if (slug === 'word-counter')   return <WordCounterSidebar />;
-    if (slug === 'case-converter') return <CaseConverterSidebar />;
-    if (slug === 'color-palette')  return <ColorPaletteSidebar />;
+    if (slug === 'word-counter')       return <WordCounterSidebar />;
+    if (slug === 'case-converter')     return <CaseConverterSidebar />;
+    if (slug === 'color-palette')      return <ColorPaletteSidebar />;
+    if (slug === 'uuid-generator')     return <UuidSidebar />;
+    if (slug === 'base64')             return <Base64Sidebar />;
+    if (slug === 'json-formatter')     return <JsonSidebar />;
+    if (slug === 'lorem-ipsum')        return <LoremSidebar />;
+    if (slug === 'username-generator') return <UsernameSidebar />;
     return null;
 }
 

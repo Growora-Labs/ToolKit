@@ -35,7 +35,7 @@ export const TOOLS: ToolMeta[] = [
     description: 'Generate Lorem Ipsum placeholder text by words, sentences, or paragraphs. Free and instant.',
     category:    'Text & Writing',
     keywords:    ['lorem ipsum generator', 'placeholder text', 'dummy text generator'],
-    live:        false,
+    live:        true,
   },
   {
     slug:        'uuid-generator',
@@ -44,7 +44,7 @@ export const TOOLS: ToolMeta[] = [
     description: 'Generate cryptographically random UUID v4 identifiers in one click. Free, browser-based.',
     category:    'Developer Tools',
     keywords:    ['uuid generator', 'unique id generator', 'guid generator'],
-    live:        false,
+    live:        true,
   },
   {
     slug:        'base64',
@@ -53,7 +53,7 @@ export const TOOLS: ToolMeta[] = [
     description: 'Free online Base64 encoder and decoder. Convert text or files to Base64 and back instantly.',
     category:    'Developer Tools',
     keywords:    ['base64 encoder', 'base64 decoder', 'base64 converter'],
-    live:        false,
+    live:        true,
   },
   {
     slug:        'json-formatter',
@@ -62,7 +62,7 @@ export const TOOLS: ToolMeta[] = [
     description: 'Format, beautify, minify and validate JSON data online. Free and browser-based.',
     category:    'Developer Tools',
     keywords:    ['json formatter', 'json beautifier', 'json validator', 'json prettify'],
-    live:        false,
+    live:        true,
   },
   {
     slug:        'url-encoder',
@@ -116,7 +116,7 @@ export const TOOLS: ToolMeta[] = [
     description: 'Generate creative, unique usernames for social media, gaming, and online accounts.',
     category:    'Design',
     keywords:    ['username generator', 'nickname generator', 'gamertag generator'],
-    live:        false,
+    live:        true,
   },
 ];
 

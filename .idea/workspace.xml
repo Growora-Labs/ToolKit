@@ -4,7 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28d87ed4-e495-4f64-b71e-05de9470371c" name="Changes" comment="fix" />
+    <list default="true" id="28d87ed4-e495-4f64-b71e-05de9470371c" name="Changes" comment="fix">
+      <change afterPath="$PROJECT_DIR$/tools/base64/component.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/base64/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/base64/use-base64.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/json-formatter/component.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/json-formatter/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/json-formatter/use-json-formatter.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/lorem-ipsum/component.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/lorem-ipsum/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/lorem-ipsum/use-lorem-ipsum.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/username-generator/component.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/username-generator/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/username-generator/use-username-generator.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/uuid-generator/component.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/uuid-generator/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/uuid-generator/use-uuid-generator.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,6 +76,7 @@
       <recent name="D:\My\business\ToolKit\tools\case-converter" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\My\business\ToolKit\public" />
       <recent name="D:\My\business\ToolKit" />
     </key>
   </component>
@@ -92,7 +110,7 @@
       <option name="presentableId" value="Default" />
       <updated>1774369989777</updated>
       <workItem from="1774369990934" duration="2365000" />
-      <workItem from="1774373008345" duration="8583000" />
+      <workItem from="1774373008345" duration="10142000" />
     </task>
     <task id="LOCAL-00001" summary="зміна структури проєкту, додали word counter tool">
       <option name="closed" value="true" />
@@ -134,7 +152,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774387237351</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="fix">
+      <option name="closed" value="true" />
+      <created>1774387808355</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1774387808355</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
