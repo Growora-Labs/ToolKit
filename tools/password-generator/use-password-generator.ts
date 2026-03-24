@@ -3,7 +3,7 @@ import type {
   PasswordOptions,
   PasswordStrength,
   UsePasswordGeneratorReturn,
-} from '../types';
+} from '../../lib/types';
 
 const CHARSETS: Record<keyof Omit<PasswordOptions, 'length'>, string> = {
   uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
