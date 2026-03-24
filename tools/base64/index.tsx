@@ -1,4 +1,5 @@
-import type { FaqItem } from '../../lib/types';
+import {FaqItem} from "@/lib/types";
+
 
 export const faq: FaqItem[] = [
     { q: 'What is Base64?', a: 'Base64 is an encoding scheme that converts binary data into ASCII text using 64 printable characters (A–Z, a–z, 0–9, +, /). It\'s not encryption — it\'s a way to safely transmit binary data over text-only channels.' },

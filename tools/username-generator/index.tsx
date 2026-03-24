@@ -1,4 +1,4 @@
-import type { FaqItem } from '../../lib/types';
+import {FaqItem} from "@/lib/types";
 
 export const faq: FaqItem[] = [
     { q: 'How are usernames generated?', a: 'Usernames are built by combining random adjectives, nouns, and verbs from curated word lists. The style setting controls the format — fun uses underscores and numbers, professional uses PascalCase, gamer removes separators, minimal keeps it short.' },

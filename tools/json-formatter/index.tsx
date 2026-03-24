@@ -1,4 +1,5 @@
-import type { FaqItem } from '../../lib/types';
+import {FaqItem} from "@/lib/types";
+
 
 export const faq: FaqItem[] = [
     { q: 'What is JSON?', a: 'JSON (JavaScript Object Notation) is a lightweight data format used to exchange data between servers and web applications. It\'s human-readable and language-independent, making it the standard for REST APIs and configuration files.' },

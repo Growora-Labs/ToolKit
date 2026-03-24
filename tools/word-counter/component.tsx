@@ -1,5 +1,5 @@
 import { useWordCounter } from './use-word-counter';
-import { IcoX, IcoClock, IcoMic } from '../../components/icons';
+import {IcoClock, IcoMic, IcoX} from "@/components/icons";
 
 interface StatCardProps { label: string; value: string | number; sub?: string; accent?: boolean; }
 

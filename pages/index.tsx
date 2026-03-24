@@ -1,130 +1,163 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-import { Layout } from '../components/ui/Layout';
-import { FaqSection } from '../components/ui/FaqSection';
-import { ToolCard } from '../components/ui/ToolCard';
-import { getByCategory, getLiveTools, getSoonTools } from '../lib/registry';
-import { faq, sidebarFeatures } from '../tools/password-generator';
-import { IcoShield, IcoLock, IcoSliders, IcoZap } from '../components/icons';
-
-const PasswordGenerator = dynamic(() => import('../tools/password-generator/component'), { ssr: false });
+import {IcoCode, IcoCount, IcoKey, IcoShield, IcoZap} from "@/components/icons";
+import {getByCategory, getLiveTools, getSoonTools} from "@/lib/registry";
+import {Layout} from "@/components/ui/Layout";
+import {ToolCard} from "@/components/ui/ToolCard";
 
 const SCHEMA = {
-  '@context': 'https://schema.org', '@type': 'WebApplication',
-  name: 'Password Generator — ToolKit',
-  description: 'Free browser-based password generator. Strong random passwords — never stored or transmitted.',
-  applicationCategory: 'SecurityApplication', operatingSystem: 'Any',
-  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'ToolKit',
+  description: 'Free browser-based online tools for developers, designers and everyone. No signup, no ads, no tracking.',
+  url: 'https://www.webtoolkit.tech',
 };
 
-const FEATURE_ICONS = [IcoShield, IcoLock, IcoSliders, IcoZap];
+const FEATURES = [
+  { Icon: IcoZap,    color: 'var(--green)', bg: 'var(--green-lt)', title: '100% browser-based',    desc: 'Every tool runs entirely in your browser. Nothing is sent to a server — ever.' },
+  { Icon: IcoShield, color: 'var(--blue)',  bg: 'var(--blue-lt)',  title: 'Private by design',     desc: 'No accounts, no tracking, no data collection. Open the tool and use it.' },
+  { Icon: IcoCode,   color: 'var(--amber)', bg: 'var(--amber-lt)', title: 'Built for developers',  desc: 'camelCase, snake_case, JSON formatting, Base64, hashes — the tools you actually need.' },
+  { Icon: IcoCount,  color: 'var(--ink-2)', bg: 'var(--border)',   title: 'Free forever',          desc: 'All tools are free with no rate limits, no paywalls, no upgrade prompts.' },
+];
 
 const HomePage: NextPage = () => {
   const byCategory = getByCategory();
-  const liveCount  = getLiveTools().length;
-  const soonCount  = getSoonTools().length;
+  const liveTools  = getLiveTools();
+  const soonTools  = getSoonTools();
 
   return (
-    <>
-      <Head>
-        <title>Free Password Generator — Strong &amp; Secure | ToolKit</title>
-        <meta name="description" content="Generate strong, random passwords instantly. 100% free and browser-based — passwords never leave your device." />
-        <link rel="canonical" href="https://www.webtoolkit.tech/" />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
-        <meta name="google-site-verification" content="PN-2TYCsAwTEBdNWnk2Llr-uMkVUoAo_0hLfCk9S1R4" />
-      </Head>
+      <>
+        <Head>
+          <title>ToolKit — Free Online Tools for Developers &amp; Designers</title>
+          <meta name="description" content="Free browser-based tools for developers, designers and everyone. Password generators, text utilities, color palettes, JSON formatters and more — no signup, no tracking." />
+          <meta name="keywords" content="free online tools, developer tools, password generator, word counter, json formatter, base64 encoder, color palette generator" />
+          <link rel="canonical" href="https://www.webtoolkit.tech/" />
+          <meta property="og:title"       content="ToolKit — Free Online Tools" />
+          <meta property="og:description" content="Browser-based tools for developers and designers. No signup, no tracking, always free." />
+          <meta property="og:type"        content="website" />
+          <meta property="og:url"         content="https://www.webtoolkit.tech/" />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
+        </Head>
 
-      <Layout activeNav="home">
+        <Layout activeNav="home">
 
-        {/* ── Hero + Tool ─────────────────────────────── */}
-        <section style={{ maxWidth: 1000, margin: '0 auto', padding: '52px 24px 0' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 620px) 1fr', gap: 48, alignItems: 'start' }}>
+          {/* ── Hero ──────────────────────────────── */}
+          <section style={{ padding: 'clamp(40px, 8vw, 80px) 0 0' }}>
+            <div className="wrap-wide">
 
-            {/* Left */}
-            <div>
-              <p className="ov a0" style={{ marginBottom: 10 }}>Free online tool</p>
-              <h1 className="disp a1" style={{ fontSize: 'clamp(28px, 4vw, 42px)', marginBottom: 12 }}>
-                Password Generator
+              <div className="a0" style={{ marginBottom: 12 }}>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 600, color: 'var(--green)', background: 'var(--green-lt)', border: '1px solid var(--green-mid)', borderRadius: 99, padding: '4px 12px' }}>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--green)', display: 'inline-block' }} />
+                {liveTools.length} tools live · {soonTools.length} coming soon
+              </span>
+              </div>
+
+              <h1 className="disp a1" style={{ fontSize: 'clamp(32px, 6vw, 60px)', marginBottom: 20, maxWidth: 720 }}>
+                Free online tools for developers&nbsp;&amp; designers
               </h1>
-              <p className="a2" style={{ fontSize: 15, color: 'var(--ink-2)', lineHeight: 1.6, marginBottom: 28, maxWidth: 480 }}>
-                Create strong, cryptographically random passwords in seconds. No signup, no tracking, nothing stored.
+
+              <p className="a2" style={{ fontSize: 'clamp(15px, 2vw, 18px)', color: 'var(--ink-2)', lineHeight: 1.65, maxWidth: 560, marginBottom: 32 }}>
+                Password generators, text utilities, color palettes, JSON formatters and more.
+                Every tool runs in your browser — no signup, no tracking, nothing stored.
               </p>
-              <div className="card a3" style={{ padding: 'clamp(18px, 3vw, 28px)' }}>
-                <PasswordGenerator />
+
+              <div className="a3" style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                <Link href="/tools" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '12px 22px', background: 'var(--ink)', color: '#fff', borderRadius: 'var(--r-l)', fontSize: 15, fontWeight: 600, textDecoration: 'none', transition: 'background .13s' }}>
+                  Browse all tools →
+                </Link>
+                <Link href="/tools/password-generator" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '12px 22px', background: 'var(--white)', color: 'var(--ink)', border: '1.5px solid var(--border)', borderRadius: 'var(--r-l)', fontSize: 15, fontWeight: 600, textDecoration: 'none', transition: 'border-color .13s' }}>
+                  <IcoKey size={14} /> Password Generator
+                </Link>
               </div>
             </div>
+          </section>
 
-            {/* Right */}
-            <div className="a2" style={{ paddingTop: 44 }}>
-              <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 16 }}>Why use this tool?</p>
-
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                {sidebarFeatures.map(({ label, desc, color, bg }, i) => {
-                  const Icon = FEATURE_ICONS[i];
-                  return (
-                    <div key={label} style={{ display: 'flex', gap: 13, padding: '14px 0', borderBottom: '1px solid var(--border)' }}>
-                      <div style={{ width: 32, height: 32, borderRadius: 8, background: bg, color, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <Icon size={15} />
-                      </div>
-                      <div>
-                        <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 3 }}>{label}</div>
-                        <div style={{ fontSize: 12, color: 'var(--ink-3)', lineHeight: 1.55 }}>{desc}</div>
-                      </div>
+          {/* ── Stats strip ───────────────────────── */}
+          <section style={{ padding: '48px 0 0' }}>
+            <div className="wrap-wide">
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 10 }}>
+                {[
+                  { value: liveTools.length + '+', label: 'Tools available',    color: 'var(--green)' },
+                  { value: '0',                    label: 'Data collected',      color: 'var(--red)'   },
+                  { value: '100%',                 label: 'Client-side',         color: 'var(--blue)'  },
+                  { value: 'Free',                 label: 'Always',              color: 'var(--ink)'   },
+                ].map(s => (
+                    <div key={s.label} style={{ padding: '16px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', boxShadow: 'var(--sh-xs)' }}>
+                      <div style={{ fontFamily: 'Outfit, sans-serif', fontSize: 26, fontWeight: 700, color: s.color, letterSpacing: '-0.02em', lineHeight: 1 }}>{s.value}</div>
+                      <div style={{ fontSize: 12, color: 'var(--ink-3)', marginTop: 5, fontWeight: 500 }}>{s.label}</div>
                     </div>
-                  );
-                })}
+                ))}
               </div>
+            </div>
+          </section>
 
-              {/* Coming soon strip */}
-              <div style={{ marginTop: 24, padding: 14, background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', boxShadow: 'var(--sh-xs)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-                  <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--ink)' }}>More tools coming</span>
-                  <Link href="/tools" style={{ fontSize: 11, color: 'var(--green)', textDecoration: 'none', fontWeight: 600 }}>View all →</Link>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
-                  {getSoonTools().slice(0, 4).map(t => (
-                    <div key={t.slug} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8, padding: '6px 0', borderBottom: '1px solid var(--border)' }}>
-                      <div style={{ minWidth: 0 }}>
-                        <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--ink-2)', lineHeight: 1 }}>{t.name}</div>
-                        <div style={{ fontSize: 11, color: 'var(--ink-4)', marginTop: 2 }}>{t.tagline}</div>
+          {/* ── Why ToolKit ───────────────────────── */}
+          <section style={{ padding: '64px 0 0' }}>
+            <div className="wrap-wide">
+              <div style={{ marginBottom: 28 }}>
+                <p className="ov" style={{ marginBottom: 10 }}>Why ToolKit</p>
+                <h2 className="hdg" style={{ fontSize: 'clamp(20px, 3vw, 28px)' }}>
+                  Designed to respect your time and privacy
+                </h2>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 10 }}>
+                {FEATURES.map(({ Icon, color, bg, title, desc }) => (
+                    <div key={title} style={{ padding: '20px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', boxShadow: 'var(--sh-xs)' }}>
+                      <div style={{ width: 36, height: 36, borderRadius: 9, background: bg, color, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
+                        <Icon size={16} />
                       </div>
-                      <span className="badge b-amber">Soon</span>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 6 }}>{title}</div>
+                      <div style={{ fontSize: 13, color: 'var(--ink-3)', lineHeight: 1.6 }}>{desc}</div>
                     </div>
-                  ))}
-                  <div style={{ paddingTop: 4, fontSize: 11, color: 'var(--ink-4)' }}>+ {soonCount - 4} more planned</div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* ── Tool directory ────────────────────── */}
+          <section style={{ padding: '64px 0 0' }}>
+            <div className="wrap-wide">
+              <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 28, flexWrap: 'wrap', gap: 12 }}>
+                <div>
+                  <p className="ov" style={{ marginBottom: 10 }}>Tools</p>
+                  <h2 className="hdg" style={{ fontSize: 'clamp(20px, 3vw, 28px)' }}>All {liveTools.length} tools, right now</h2>
                 </div>
+                <Link href="/tools" style={{ fontSize: 13, fontWeight: 600, color: 'var(--green)', textDecoration: 'none' }}>
+                  View full directory →
+                </Link>
+              </div>
+
+              {Array.from(byCategory.entries()).map(([category, tools]) => (
+                  <div key={category} style={{ marginBottom: 32 }}>
+                    <p className="ov" style={{ marginBottom: 12 }}>{category}</p>
+                    <div className="tools-grid">
+                      {tools.map(tool => <ToolCard key={tool.slug} tool={tool} />)}
+                    </div>
+                  </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ── Bottom CTA ────────────────────────── */}
+          <section style={{ padding: '64px 0 0' }}>
+            <div className="wrap-wide">
+              <div style={{ padding: 'clamp(28px, 5vw, 48px)', background: 'var(--ink)', borderRadius: 'var(--r-xl)', textAlign: 'center' }}>
+                <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(20px, 3vw, 28px)', color: '#fff', marginBottom: 12, letterSpacing: '-0.02em' }}>
+                  Everything you need, nothing you don't
+                </h2>
+                <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.65)', marginBottom: 24, maxWidth: 420, margin: '0 auto 24px' }}>
+                  No accounts. No ads. No data collection. Just tools that work.
+                </p>
+                <Link href="/tools" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '12px 24px', background: 'var(--green)', color: '#fff', borderRadius: 'var(--r-l)', fontSize: 15, fontWeight: 600, textDecoration: 'none' }}>
+                  Browse all tools →
+                </Link>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* ── FAQ ─────────────────────────────────────── */}
-        <FaqSection items={faq} />
-
-        {/* ── All tools ───────────────────────────────── */}
-        <section style={{ maxWidth: 1000, margin: '72px auto 0', padding: '0 24px' }}>
-          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 24, flexWrap: 'wrap', gap: 8 }}>
-            <div>
-              <p className="ov" style={{ marginBottom: 10 }}>All tools</p>
-              <h2 className="hdg" style={{ fontSize: 'clamp(18px, 2.5vw, 22px)' }}>What's in the toolkit</h2>
-            </div>
-            <Link href="/tools" style={{ fontSize: 13, color: 'var(--green)', textDecoration: 'none', fontWeight: 600 }}>View full directory →</Link>
-          </div>
-
-          {Array.from(byCategory.entries()).map(([category, tools]) => (
-            <div key={category} style={{ marginBottom: 28 }}>
-              <p className="ov" style={{ marginBottom: 10 }}>{category}</p>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 7 }}>
-                {tools.map(tool => <ToolCard key={tool.slug} tool={tool} />)}
-              </div>
-            </div>
-          ))}
-        </section>
-
-      </Layout>
-    </>
+        </Layout>
+      </>
   );
 };
 

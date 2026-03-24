@@ -1,17 +1,16 @@
 import type { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
-import { Layout } from '../../components/ui/Layout';
-import { FaqSection } from '../../components/ui/FaqSection';
-import { ToolCard } from '../../components/ui/ToolCard';
-import { getBySlug, getLiveSlugs, TOOLS } from '../../lib/registry';
-import type { ToolMeta, FaqItem } from '../../lib/types';
+import {FaqItem, ToolMeta} from "@/lib/types";
+import {getBySlug, getLiveSlugs, TOOLS} from "@/lib/registry";
+import {Layout} from "@/components/ui/Layout";
+import {ToolCard} from "@/components/ui/ToolCard";
+import {FaqSection} from "@/components/ui/FaqSection";
+
 
 /* ── Static paths — only live tools get pages ─────────── */
 export const getStaticPaths: GetStaticPaths = () => ({
-    paths: getLiveSlugs()
-        .filter(s => s !== 'password-generator') // homepage handles this one
-        .map(slug => ({ params: { slug } })),
+    paths: getLiveSlugs().map(slug => ({ params: { slug } })),
     fallback: false,
 });
 
@@ -27,6 +26,7 @@ export const getStaticProps: GetStaticProps = ({ params }) => {
 
 // Map slug → dynamic import of { faq, ...sidebar data }
 const TOOL_DATA: Record<string, () => Promise<{ faq: FaqItem[]; [key: string]: unknown }>> = {
+    'password-generator': () => import('../../tools/password-generator'),
     'word-counter':       () => import('../../tools/word-counter'),
     'case-converter':     () => import('../../tools/case-converter'),
     'color-palette':      () => import('../../tools/color-palette'),
@@ -35,9 +35,13 @@ const TOOL_DATA: Record<string, () => Promise<{ faq: FaqItem[]; [key: string]: u
     'base64':             () => import('../../tools/base64'),
     'username-generator': () => import('../../tools/username-generator'),
     'json-formatter':     () => import('../../tools/json-formatter'),
+    'hash-generator':     () => import('../../tools/hash-generator'),
+    'url-encoder':        () => import('../../tools/url-encoder'),
+    'markdown-editor':    () => import('../../tools/markdown-editor'),
 };
 
 const TOOL_WIDGETS: Record<string, React.ComponentType> = {
+    'password-generator': dynamic(() => import('../../tools/password-generator/component'), { ssr: false }) as React.ComponentType,
     'word-counter':       dynamic(() => import('../../tools/word-counter/component'),       { ssr: false }) as React.ComponentType,
     'case-converter':     dynamic(() => import('../../tools/case-converter/component'),     { ssr: false }) as React.ComponentType,
     'color-palette':      dynamic(() => import('../../tools/color-palette/component'),      { ssr: false }) as React.ComponentType,
@@ -46,7 +50,37 @@ const TOOL_WIDGETS: Record<string, React.ComponentType> = {
     'base64':             dynamic(() => import('../../tools/base64/component'),             { ssr: false }) as React.ComponentType,
     'username-generator': dynamic(() => import('../../tools/username-generator/component'), { ssr: false }) as React.ComponentType,
     'json-formatter':     dynamic(() => import('../../tools/json-formatter/component'),     { ssr: false }) as React.ComponentType,
+    'hash-generator':     dynamic(() => import('../../tools/hash-generator/component'),     { ssr: false }) as React.ComponentType,
+    'url-encoder':        dynamic(() => import('../../tools/url-encoder/component'),        { ssr: false }) as React.ComponentType,
+    'markdown-editor':    dynamic(() => import('../../tools/markdown-editor/component'),    { ssr: false }) as React.ComponentType,
 };
+
+/* ── Password generator sidebar ────────────────────────── */
+const PasswordGeneratorSidebar = dynamic(
+    () => import('../../tools/password-generator').then(m => {
+        const { sidebarFeatures } = m as { sidebarFeatures: { label: string; desc: string; color: string; bg: string }[] };
+        return function Sidebar() {
+            return (
+                <div className="tool-sidebar">
+                    <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 16 }}>Why use this tool?</p>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        {sidebarFeatures.map(({ label, desc, color, bg }) => (
+                            <div key={label} style={{ display: 'flex', gap: 12, padding: '12px 0', borderBottom: '1px solid var(--border)' }}>
+                                <div style={{ width: 30, height: 30, borderRadius: 7, background: bg, color, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>
+                                    ⚡
+                                </div>
+                                <div>
+                                    <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 3 }}>{label}</div>
+                                    <div style={{ fontSize: 12, color: 'var(--ink-3)', lineHeight: 1.55 }}>{desc}</div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+    }), { ssr: false }
+) as React.ComponentType;
 
 /* ── Word counter sidebar (specific to this tool) ──────── */
 const WordCounterSidebar = dynamic(
@@ -58,7 +92,7 @@ const WordCounterSidebar = dynamic(
 
         return function Sidebar() {
             return (
-                <div className="a2" style={{ paddingTop: 44 }}>
+                <div className="tool-sidebar">
                     <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 16 }}>What's measured</p>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         {whatsMeasured.map(({ label, desc }) => (
@@ -97,7 +131,7 @@ const CaseConverterSidebar = dynamic(
         const { useCases } = m as { useCases: { label: string; desc: string }[] };
         return function Sidebar() {
             return (
-                <div className="a2" style={{ paddingTop: 44 }}>
+                <div className="tool-sidebar">
                     <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 16 }}>When to use each case</p>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         {useCases.map(({ label, desc }) => (
@@ -124,7 +158,7 @@ const ColorPaletteSidebar = dynamic(
         };
         return function Sidebar() {
             return (
-                <div className="a2" style={{ paddingTop: 44 }}>
+                <div className="tool-sidebar">
                     <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 16 }}>
                         Color harmony modes
                     </p>
@@ -160,7 +194,7 @@ const ColorPaletteSidebar = dynamic(
 /* ── Generic info sidebar (UUID, Base64, JSON) ─────────── */
 function InfoSidebar({ items }: { items: { label: string; value?: string; desc?: string }[] }) {
     return (
-        <div className="a2" style={{ paddingTop: 44 }}>
+        <div className="tool-sidebar">
             <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {items.map(({ label, value, desc }) => (
                     <div key={label} style={{ padding: '11px 0', borderBottom: '1px solid var(--border)' }}>
@@ -207,7 +241,7 @@ const UsernameSidebar = dynamic(
         const { styleGuide } = m as { styleGuide: { style: string; example: string; desc: string }[] };
         return function Sidebar() {
             return (
-                <div className="a2" style={{ paddingTop: 44 }}>
+                <div className="tool-sidebar">
                     <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 16 }}>Style guide</p>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         {styleGuide.map(({ style, example, desc }) => (
@@ -226,8 +260,58 @@ const UsernameSidebar = dynamic(
     }), { ssr: false }
 ) as React.ComponentType;
 
+const HashSidebar = dynamic(
+    () => import('../../tools/hash-generator').then(m => {
+        const { sidebarInfo } = m as { sidebarInfo: { label: string; value: string; desc: string }[] };
+        return function Sidebar() { return <InfoSidebar items={sidebarInfo} />; };
+    }), { ssr: false }
+) as React.ComponentType;
+
+const UrlSidebar = dynamic(
+    () => import('../../tools/url-encoder').then(m => {
+        const { sidebarInfo } = m as { sidebarInfo: { label: string; value: string }[] };
+        return function Sidebar() {
+            return (
+                <div className="tool-sidebar">
+                    <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 14 }}>Common encodings</p>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        {sidebarInfo.map(({ label, value }) => (
+                            <div key={label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '9px 0', borderBottom: '1px solid var(--border)' }}>
+                                <span style={{ fontSize: 13, color: 'var(--ink-2)' }}>{label}</span>
+                                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, fontWeight: 600, color: 'var(--ink)', background: 'var(--border)', padding: '2px 8px', borderRadius: 'var(--r-s)' }}>{value}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+    }), { ssr: false }
+) as React.ComponentType;
+
+const MarkdownSidebar = dynamic(
+    () => import('../../tools/markdown-editor').then(m => {
+        const { cheatSheet } = m as { cheatSheet: { syntax: string; output: string }[] };
+        return function Sidebar() {
+            return (
+                <div className="tool-sidebar">
+                    <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 14 }}>Markdown cheatsheet</p>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        {cheatSheet.map(({ syntax, output }) => (
+                            <div key={syntax} style={{ display: 'flex', flexDirection: 'column', gap: 2, padding: '8px 0', borderBottom: '1px solid var(--border)' }}>
+                                <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--ink)', background: 'var(--border)', padding: '2px 6px', borderRadius: 4, alignSelf: 'flex-start' }}>{syntax}</code>
+                                <span style={{ fontSize: 12, color: 'var(--ink-3)' }}>{output}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+    }), { ssr: false }
+) as React.ComponentType;
+
 /* ── Sidebar router ────────────────────────────────────── */
 function ToolSidebar({ slug }: { slug: string }) {
+    if (slug === 'password-generator') return <PasswordGeneratorSidebar />;
     if (slug === 'word-counter')       return <WordCounterSidebar />;
     if (slug === 'case-converter')     return <CaseConverterSidebar />;
     if (slug === 'color-palette')      return <ColorPaletteSidebar />;
@@ -236,6 +320,9 @@ function ToolSidebar({ slug }: { slug: string }) {
     if (slug === 'json-formatter')     return <JsonSidebar />;
     if (slug === 'lorem-ipsum')        return <LoremSidebar />;
     if (slug === 'username-generator') return <UsernameSidebar />;
+    if (slug === 'hash-generator')     return <HashSidebar />;
+    if (slug === 'url-encoder')        return <UrlSidebar />;
+    if (slug === 'markdown-editor')    return <MarkdownSidebar />;
     return null;
 }
 
@@ -270,26 +357,26 @@ const ToolPage: NextPage<Props> = ({ tool }) => {
 
             <Layout>
                 {/* ── Hero + Tool ───────────────────────────── */}
-                <section style={{ maxWidth: 1000, margin: '0 auto', padding: '52px 24px 0' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 620px) 1fr', gap: 48, alignItems: 'start' }}>
+                <section style={{ maxWidth: 1000, margin: '0 auto', padding: 'clamp(32px, 5vw, 52px) 16px 0' }}>
+                    <div className="tool-grid">
 
                         {/* Left */}
                         <div>
                             <p className="ov a0" style={{ marginBottom: 10 }}>Free online tool · {tool.category}</p>
-                            <h1 className="disp a1" style={{ fontSize: 'clamp(28px, 4vw, 42px)', marginBottom: 12 }}>
+                            <h1 className="disp a1" style={{ fontSize: 'clamp(24px, 4vw, 40px)', marginBottom: 12 }}>
                                 {tool.name}
                             </h1>
-                            <p className="a2" style={{ fontSize: 15, color: 'var(--ink-2)', lineHeight: 1.6, marginBottom: 28, maxWidth: 480 }}>
+                            <p className="a2" style={{ fontSize: 15, color: 'var(--ink-2)', lineHeight: 1.6, marginBottom: 24, maxWidth: 480 }}>
                                 {tool.description}
                             </p>
                             {Widget && (
-                                <div className="card a3" style={{ padding: 'clamp(18px, 3vw, 28px)' }}>
+                                <div className="card a3" style={{ padding: 'clamp(16px, 3vw, 28px)' }}>
                                     <Widget />
                                 </div>
                             )}
                         </div>
 
-                        {/* Right — tool-specific sidebar */}
+                        {/* Right — tool-specific sidebar (hidden on mobile via CSS) */}
                         <ToolSidebar slug={tool.slug} />
                     </div>
                 </section>
@@ -299,9 +386,9 @@ const ToolPage: NextPage<Props> = ({ tool }) => {
 
                 {/* ── Related tools ─────────────────────────── */}
                 {relatedTools.length > 0 && (
-                    <section style={{ maxWidth: 1000, margin: '64px auto 0', padding: '0 24px' }}>
-                        <p className="ov" style={{ marginBottom: 10 }}>More in {tool.category}</p>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 7 }}>
+                    <section style={{ maxWidth: 1000, margin: '56px auto 0', padding: '0 16px' }}>
+                        <p className="ov" style={{ marginBottom: 12 }}>More in {tool.category}</p>
+                        <div className="tools-grid">
                             {relatedTools.map(t => <ToolCard key={t.slug} tool={t} />)}
                         </div>
                     </section>

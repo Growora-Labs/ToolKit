@@ -1,5 +1,5 @@
 import type { GetServerSideProps } from 'next';
-import { TOOLS } from '../lib/registry';
+import {TOOLS} from "@/lib/registry";
 
 function generateSitemap(baseUrl: string): string {
   const staticPaths = ['/', '/tools'];

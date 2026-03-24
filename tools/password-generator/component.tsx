@@ -1,7 +1,7 @@
 import { useEffect, CSSProperties } from 'react';
 import { usePasswordGenerator } from './use-password-generator';
-import type { CheckboxOption } from '../../lib/types';
-import { IcoCheck, IcoCopy, IcoRefresh, IcoShield, IcoZap } from '../../components/icons';
+import {CheckboxOption} from "@/lib/types";
+import {IcoCheck, IcoCopy, IcoRefresh, IcoShield, IcoZap} from "@/components/icons";
 
 const CB_OPTS: CheckboxOption[] = [
   { key: 'uppercase', label: 'Uppercase', example: 'A–Z'  },

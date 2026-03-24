@@ -71,7 +71,7 @@ export const TOOLS: ToolMeta[] = [
     description: 'Free online URL encoder and decoder. Encode special characters for safe use in URLs.',
     category:    'Developer Tools',
     keywords:    ['url encoder', 'url decoder', 'url encode decode'],
-    live:        false,
+    live:        true,
   },
   {
     slug:        'hash-generator',
@@ -80,7 +80,7 @@ export const TOOLS: ToolMeta[] = [
     description: 'Generate MD5, SHA-1, SHA-256 and SHA-512 hashes from any text. Free, browser-based.',
     category:    'Security',
     keywords:    ['hash generator', 'md5 generator', 'sha256 generator'],
-    live:        false,
+    live:        true,
   },
   {
     slug:        'case-converter',
@@ -98,7 +98,7 @@ export const TOOLS: ToolMeta[] = [
     description: 'Free online Markdown editor with live preview. Write Markdown and see the result instantly.',
     category:    'Text & Writing',
     keywords:    ['markdown editor', 'markdown preview', 'online markdown'],
-    live:        false,
+    live:        true,
   },
   {
     slug:        'color-palette',

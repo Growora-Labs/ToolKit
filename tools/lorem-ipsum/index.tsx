@@ -1,4 +1,5 @@
-import type { FaqItem } from '../../lib/types';
+import {FaqItem} from "@/lib/types";
+
 
 export const faq: FaqItem[] = [
     { q: 'What is Lorem Ipsum?', a: 'Lorem Ipsum is scrambled Latin text from Cicero\'s "De Finibus Bonorum et Malorum" (45 BC). It has been used as placeholder text in publishing and web design since the 1960s because it looks like natural language without being readable or distracting.' },

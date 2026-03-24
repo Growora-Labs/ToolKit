@@ -1,4 +1,5 @@
-import type { FaqItem } from '../../lib/types';
+import {FaqItem} from "@/lib/types";
+
 
 export const faq: FaqItem[] = [
     { q: 'What is a UUID?', a: 'UUID (Universally Unique Identifier) is a 128-bit label used to uniquely identify objects in computer systems. The standard format is 32 hex digits split by hyphens: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.' },

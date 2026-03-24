@@ -1,9 +1,6 @@
 import { useState, useCallback } from 'react';
-import type {
-  PasswordOptions,
-  PasswordStrength,
-  UsePasswordGeneratorReturn,
-} from '../../lib/types';
+import {PasswordOptions, PasswordStrength, UsePasswordGeneratorReturn} from "@/lib/types";
+
 
 const CHARSETS: Record<keyof Omit<PasswordOptions, 'length'>, string> = {
   uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
