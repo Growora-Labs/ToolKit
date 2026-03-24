@@ -31,7 +31,7 @@ const HomePage: NextPage = () => {
       <Head>
         <title>Free Password Generator — Strong &amp; Secure | ToolKit</title>
         <meta name="description" content="Generate strong, random passwords instantly. 100% free and browser-based — passwords never leave your device." />
-        <link rel="canonical" href="https://www.webtoolkit.com/" />
+        <link rel="canonical" href="https://www.webtoolkit.tech/" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
         <meta name="google-site-verification" content="PN-2TYCsAwTEBdNWnk2Llr-uMkVUoAo_0hLfCk9S1R4" />
       </Head>

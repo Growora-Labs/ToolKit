@@ -15,7 +15,7 @@ const ToolsPage: NextPage = () => {
       <Head>
         <title>All Free Tools — Generators &amp; Utilities | ToolKit</title>
         <meta name="description" content="Free online tools for developers, designers and everyone. Browser-based, no signup, no limits." />
-        <link rel="canonical" href="https://yourtoolkit.com/tools" />
+        <link rel="canonical" href="https://www.webtoolkit.tech/tools" />
       </Head>
 
       <Layout activeNav="tools">

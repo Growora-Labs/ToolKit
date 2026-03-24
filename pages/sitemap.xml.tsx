@@ -24,7 +24,7 @@ ${allPaths.map(path => `  <url>
 export default function Sitemap() { return null; }
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://yourtoolkit.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.webtoolkit.tech';
   res.setHeader('Content-Type', 'text/xml');
   res.write(generateSitemap(baseUrl));
   res.end();

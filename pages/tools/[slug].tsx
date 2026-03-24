@@ -169,7 +169,7 @@ const ToolPage: NextPage<Props> = ({ tool }) => {
                 <title>{tool.name} — Free Online Tool | ToolKit</title>
                 <meta name="description" content={tool.description} />
                 <meta name="keywords" content={tool.keywords.join(', ')} />
-                <link rel="canonical" href={`https://yourtoolkit.com/tools/${tool.slug}`} />
+                <link rel="canonical" href={`https://www.webtoolkit.tech/tools/${tool.slug}`} />
                 <meta property="og:title" content={`${tool.name} | ToolKit`} />
                 <meta property="og:description" content={tool.description} />
                 <meta property="og:type" content="website" />
