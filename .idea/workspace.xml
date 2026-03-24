@@ -4,24 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28d87ed4-e495-4f64-b71e-05de9470371c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ToolKit.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/PasswordGenerator.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/usePasswordGenerator.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tools.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/_app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/robots.txt.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/robots.txt.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/sitemap.xml.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/sitemap.xml.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/tools/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/tools/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.tsbuildinfo" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/types/index.ts" beforeDir="false" />
+    <list default="true" id="28d87ed4-e495-4f64-b71e-05de9470371c" name="Changes" comment="зміна структури проєкту, додали word counter tool">
+      <change afterPath="$PROJECT_DIR$/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,11 +86,24 @@
       <option name="presentableId" value="Default" />
       <updated>1774369989777</updated>
       <workItem from="1774369990934" duration="2365000" />
-      <workItem from="1774373008345" duration="347000" />
+      <workItem from="1774373008345" duration="1334000" />
     </task>
+    <task id="LOCAL-00001" summary="зміна структури проєкту, додали word counter tool">
+      <option name="closed" value="true" />
+      <created>1774373427040</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1774373427040</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="зміна структури проєкту, додали word counter tool" />
+    <option name="LAST_COMMIT_MESSAGE" value="зміна структури проєкту, додали word counter tool" />
   </component>
 </project>
