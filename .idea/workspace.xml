@@ -4,41 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28d87ed4-e495-4f64-b71e-05de9470371c" name="Changes" comment="new tools">
-      <change afterPath="$PROJECT_DIR$/tools/hash-generator/component.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tools/hash-generator/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tools/hash-generator/use-hash-generator.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tools/markdown-editor/component.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tools/markdown-editor/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tools/markdown-editor/use-markdown-editor.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tools/url-encoder/component.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tools/url-encoder/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tools/url-encoder/use-url-encoder.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+    <list default="true" id="28d87ed4-e495-4f64-b71e-05de9470371c" name="Changes" comment="fix">
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/FaqSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/FaqSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/Layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/ui/ToolCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/ui/ToolCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/registry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/registry.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/_app.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/sitemap.xml.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/sitemap.xml.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/tools/[slug].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/tools/[slug].tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/tools/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/tools/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/base64/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/tools/base64/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/case-converter/component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/tools/case-converter/component.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/case-converter/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/tools/case-converter/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/color-palette/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/tools/color-palette/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/json-formatter/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/tools/json-formatter/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/lorem-ipsum/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/tools/lorem-ipsum/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/password-generator/component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/tools/password-generator/component.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/password-generator/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/tools/password-generator/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/password-generator/use-password-generator.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tools/password-generator/use-password-generator.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/username-generator/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/tools/username-generator/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/uuid-generator/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/tools/uuid-generator/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/word-counter/component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/tools/word-counter/component.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/word-counter/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/tools/word-counter/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +54,7 @@
     "js.debugger.nextJs.config.created.client": "true",
     "js.debugger.nextJs.config.created.server": "true",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "D:/My/business/ToolKit/tools/color-palette",
+    "last_opened_file_path": "D:/My/business/ToolKit",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -93,6 +67,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\My\business\ToolKit" />
       <recent name="D:\My\business\ToolKit\tools\color-palette" />
       <recent name="D:\My\business\ToolKit\tools\case-converter" />
     </key>
@@ -131,7 +106,8 @@
       <option name="presentableId" value="Default" />
       <updated>1774369989777</updated>
       <workItem from="1774369990934" duration="2365000" />
-      <workItem from="1774373008345" duration="13619000" />
+      <workItem from="1774373008345" duration="14363000" />
+      <workItem from="1774429007089" duration="1812000" />
     </task>
     <task id="LOCAL-00001" summary="зміна структури проєкту, додали word counter tool">
       <option name="closed" value="true" />
@@ -189,7 +165,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774389616902</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="fix">
+      <option name="closed" value="true" />
+      <created>1774393313621</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1774393313621</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,8 +184,8 @@
     <MESSAGE value="favicon" />
     <MESSAGE value="case converter" />
     <MESSAGE value="color palette" />
-    <MESSAGE value="fix" />
     <MESSAGE value="new tools" />
-    <option name="LAST_COMMIT_MESSAGE" value="new tools" />
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
   </component>
 </project>

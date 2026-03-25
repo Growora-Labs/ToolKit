@@ -1,14 +1,17 @@
 /* ── Tool registry types ────────────────────────────── */
 
 export interface ToolMeta {
-  slug:        string;   // URL slug: "word-counter"
-  name:        string;   // Display name: "Word Counter"
-  tagline:     string;   // Short desc for cards: "Words, chars & reading time"
-  description: string;   // Longer SEO description
-  category:    ToolCategory;
-  keywords:    string[];
-  live:        boolean;
-  featured?:   boolean;  // show on homepage hero
+  slug:           string;
+  name:           string;
+  tagline:        string;
+  description:    string;  // short, used in cards
+  seoTitle:       string;  // <title> tag
+  seoH1:          string;  // <h1> on tool page
+  seoDescription: string;  // <meta description> — 150-160 chars with CTA
+  category:       ToolCategory;
+  keywords:       string[];
+  live:           boolean;
+  featured?:      boolean;
 }
 
 export type ToolCategory =

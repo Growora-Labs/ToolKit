@@ -1,10 +1,10 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import {IcoCode, IcoCount, IcoKey, IcoShield, IcoZap} from "@/components/icons";
-import {getByCategory, getLiveTools, getSoonTools} from "@/lib/registry";
-import {Layout} from "@/components/ui/Layout";
-import {ToolCard} from "@/components/ui/ToolCard";
+import { Layout } from '@/components/ui/Layout';
+import { ToolCard } from '@/components/ui/ToolCard';
+import { getByCategory, getLiveTools, getSoonTools } from '@/lib/registry';
+import { IcoShield, IcoCode, IcoCount, IcoZap, IcoKey } from '@/components/icons';
 
 const SCHEMA = {
   '@context': 'https://schema.org',
@@ -30,13 +30,19 @@ const HomePage: NextPage = () => {
       <>
         <Head>
           <title>ToolKit — Free Online Tools for Developers &amp; Designers</title>
-          <meta name="description" content="Free browser-based tools for developers, designers and everyone. Password generators, text utilities, color palettes, JSON formatters and more — no signup, no tracking." />
-          <meta name="keywords" content="free online tools, developer tools, password generator, word counter, json formatter, base64 encoder, color palette generator" />
+          <meta name="description" content="Free browser-based tools for developers and designers. Password generators, word counter, JSON formatter, Base64 encoder, color palette generator and more. No signup, no tracking." />
+          <meta name="keywords" content="free online tools, developer tools, password generator, word counter, json formatter, base64 encoder, color palette generator, text tools" />
           <link rel="canonical" href="https://www.webtoolkit.tech/" />
-          <meta property="og:title"       content="ToolKit — Free Online Tools" />
+          <meta property="og:title"       content="ToolKit — Free Online Tools for Developers & Designers" />
           <meta property="og:description" content="Browser-based tools for developers and designers. No signup, no tracking, always free." />
           <meta property="og:type"        content="website" />
           <meta property="og:url"         content="https://www.webtoolkit.tech/" />
+          <meta property="og:image"       content="https://www.webtoolkit.tech/og-image.png" />
+          <meta property="og:site_name"   content="ToolKit" />
+          <meta name="twitter:card"        content="summary_large_image" />
+          <meta name="twitter:title"       content="ToolKit — Free Online Tools" />
+          <meta name="twitter:description" content="Browser-based tools for developers and designers. Free, no signup." />
+          <meta name="twitter:image"       content="https://www.webtoolkit.tech/og-image.png" />
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
         </Head>
 

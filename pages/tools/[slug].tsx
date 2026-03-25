@@ -1,12 +1,11 @@
 import type { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
-import {FaqItem, ToolMeta} from "@/lib/types";
-import {getBySlug, getLiveSlugs, TOOLS} from "@/lib/registry";
-import {Layout} from "@/components/ui/Layout";
-import {ToolCard} from "@/components/ui/ToolCard";
-import {FaqSection} from "@/components/ui/FaqSection";
-
+import { Layout } from '@/components/ui/Layout';
+import { FaqSection } from '@/components/ui/FaqSection';
+import { ToolCard } from '@/components/ui/ToolCard';
+import { getBySlug, getLiveSlugs, TOOLS } from '@/lib/registry';
+import type { ToolMeta, FaqItem } from '@/lib/types';
 
 /* ── Static paths — only live tools get pages ─────────── */
 export const getStaticPaths: GetStaticPaths = () => ({
@@ -329,28 +328,61 @@ function ToolSidebar({ slug }: { slug: string }) {
 /* ── Page ─────────────────────────────────────────────── */
 interface Props { tool: ToolMeta; }
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.webtoolkit.tech';
+
 const ToolPage: NextPage<Props> = ({ tool }) => {
     const Widget = TOOL_WIDGETS[tool.slug];
     const relatedTools = TOOLS.filter(t => t.category === tool.category && t.slug !== tool.slug).slice(0, 4);
+    const toolUrl = `${BASE_URL}/tools/${tool.slug}`;
 
     return (
         <>
             <Head>
-                <title>{tool.name} — Free Online Tool | ToolKit</title>
-                <meta name="description" content={tool.description} />
-                <meta name="keywords" content={tool.keywords.join(', ')} />
-                <link rel="canonical" href={`https://www.webtoolkit.tech/tools/${tool.slug}`} />
-                <meta property="og:title" content={`${tool.name} | ToolKit`} />
-                <meta property="og:description" content={tool.description} />
-                <meta property="og:type" content="website" />
+                {/* ── Primary SEO ── */}
+                <title>{tool.seoTitle}</title>
+                <meta name="description" content={tool.seoDescription} />
+                <meta name="keywords"    content={tool.keywords.join(', ')} />
+                <link rel="canonical"    href={toolUrl} />
+
+                {/* ── Open Graph ── */}
+                <meta property="og:title"       content={tool.seoTitle} />
+                <meta property="og:description" content={tool.seoDescription} />
+                <meta property="og:type"        content="website" />
+                <meta property="og:url"         content={toolUrl} />
+                <meta property="og:image"       content={`${BASE_URL}/og-image.png`} />
+                <meta property="og:site_name"   content="ToolKit" />
+
+                {/* ── Twitter Card ── */}
+                <meta name="twitter:card"        content="summary_large_image" />
+                <meta name="twitter:title"       content={tool.seoTitle} />
+                <meta name="twitter:description" content={tool.seoDescription} />
+                <meta name="twitter:image"       content={`${BASE_URL}/og-image.png`} />
+
+                {/* ── Structured data: WebApplication ── */}
                 <script type="application/ld+json" dangerouslySetInnerHTML={{
                     __html: JSON.stringify({
-                        '@context': 'https://schema.org', '@type': 'WebApplication',
-                        name: `${tool.name} — ToolKit`,
-                        description: tool.description,
+                        '@context': 'https://schema.org',
+                        '@type': 'WebApplication',
+                        name: tool.seoTitle,
+                        description: tool.seoDescription,
+                        url: toolUrl,
                         applicationCategory: 'UtilitiesApplication',
                         operatingSystem: 'Any',
                         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+                        featureList: tool.keywords,
+                    }),
+                }} />
+
+                {/* ── Structured data: BreadcrumbList ── */}
+                <script type="application/ld+json" dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'BreadcrumbList',
+                        itemListElement: [
+                            { '@type': 'ListItem', position: 1, name: 'Home',      item: BASE_URL },
+                            { '@type': 'ListItem', position: 2, name: 'All Tools', item: `${BASE_URL}/tools` },
+                            { '@type': 'ListItem', position: 3, name: tool.name,   item: toolUrl },
+                        ],
                     }),
                 }} />
             </Head>
@@ -358,13 +390,23 @@ const ToolPage: NextPage<Props> = ({ tool }) => {
             <Layout>
                 {/* ── Hero + Tool ───────────────────────────── */}
                 <section style={{ maxWidth: 1000, margin: '0 auto', padding: 'clamp(32px, 5vw, 52px) 16px 0' }}>
-                    <div className="tool-grid">
+                    {/* Breadcrumb — visible, also semantic */}
+                    <nav aria-label="Breadcrumb" style={{ marginBottom: 20 }}>
+                        <ol style={{ display: 'flex', gap: 6, alignItems: 'center', listStyle: 'none', fontSize: 13, color: 'var(--ink-3)' }}>
+                            <li><a href="/"       style={{ color: 'var(--ink-3)', textDecoration: 'none' }}>Home</a></li>
+                            <li aria-hidden>›</li>
+                            <li><a href="/tools"  style={{ color: 'var(--ink-3)', textDecoration: 'none' }}>Tools</a></li>
+                            <li aria-hidden>›</li>
+                            <li aria-current="page" style={{ color: 'var(--ink)', fontWeight: 600 }}>{tool.name}</li>
+                        </ol>
+                    </nav>
 
+                    <div className="tool-grid">
                         {/* Left */}
                         <div>
-                            <p className="ov a0" style={{ marginBottom: 10 }}>Free online tool · {tool.category}</p>
+                            <p className="ov a0" style={{ marginBottom: 10 }}>{tool.category}</p>
                             <h1 className="disp a1" style={{ fontSize: 'clamp(24px, 4vw, 40px)', marginBottom: 12 }}>
-                                {tool.name}
+                                {tool.seoH1}
                             </h1>
                             <p className="a2" style={{ fontSize: 15, color: 'var(--ink-2)', lineHeight: 1.6, marginBottom: 24, maxWidth: 480 }}>
                                 {tool.description}
@@ -381,7 +423,7 @@ const ToolPage: NextPage<Props> = ({ tool }) => {
                     </div>
                 </section>
 
-                {/* ── FAQ ───────────────────────────────────── */}
+                {/* ── FAQ with FAQPage schema ────────────────── */}
                 <ToolFaq slug={tool.slug} />
 
                 {/* ── Related tools ─────────────────────────── */}
@@ -399,7 +441,7 @@ const ToolPage: NextPage<Props> = ({ tool }) => {
     );
 };
 
-/* ── Async FAQ loader ──────────────────────────────────── */
+/* ── Async FAQ loader + FAQPage schema ─────────────────── */
 function ToolFaq({ slug }: { slug: string }) {
     const loader = TOOL_DATA[slug];
     if (!loader) return null;
@@ -407,8 +449,25 @@ function ToolFaq({ slug }: { slug: string }) {
     const LazyFaq = dynamic(
         () => loader().then(m => {
             const items = m.faq as FaqItem[];
+            const faqSchema = {
+                '@context': 'https://schema.org',
+                '@type': 'FAQPage',
+                mainEntity: items.map(item => ({
+                    '@type': 'Question',
+                    name: item.q,
+                    acceptedAnswer: { '@type': 'Answer', text: item.a },
+                })),
+            };
             return function Faq() {
-                return <FaqSection items={items} />;
+                return (
+                    <>
+                        <script
+                            type="application/ld+json"
+                            dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+                        />
+                        <FaqSection items={items} />
+                    </>
+                );
             };
         }),
         { ssr: false }

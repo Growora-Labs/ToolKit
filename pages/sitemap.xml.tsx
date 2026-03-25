@@ -1,22 +1,37 @@
 import type { GetServerSideProps } from 'next';
-import {TOOLS} from "@/lib/registry";
+import { getLiveTools } from '@/lib/registry';
 
-function generateSitemap(baseUrl: string): string {
-  const staticPaths = ['/', '/tools'];
+interface SitemapEntry {
+  url:        string;
+  priority:   string;
+  changefreq: string;
+  lastmod?:   string;
+}
 
-  // Live tool pages (excluding password-generator which lives at /)
-  const toolPaths = TOOLS
-    .filter(t => t.live && t.slug !== 'password-generator')
-    .map(t => `/tools/${t.slug}`);
+function buildSitemap(baseUrl: string): string {
+  const today = new Date().toISOString().split('T')[0];
 
-  const allPaths = [...staticPaths, ...toolPaths];
+  const entries: SitemapEntry[] = [
+    // Homepage — highest priority
+    { url: '/',      priority: '1.0', changefreq: 'weekly',  lastmod: today },
+    // Tools catalog
+    { url: '/tools', priority: '0.9', changefreq: 'weekly',  lastmod: today },
+    // Individual tool pages
+    ...getLiveTools().map(tool => ({
+      url:        `/tools/${tool.slug}`,
+      priority:   tool.featured ? '0.9' : '0.8',
+      changefreq: 'monthly',
+      lastmod:    today,
+    })),
+  ];
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${allPaths.map(path => `  <url>
-    <loc>${baseUrl}${path}</loc>
-    <changefreq>monthly</changefreq>
-    <priority>${path === '/' ? '1.0' : '0.8'}</priority>
+${entries.map(e => `  <url>
+    <loc>${baseUrl}${e.url}</loc>
+    <lastmod>${e.lastmod}</lastmod>
+    <changefreq>${e.changefreq}</changefreq>
+    <priority>${e.priority}</priority>
   </url>`).join('\n')}
 </urlset>`;
 }
@@ -26,7 +41,8 @@ export default function Sitemap() { return null; }
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.webtoolkit.tech';
   res.setHeader('Content-Type', 'text/xml');
-  res.write(generateSitemap(baseUrl));
+  res.setHeader('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate');
+  res.write(buildSitemap(baseUrl));
   res.end();
   return { props: {} };
 };
