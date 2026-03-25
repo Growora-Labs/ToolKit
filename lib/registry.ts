@@ -246,7 +246,7 @@ export const TOOLS: ToolMeta[] = [
     seoDescription: 'Test and debug regular expressions with live match highlighting. Supports JavaScript regex flags. See matches, groups and captures instantly. Free, no signup.',
     category:       'Developer Tools',
     keywords:       ['regex tester', 'regex tester online', 'regular expression tester', 'regex checker', 'regex debugger online'],
-    live:           false,
+    live:           true,
   },
   {
     slug:           'timestamp-converter',

@@ -25,6 +25,7 @@ export const getStaticProps: GetStaticProps = ({ params }) => {
 
 // Map slug → dynamic import of { faq, ...sidebar data }
 const TOOL_DATA: Record<string, () => Promise<{ faq: FaqItem[]; [key: string]: unknown }>> = {
+    'regex-tester':       () => import('../../tools/regex-tester'),
     'password-generator': () => import('../../tools/password-generator'),
     'word-counter':       () => import('../../tools/word-counter'),
     'case-converter':     () => import('../../tools/case-converter'),
@@ -40,6 +41,7 @@ const TOOL_DATA: Record<string, () => Promise<{ faq: FaqItem[]; [key: string]: u
 };
 
 const TOOL_WIDGETS: Record<string, React.ComponentType> = {
+    'regex-tester':       dynamic(() => import('../../tools/regex-tester/component'),       { ssr: false }) as React.ComponentType,
     'password-generator': dynamic(() => import('../../tools/password-generator/component'), { ssr: false }) as React.ComponentType,
     'word-counter':       dynamic(() => import('../../tools/word-counter/component'),       { ssr: false }) as React.ComponentType,
     'case-converter':     dynamic(() => import('../../tools/case-converter/component'),     { ssr: false }) as React.ComponentType,
@@ -308,6 +310,27 @@ const MarkdownSidebar = dynamic(
     }), { ssr: false }
 ) as React.ComponentType;
 
+const RegexSidebar = dynamic(
+    () => import('../../tools/regex-tester').then(m => {
+        const { cheatSheet } = m as { cheatSheet: { syntax: string; desc: string }[] };
+        return function Sidebar() {
+            return (
+                <div className="tool-sidebar">
+                    <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 14 }}>Regex cheatsheet</p>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        {cheatSheet.map(({ syntax, desc }) => (
+                            <div key={syntax} style={{ display: 'flex', alignItems: 'baseline', gap: 10, padding: '7px 0', borderBottom: '1px solid var(--border)' }}>
+                                <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--green)', background: 'var(--green-lt)', padding: '1px 6px', borderRadius: 4, flexShrink: 0, minWidth: 80 }}>{syntax}</code>
+                                <span style={{ fontSize: 12, color: 'var(--ink-3)' }}>{desc}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+    }), { ssr: false }
+) as React.ComponentType;
+
 /* ── Sidebar router ────────────────────────────────────── */
 function ToolSidebar({ slug }: { slug: string }) {
     if (slug === 'password-generator') return <PasswordGeneratorSidebar />;
@@ -322,6 +345,7 @@ function ToolSidebar({ slug }: { slug: string }) {
     if (slug === 'hash-generator')     return <HashSidebar />;
     if (slug === 'url-encoder')        return <UrlSidebar />;
     if (slug === 'markdown-editor')    return <MarkdownSidebar />;
+    if (slug === 'regex-tester')       return <RegexSidebar />;
     return null;
 }
 
