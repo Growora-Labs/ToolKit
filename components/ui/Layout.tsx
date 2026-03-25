@@ -2,18 +2,18 @@ import type { ReactNode } from 'react';
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { IcoZap } from '../icons';
 
 /* ── Logo ─────────────────────────────────────── */
 export function Logo() {
     return (
-        <Link href="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-            <div style={{ width: 28, height: 28, background: 'var(--ink)', borderRadius: 7, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                <IcoZap size={13} />
-            </div>
-            <span style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 16, color: 'var(--ink)', letterSpacing: '-0.02em' }}>
-        ToolKit
-      </span>
+        <Link href="/" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
+            <img
+                src="/logo.svg"
+                alt="ToolKit"
+                width={120}
+                height={32}
+                style={{ display: 'block', height: 32, width: 'auto' }}
+            />
         </Link>
     );
 }
@@ -49,18 +49,9 @@ export function Layout({ children, activeNav }: LayoutProps) {
 
                     {/* Desktop nav */}
                     <nav style={{ display: 'flex', gap: 3 }} aria-label="Main navigation">
-                        {NAV_LINKS.map(({ href, label }) => (
-                            <Link key={href} href={href} className={`nav-pill${isActive(href) ? ' on' : ''}`}
-                                  style={{ display: 'none' }}
-                                // @ts-ignore — overridden by responsive CSS
-                            >
-                                {label}
-                            </Link>
-                        ))}
-                        {/* Desktop-only via inline media query trick */}
                         <style>{`@media(min-width:480px){.desktop-nav-link{display:inline-flex!important}}`}</style>
                         {NAV_LINKS.map(({ href, label }) => (
-                            <Link key={href + '-d'} href={href} className={`nav-pill desktop-nav-link${isActive(href) ? ' on' : ''}`} style={{ display: 'none' }}>
+                            <Link key={href} href={href} className={`nav-pill desktop-nav-link${isActive(href) ? ' on' : ''}`} style={{ display: 'none' }}>
                                 {label}
                             </Link>
                         ))}
@@ -70,7 +61,7 @@ export function Layout({ children, activeNav }: LayoutProps) {
                     <button
                         onClick={() => setOpen(o => !o)}
                         aria-label="Toggle menu"
-                        style={{ display: 'flex', flexDirection: 'column', gap: 5, padding: 8, background: 'none', border: 'none', cursor: 'pointer' }}
+                        style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 5, padding: 8, background: 'none', border: 'none', cursor: 'pointer' }}
                     >
                         <style>{`@media(min-width:480px){.ham{display:none!important}}`}</style>
                         <div className="ham" style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
@@ -107,7 +98,7 @@ export function Layout({ children, activeNav }: LayoutProps) {
                 <div className="wrap-wide" style={{ padding: '20px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
                     <Logo />
                     <div style={{ display: 'flex', gap: 20 }}>
-                        <Link href="/tools"   style={{ fontSize: 13, color: 'var(--ink-3)', textDecoration: 'none' }}>All Tools</Link>
+                        <Link href="/tools" style={{ fontSize: 13, color: 'var(--ink-3)', textDecoration: 'none' }}>All Tools</Link>
                     </div>
                     <p style={{ fontSize: 13, color: 'var(--ink-4)' }}>© {new Date().getFullYear()} ToolKit</p>
                 </div>
