@@ -6,19 +6,13 @@ import { ToolCard } from '@/components/ui/ToolCard';
 import { getByCategory, getLiveTools, getSoonTools } from '@/lib/registry';
 import { IcoShield, IcoCode, IcoCount, IcoZap, IcoKey } from '@/components/icons';
 
-const SCHEMA = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'ToolKit',
-  description: 'Free browser-based online tools for developers, designers and everyone. No signup, no ads, no tracking.',
-  url: 'https://www.webtoolkit.tech',
-};
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.webtoolkit.tech';
 
 const FEATURES = [
-  { Icon: IcoZap,    color: 'var(--green)', bg: 'var(--green-lt)', title: '100% browser-based',    desc: 'Every tool runs entirely in your browser. Nothing is sent to a server — ever.' },
-  { Icon: IcoShield, color: 'var(--blue)',  bg: 'var(--blue-lt)',  title: 'Private by design',     desc: 'No accounts, no tracking, no data collection. Open the tool and use it.' },
-  { Icon: IcoCode,   color: 'var(--amber)', bg: 'var(--amber-lt)', title: 'Built for developers',  desc: 'camelCase, snake_case, JSON formatting, Base64, hashes — the tools you actually need.' },
-  { Icon: IcoCount,  color: 'var(--ink-2)', bg: 'var(--border)',   title: 'Free forever',          desc: 'All tools are free with no rate limits, no paywalls, no upgrade prompts.' },
+  { Icon: IcoZap,    color: 'var(--green)', bg: 'var(--green-lt)', title: '100% browser-based',   desc: 'Every tool runs entirely in your browser. Nothing is sent to a server — ever.' },
+  { Icon: IcoShield, color: 'var(--blue)',  bg: 'var(--blue-lt)',  title: 'Private by design',    desc: 'No accounts, no tracking, no data collection. Open the tool and use it.' },
+  { Icon: IcoCode,   color: 'var(--amber)', bg: 'var(--amber-lt)', title: 'Built for developers', desc: 'camelCase, snake_case, JSON formatting, Base64, hashes — the tools you actually need.' },
+  { Icon: IcoCount,  color: 'var(--ink-2)', bg: 'var(--border)',   title: 'Free forever',         desc: 'All tools are free with no rate limits, no paywalls, no upgrade prompts.' },
 ];
 
 const HomePage: NextPage = () => {
@@ -26,32 +20,90 @@ const HomePage: NextPage = () => {
   const liveTools  = getLiveTools();
   const soonTools  = getSoonTools();
 
+  /* ── Schema blocks ─────────────────────────────────────── */
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${BASE_URL}/#organization`,
+    name: 'ToolKit',
+    url: BASE_URL,
+    logo: `${BASE_URL}/logo.svg`,
+    description: 'Free browser-based online tools for developers and designers. No signup, no tracking, 100% client-side.',
+    sameAs: [
+      // fill in after Product Hunt / GitHub / Twitter registration:
+      // 'https://github.com/your-org',
+      // 'https://twitter.com/yourhandle',
+      // 'https://www.producthunt.com/products/toolkit',
+    ],
+  };
+
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${BASE_URL}/#website`,
+    name: 'ToolKit',
+    url: BASE_URL,
+    description: 'Free browser-based online tools for developers and designers.',
+    publisher: { '@id': `${BASE_URL}/#organization` },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${BASE_URL}/tools?q={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  };
+
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Free Online Developer Tools',
+    description: 'Browser-based utilities for developers and designers — no signup, no tracking.',
+    url: `${BASE_URL}/tools`,
+    numberOfItems: liveTools.length,
+    itemListElement: liveTools.map((tool, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: tool.name,
+      description: tool.description,
+      url: `${BASE_URL}/tools/${tool.slug}`,
+    })),
+  };
+
   return (
       <>
         <Head>
           <title>ToolKit — Free Online Tools for Developers &amp; Designers</title>
           <meta name="description" content="Free browser-based tools for developers and designers. Password generators, word counter, JSON formatter, Base64 encoder, color palette generator and more. No signup, no tracking." />
           <meta name="keywords" content="free online tools, developer tools, password generator, word counter, json formatter, base64 encoder, color palette generator, text tools" />
-          <link rel="canonical" href="https://www.webtoolkit.tech/" />
+          <link rel="canonical" href={`${BASE_URL}/`} />
+
           <meta property="og:title"       content="ToolKit — Free Online Tools for Developers & Designers" />
           <meta property="og:description" content="Browser-based tools for developers and designers. No signup, no tracking, always free." />
           <meta property="og:type"        content="website" />
-          <meta property="og:url"         content="https://www.webtoolkit.tech/" />
-          <meta property="og:image"       content="https://www.webtoolkit.tech/og-image.png" />
+          <meta property="og:url"         content={`${BASE_URL}/`} />
+          <meta property="og:image"       content={`${BASE_URL}/og-image.png`} />
           <meta property="og:site_name"   content="ToolKit" />
+
           <meta name="twitter:card"        content="summary_large_image" />
           <meta name="twitter:title"       content="ToolKit — Free Online Tools" />
           <meta name="twitter:description" content="Browser-based tools for developers and designers. Free, no signup." />
-          <meta name="twitter:image"       content="https://www.webtoolkit.tech/og-image.png" />
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
+          <meta name="twitter:image"       content={`${BASE_URL}/og-image.png`} />
+
+          {/* Organization — entity declaration */}
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
+          {/* WebSite — SearchAction */}
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
+          {/* ItemList — top-level tool directory */}
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }} />
         </Head>
 
         <Layout activeNav="home">
 
-          {/* ── Hero ──────────────────────────────── */}
+          {/* ── Hero ───────────────────────────────── */}
           <section style={{ padding: 'clamp(40px, 8vw, 80px) 0 0' }}>
             <div className="wrap-wide">
-
               <div className="a0" style={{ marginBottom: 12 }}>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 600, color: 'var(--green)', background: 'var(--green-lt)', border: '1px solid var(--green-mid)', borderRadius: 99, padding: '4px 12px' }}>
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--green)', display: 'inline-block' }} />
@@ -79,15 +131,15 @@ const HomePage: NextPage = () => {
             </div>
           </section>
 
-          {/* ── Stats strip ───────────────────────── */}
+          {/* ── Stats ──────────────────────────────── */}
           <section style={{ padding: '48px 0 0' }}>
             <div className="wrap-wide">
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 10 }}>
                 {[
-                  { value: liveTools.length + '+', label: 'Tools available',    color: 'var(--green)' },
-                  { value: '0',                    label: 'Data collected',      color: 'var(--red)'   },
-                  { value: '100%',                 label: 'Client-side',         color: 'var(--blue)'  },
-                  { value: 'Free',                 label: 'Always',              color: 'var(--ink)'   },
+                  { value: liveTools.length + '+', label: 'Tools available', color: 'var(--green)' },
+                  { value: '0',                    label: 'Data collected',   color: 'var(--red)'   },
+                  { value: '100%',                 label: 'Client-side',      color: 'var(--blue)'  },
+                  { value: 'Free',                 label: 'Always',           color: 'var(--ink)'   },
                 ].map(s => (
                     <div key={s.label} style={{ padding: '16px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', boxShadow: 'var(--sh-xs)' }}>
                       <div style={{ fontFamily: 'Outfit, sans-serif', fontSize: 26, fontWeight: 700, color: s.color, letterSpacing: '-0.02em', lineHeight: 1 }}>{s.value}</div>
@@ -98,7 +150,7 @@ const HomePage: NextPage = () => {
             </div>
           </section>
 
-          {/* ── Why ToolKit ───────────────────────── */}
+          {/* ── Why ToolKit ────────────────────────── */}
           <section style={{ padding: '64px 0 0' }}>
             <div className="wrap-wide">
               <div style={{ marginBottom: 28 }}>
@@ -121,7 +173,7 @@ const HomePage: NextPage = () => {
             </div>
           </section>
 
-          {/* ── Tool directory ────────────────────── */}
+          {/* ── Tool directory ─────────────────────── */}
           <section style={{ padding: '64px 0 0' }}>
             <div className="wrap-wide">
               <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 28, flexWrap: 'wrap', gap: 12 }}>
@@ -133,7 +185,6 @@ const HomePage: NextPage = () => {
                   View full directory →
                 </Link>
               </div>
-
               {Array.from(byCategory.entries()).map(([category, tools]) => (
                   <div key={category} style={{ marginBottom: 32 }}>
                     <p className="ov" style={{ marginBottom: 12 }}>{category}</p>
@@ -145,7 +196,7 @@ const HomePage: NextPage = () => {
             </div>
           </section>
 
-          {/* ── Bottom CTA ────────────────────────── */}
+          {/* ── Bottom CTA ─────────────────────────── */}
           <section style={{ padding: '64px 0 0' }}>
             <div className="wrap-wide">
               <div style={{ padding: 'clamp(28px, 5vw, 48px)', background: 'var(--ink)', borderRadius: 'var(--r-xl)', textAlign: 'center' }}>

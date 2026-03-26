@@ -382,18 +382,74 @@ const ToolPage: NextPage<Props> = ({ tool }) => {
                 <meta name="twitter:description" content={tool.seoDescription} />
                 <meta name="twitter:image"       content={`${BASE_URL}/og-image.png`} />
 
-                {/* ── Structured data: WebApplication ── */}
+                {/* ── Structured data: SoftwareApplication (expanded) ── */}
                 <script type="application/ld+json" dangerouslySetInnerHTML={{
                     __html: JSON.stringify({
                         '@context': 'https://schema.org',
-                        '@type': 'WebApplication',
-                        name: tool.seoTitle,
+                        '@type': 'SoftwareApplication',
+                        '@id': `${toolUrl}/#software`,
+                        name: tool.seoH1,
                         description: tool.seoDescription,
                         url: toolUrl,
                         applicationCategory: 'UtilitiesApplication',
-                        operatingSystem: 'Any',
-                        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+                        operatingSystem: 'Web Browser',
+                        browserRequirements: 'Requires JavaScript',
                         featureList: tool.keywords,
+                        audience: {
+                            '@type': 'Audience',
+                            audienceType: 'Developers, Designers, Everyone',
+                        },
+                        offers: {
+                            '@type': 'Offer',
+                            price: '0',
+                            priceCurrency: 'USD',
+                        },
+                        isPartOf: {
+                            '@type': 'WebSite',
+                            '@id': `${BASE_URL}/#website`,
+                            name: 'ToolKit',
+                            url: BASE_URL,
+                        },
+                        publisher: {
+                            '@type': 'Organization',
+                            '@id': `${BASE_URL}/#organization`,
+                        },
+                    }),
+                }} />
+
+                {/* ── Structured data: HowTo ── */}
+                <script type="application/ld+json" dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'HowTo',
+                        name: `How to use ${tool.name}`,
+                        description: `Step-by-step guide to using the free online ${tool.name}.`,
+                        tool: [{
+                            '@type': 'HowToTool',
+                            name: tool.name,
+                            url: toolUrl,
+                        }],
+                        step: [
+                            {
+                                '@type': 'HowToStep',
+                                position: 1,
+                                name: 'Open the tool',
+                                text: `Navigate to ${tool.seoH1} on ToolKit. No signup or installation required.`,
+                            },
+                            {
+                                '@type': 'HowToStep',
+                                position: 2,
+                                name: 'Enter your input',
+                                text: `Type or paste your content into the input field. The tool processes everything locally in your browser.`,
+                            },
+                            {
+                                '@type': 'HowToStep',
+                                position: 3,
+                                name: 'Get your result',
+                                text: `Your result appears instantly. Click Copy to copy it to your clipboard.`,
+                            },
+                        ],
+                        totalTime: 'PT1M',
                     }),
                 }} />
 
