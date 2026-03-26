@@ -25,40 +25,40 @@ export const getStaticProps: GetStaticProps = ({ params }) => {
 
 // Map slug → dynamic import of { faq, ...sidebar data }
 const TOOL_DATA: Record<string, () => Promise<{ faq: FaqItem[]; [key: string]: unknown }>> = {
-    'regex-tester':       () => import('../../tools/regex-tester'),
-    'password-generator': () => import('../../tools/password-generator'),
-    'word-counter':       () => import('../../tools/word-counter'),
-    'case-converter':     () => import('../../tools/case-converter'),
-    'color-palette':      () => import('../../tools/color-palette'),
-    'uuid-generator':     () => import('../../tools/uuid-generator'),
-    'lorem-ipsum':        () => import('../../tools/lorem-ipsum'),
-    'base64':             () => import('../../tools/base64'),
-    'username-generator': () => import('../../tools/username-generator'),
-    'json-formatter':     () => import('../../tools/json-formatter'),
-    'hash-generator':     () => import('../../tools/hash-generator'),
-    'url-encoder':        () => import('../../tools/url-encoder'),
-    'markdown-editor':    () => import('../../tools/markdown-editor'),
+    'regex-tester':       () => import('@/tools/regex-tester'),
+    'password-generator': () => import('@/tools/password-generator'),
+    'word-counter':       () => import('@/tools/word-counter'),
+    'case-converter':     () => import('@/tools/case-converter'),
+    'color-palette':      () => import('@/tools/color-palette'),
+    'uuid-generator':     () => import('@/tools/uuid-generator'),
+    'lorem-ipsum':        () => import('@/tools/lorem-ipsum'),
+    'base64':             () => import('@/tools/base64'),
+    'username-generator': () => import('@/tools/username-generator'),
+    'json-formatter':     () => import('@/tools/json-formatter'),
+    'hash-generator':     () => import('@/tools/hash-generator'),
+    'url-encoder':        () => import('@/tools/url-encoder'),
+    'markdown-editor':    () => import('@/tools/markdown-editor'),
 };
 
 const TOOL_WIDGETS: Record<string, React.ComponentType> = {
-    'regex-tester':       dynamic(() => import('../../tools/regex-tester/component'),       { ssr: false }) as React.ComponentType,
-    'password-generator': dynamic(() => import('../../tools/password-generator/component'), { ssr: false }) as React.ComponentType,
-    'word-counter':       dynamic(() => import('../../tools/word-counter/component'),       { ssr: false }) as React.ComponentType,
-    'case-converter':     dynamic(() => import('../../tools/case-converter/component'),     { ssr: false }) as React.ComponentType,
-    'color-palette':      dynamic(() => import('../../tools/color-palette/component'),      { ssr: false }) as React.ComponentType,
-    'uuid-generator':     dynamic(() => import('../../tools/uuid-generator/component'),     { ssr: false }) as React.ComponentType,
-    'lorem-ipsum':        dynamic(() => import('../../tools/lorem-ipsum/component'),        { ssr: false }) as React.ComponentType,
-    'base64':             dynamic(() => import('../../tools/base64/component'),             { ssr: false }) as React.ComponentType,
-    'username-generator': dynamic(() => import('../../tools/username-generator/component'), { ssr: false }) as React.ComponentType,
-    'json-formatter':     dynamic(() => import('../../tools/json-formatter/component'),     { ssr: false }) as React.ComponentType,
-    'hash-generator':     dynamic(() => import('../../tools/hash-generator/component'),     { ssr: false }) as React.ComponentType,
-    'url-encoder':        dynamic(() => import('../../tools/url-encoder/component'),        { ssr: false }) as React.ComponentType,
-    'markdown-editor':    dynamic(() => import('../../tools/markdown-editor/component'),    { ssr: false }) as React.ComponentType,
+    'regex-tester':       dynamic(() => import('@/tools/regex-tester/component'),       { ssr: false }) as React.ComponentType,
+    'password-generator': dynamic(() => import('@/tools/password-generator/component'), { ssr: false }) as React.ComponentType,
+    'word-counter':       dynamic(() => import('@/tools/word-counter/component'),       { ssr: false }) as React.ComponentType,
+    'case-converter':     dynamic(() => import('@/tools/case-converter/component'),     { ssr: false }) as React.ComponentType,
+    'color-palette':      dynamic(() => import('@/tools/color-palette/component'),      { ssr: false }) as React.ComponentType,
+    'uuid-generator':     dynamic(() => import('@/tools/uuid-generator/component'),     { ssr: false }) as React.ComponentType,
+    'lorem-ipsum':        dynamic(() => import('@/tools/lorem-ipsum/component'),        { ssr: false }) as React.ComponentType,
+    'base64':             dynamic(() => import('@/tools/base64/component'),             { ssr: false }) as React.ComponentType,
+    'username-generator': dynamic(() => import('@/tools/username-generator/component'), { ssr: false }) as React.ComponentType,
+    'json-formatter':     dynamic(() => import('@/tools/json-formatter/component'),     { ssr: false }) as React.ComponentType,
+    'hash-generator':     dynamic(() => import('@/tools/hash-generator/component'),     { ssr: false }) as React.ComponentType,
+    'url-encoder':        dynamic(() => import('@/tools/url-encoder/component'),        { ssr: false }) as React.ComponentType,
+    'markdown-editor':    dynamic(() => import('@/tools/markdown-editor/component'),    { ssr: false }) as React.ComponentType,
 };
 
 /* ── Password generator sidebar ────────────────────────── */
 const PasswordGeneratorSidebar = dynamic(
-    () => import('../../tools/password-generator').then(m => {
+    () => import('@/tools/password-generator').then(m => {
         const { sidebarFeatures } = m as { sidebarFeatures: { label: string; desc: string; color: string; bg: string }[] };
         return function Sidebar() {
             return (
@@ -85,7 +85,7 @@ const PasswordGeneratorSidebar = dynamic(
 
 /* ── Word counter sidebar (specific to this tool) ──────── */
 const WordCounterSidebar = dynamic(
-    () => import('../../tools/word-counter').then(m => {
+    () => import('@/tools/word-counter').then(m => {
         const { whatsMeasured, commonLimits } = m as {
             whatsMeasured: { label: string; desc: string }[];
             commonLimits:  { platform: string; limit: string }[];
@@ -128,7 +128,7 @@ const WordCounterSidebar = dynamic(
 ) as React.ComponentType;
 
 const CaseConverterSidebar = dynamic(
-    () => import('../../tools/case-converter').then(m => {
+    () => import('@/tools/case-converter').then(m => {
         const { useCases } = m as { useCases: { label: string; desc: string }[] };
         return function Sidebar() {
             return (
@@ -152,7 +152,7 @@ const CaseConverterSidebar = dynamic(
 ) as React.ComponentType;
 
 const ColorPaletteSidebar = dynamic(
-    () => import('../../tools/color-palette').then(m => {
+    () => import('@/tools/color-palette').then(m => {
         const { harmonySidebar, colorTips } = m as {
             harmonySidebar: { label: string; desc: string }[];
             colorTips: { tip: string; desc: string }[];
@@ -210,35 +210,35 @@ function InfoSidebar({ items }: { items: { label: string; value?: string; desc?:
 }
 
 const UuidSidebar = dynamic(
-    () => import('../../tools/uuid-generator').then(m => {
+    () => import('@/tools/uuid-generator').then(m => {
         const { sidebarInfo } = m as { sidebarInfo: { label: string; value: string }[] };
         return function Sidebar() { return <InfoSidebar items={sidebarInfo} />; };
     }), { ssr: false }
 ) as React.ComponentType;
 
 const Base64Sidebar = dynamic(
-    () => import('../../tools/base64').then(m => {
+    () => import('@/tools/base64').then(m => {
         const { sidebarInfo } = m as { sidebarInfo: { label: string; value: string }[] };
         return function Sidebar() { return <InfoSidebar items={sidebarInfo} />; };
     }), { ssr: false }
 ) as React.ComponentType;
 
 const JsonSidebar = dynamic(
-    () => import('../../tools/json-formatter').then(m => {
+    () => import('@/tools/json-formatter').then(m => {
         const { sidebarInfo } = m as { sidebarInfo: { label: string; desc: string }[] };
         return function Sidebar() { return <InfoSidebar items={sidebarInfo} />; };
     }), { ssr: false }
 ) as React.ComponentType;
 
 const LoremSidebar = dynamic(
-    () => import('../../tools/lorem-ipsum').then(m => {
+    () => import('@/tools/lorem-ipsum').then(m => {
         const { useCases } = m as { useCases: { label: string; desc: string }[] };
         return function Sidebar() { return <InfoSidebar items={useCases.map(u => ({ label: u.label, desc: u.desc }))} />; };
     }), { ssr: false }
 ) as React.ComponentType;
 
 const UsernameSidebar = dynamic(
-    () => import('../../tools/username-generator').then(m => {
+    () => import('@/tools/username-generator').then(m => {
         const { styleGuide } = m as { styleGuide: { style: string; example: string; desc: string }[] };
         return function Sidebar() {
             return (
@@ -262,14 +262,14 @@ const UsernameSidebar = dynamic(
 ) as React.ComponentType;
 
 const HashSidebar = dynamic(
-    () => import('../../tools/hash-generator').then(m => {
+    () => import('@/tools/hash-generator').then(m => {
         const { sidebarInfo } = m as { sidebarInfo: { label: string; value: string; desc: string }[] };
         return function Sidebar() { return <InfoSidebar items={sidebarInfo} />; };
     }), { ssr: false }
 ) as React.ComponentType;
 
 const UrlSidebar = dynamic(
-    () => import('../../tools/url-encoder').then(m => {
+    () => import('@/tools/url-encoder').then(m => {
         const { sidebarInfo } = m as { sidebarInfo: { label: string; value: string }[] };
         return function Sidebar() {
             return (
@@ -290,7 +290,7 @@ const UrlSidebar = dynamic(
 ) as React.ComponentType;
 
 const MarkdownSidebar = dynamic(
-    () => import('../../tools/markdown-editor').then(m => {
+    () => import('@/tools/markdown-editor').then(m => {
         const { cheatSheet } = m as { cheatSheet: { syntax: string; output: string }[] };
         return function Sidebar() {
             return (
@@ -311,7 +311,7 @@ const MarkdownSidebar = dynamic(
 ) as React.ComponentType;
 
 const RegexSidebar = dynamic(
-    () => import('../../tools/regex-tester').then(m => {
+    () => import('@/tools/regex-tester').then(m => {
         const { cheatSheet } = m as { cheatSheet: { syntax: string; desc: string }[] };
         return function Sidebar() {
             return (
@@ -393,7 +393,6 @@ const ToolPage: NextPage<Props> = ({ tool }) => {
                         url: toolUrl,
                         applicationCategory: 'UtilitiesApplication',
                         operatingSystem: 'Web Browser',
-                        browserRequirements: 'Requires JavaScript',
                         featureList: tool.keywords,
                         audience: {
                             '@type': 'Audience',
