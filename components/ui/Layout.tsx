@@ -148,6 +148,10 @@ export function Layout({ children, activeNav }: LayoutProps) {
                         {/* Copyright */}
                         <div style={{ textAlign: 'right' }}>
                             <p style={{ fontSize: 13, color: 'var(--ink-4)' }}>© {new Date().getFullYear()} ToolKit</p>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginTop: 8, alignItems: 'flex-end' }}>
+                                <Link href="/about"   style={{ fontSize: 12, color: 'var(--ink-4)', textDecoration: 'none' }}>About</Link>
+                                <Link href="/privacy" style={{ fontSize: 12, color: 'var(--ink-4)', textDecoration: 'none' }}>Privacy</Link>
+                            </div>
                         </div>
 
                     </div>

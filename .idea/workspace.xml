@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28d87ed4-e495-4f64-b71e-05de9470371c" name="Changes" comment="added seo text for every tool">
-      <change afterPath="$PROJECT_DIR$/pages/tools/design/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/tools/developer/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/tools/security/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/tools/text/index.tsx" afterDir="false" />
+    <list default="true" id="28d87ed4-e495-4f64-b71e-05de9470371c" name="Changes" comment="categories">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/sitemap.xml.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/sitemap.xml.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/tools/[slug].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/tools/[slug].tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +106,7 @@
       <workItem from="1774442168178" duration="3280000" />
       <workItem from="1774457284243" duration="30000" />
       <workItem from="1774464330053" duration="2891000" />
-      <workItem from="1774522314212" duration="5293000" />
+      <workItem from="1774522314212" duration="6490000" />
     </task>
     <task id="LOCAL-00001" summary="зміна структури проєкту, додали word counter tool">
       <option name="closed" value="true" />
@@ -258,7 +252,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774526869924</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="categories">
+      <option name="closed" value="true" />
+      <created>1774528990325</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1774528990325</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -277,6 +279,7 @@
     <MESSAGE value="schema зміни" />
     <MESSAGE value="schema fix" />
     <MESSAGE value="added seo text for every tool" />
-    <option name="LAST_COMMIT_MESSAGE" value="added seo text for every tool" />
+    <MESSAGE value="categories" />
+    <option name="LAST_COMMIT_MESSAGE" value="categories" />
   </component>
 </project>
