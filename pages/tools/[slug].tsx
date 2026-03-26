@@ -423,30 +423,16 @@ const ToolPage: NextPage<Props> = ({ tool }) => {
                         '@type': 'HowTo',
                         name: `How to use ${tool.name}`,
                         description: `Step-by-step guide to using the free online ${tool.name}.`,
-                        tool: [{
-                            '@type': 'HowToTool',
-                            name: tool.name,
-                            url: toolUrl,
-                        }],
-                        step: [
-                            {
-                                '@type': 'HowToStep',
-                                position: 1,
-                                name: 'Open the tool',
-                                text: `Navigate to ${tool.seoH1} on ToolKit. No signup or installation required.`,
-                            },
-                            {
-                                '@type': 'HowToStep',
-                                position: 2,
-                                name: 'Enter your input',
-                                text: `Type or paste your content into the input field. The tool processes everything locally in your browser.`,
-                            },
-                            {
-                                '@type': 'HowToStep',
-                                position: 3,
-                                name: 'Get your result',
-                                text: `Your result appears instantly. Click Copy to copy it to your clipboard.`,
-                            },
+                        tool: [{ '@type': 'HowToTool', name: tool.name, url: toolUrl }],
+                        step: tool.slug === 'password-generator' ? [
+                            { '@type': 'HowToStep', position: 1, name: 'Set password length', text: 'Use the length slider to choose between 8 and 64 characters. For most accounts, 16–20 characters is recommended.' },
+                            { '@type': 'HowToStep', position: 2, name: 'Choose character types', text: 'Enable uppercase letters, lowercase letters, numbers, and symbols for maximum entropy.' },
+                            { '@type': 'HowToStep', position: 3, name: 'Generate your password', text: 'Click Generate. A cryptographically random password appears instantly using the Web Crypto API.' },
+                            { '@type': 'HowToStep', position: 4, name: 'Copy and save', text: 'Click the copy icon and paste the password directly into your password manager.' },
+                        ] : [
+                            { '@type': 'HowToStep', position: 1, name: 'Open the tool', text: `Navigate to ${tool.seoH1} on ToolKit. No signup or installation required.` },
+                            { '@type': 'HowToStep', position: 2, name: 'Enter your input', text: 'Type or paste your content into the input field. The tool processes everything locally in your browser.' },
+                            { '@type': 'HowToStep', position: 3, name: 'Get your result', text: 'Your result appears instantly. Click Copy to copy it to your clipboard.' },
                         ],
                         totalTime: 'PT1M',
                     }),
@@ -503,6 +489,9 @@ const ToolPage: NextPage<Props> = ({ tool }) => {
                 </section>
 
                 {/* ── FAQ with FAQPage schema ────────────────── */}
+                <ToolContent slug={tool.slug} />
+
+                {/* ── FAQ with FAQPage schema ────────────────── */}
                 <ToolFaq slug={tool.slug} />
 
                 {/* ── Related tools ─────────────────────────── */}
@@ -519,6 +508,29 @@ const ToolPage: NextPage<Props> = ({ tool }) => {
         </>
     );
 };
+
+/* ── Tool content sections ─────────────────────────────── */
+const TOOL_CONTENT: Record<string, React.ComponentType> = {
+    'password-generator': dynamic(() => import('@/tools/password-generator/content'), { ssr: false }) as React.ComponentType,
+    'word-counter':       dynamic(() => import('@/tools/word-counter/content'),       { ssr: false }) as React.ComponentType,
+    'json-formatter':     dynamic(() => import('@/tools/json-formatter/content'),     { ssr: false }) as React.ComponentType,
+    'base64':             dynamic(() => import('@/tools/base64/content'),             { ssr: false }) as React.ComponentType,
+    'case-converter':     dynamic(() => import('@/tools/case-converter/content'),     { ssr: false }) as React.ComponentType,
+    'hash-generator':     dynamic(() => import('@/tools/hash-generator/content'),     { ssr: false }) as React.ComponentType,
+    'url-encoder':        dynamic(() => import('@/tools/url-encoder/content'),        { ssr: false }) as React.ComponentType,
+    'uuid-generator':     dynamic(() => import('@/tools/uuid-generator/content'),     { ssr: false }) as React.ComponentType,
+    'lorem-ipsum':        dynamic(() => import('@/tools/lorem-ipsum/content'),        { ssr: false }) as React.ComponentType,
+    'markdown-editor':    dynamic(() => import('@/tools/markdown-editor/content'),    { ssr: false }) as React.ComponentType,
+    'color-palette':      dynamic(() => import('@/tools/color-palette/content'),      { ssr: false }) as React.ComponentType,
+    'regex-tester':       dynamic(() => import('@/tools/regex-tester/content'),       { ssr: false }) as React.ComponentType,
+    'username-generator': dynamic(() => import('@/tools/username-generator/content'), { ssr: false }) as React.ComponentType,
+};
+
+function ToolContent({ slug }: { slug: string }) {
+    const Content = TOOL_CONTENT[slug];
+    if (!Content) return null;
+    return <Content />;
+}
 
 /* ── Async FAQ loader + FAQPage schema ─────────────────── */
 function ToolFaq({ slug }: { slug: string }) {

@@ -4,9 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28d87ed4-e495-4f64-b71e-05de9470371c" name="Changes" comment="schema зміни">
+    <list default="true" id="28d87ed4-e495-4f64-b71e-05de9470371c" name="Changes" comment="schema fix">
+      <change afterPath="$PROJECT_DIR$/tools/base64/content.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/case-converter/content.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/color-palette/content.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/hash-generator/content.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/json-formatter/content.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/lorem-ipsum/content.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/markdown-editor/content.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/password-generator/content.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/regex-tester/content.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/url-encoder/content.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/username-generator/content.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/uuid-generator/content.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/word-counter/content.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/robots.txt.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/robots.txt.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/tools/[slug].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/tools/[slug].tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,33 +52,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;js.debugger.nextJs.config.created.client&quot;: &quot;true&quot;,
-    &quot;js.debugger.nextJs.config.created.server&quot;: &quot;true&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/My/business/ToolKit/tools/regex-tester&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.Next.js: server-side.executor&quot;: &quot;Run&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;D:\\My\\business\\ToolKit\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "js.debugger.nextJs.config.created.client": "true",
+    "js.debugger.nextJs.config.created.server": "true",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "D:/My/business/ToolKit/tools/username-generator",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.Next.js: server-side.executor": "Run",
+    "ts.external.directory.path": "D:\\My\\business\\ToolKit\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\My\business\ToolKit\tools\username-generator" />
       <recent name="D:\My\business\ToolKit\tools\regex-tester" />
-      <recent name="D:\My\business\ToolKit\public" />
-      <recent name="D:\My\business\ToolKit" />
       <recent name="D:\My\business\ToolKit\tools\color-palette" />
-      <recent name="D:\My\business\ToolKit\tools\case-converter" />
+      <recent name="D:\My\business\ToolKit\tools\markdown-editor" />
+      <recent name="D:\My\business\ToolKit\tools\lorem-ipsum" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\My\business\ToolKit\public" />
@@ -107,7 +120,7 @@
       <workItem from="1774442168178" duration="3280000" />
       <workItem from="1774457284243" duration="30000" />
       <workItem from="1774464330053" duration="2891000" />
-      <workItem from="1774522314212" duration="1693000" />
+      <workItem from="1774522314212" duration="3999000" />
     </task>
     <task id="LOCAL-00001" summary="зміна структури проєкту, додали word counter tool">
       <option name="closed" value="true" />
@@ -237,7 +250,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774522999720</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="schema fix">
+      <option name="closed" value="true" />
+      <created>1774524123891</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1774524123891</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,6 +275,7 @@
     <MESSAGE value="regex tester" />
     <MESSAGE value="fix" />
     <MESSAGE value="schema зміни" />
-    <option name="LAST_COMMIT_MESSAGE" value="schema зміни" />
+    <MESSAGE value="schema fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="schema fix" />
   </component>
 </project>
