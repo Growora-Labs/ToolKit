@@ -352,6 +352,13 @@ function ToolSidebar({ slug }: { slug: string }) {
 /* ── Page ─────────────────────────────────────────────── */
 interface Props { tool: ToolMeta; }
 
+const CATEGORY_SLUGS: Record<string, string> = {
+    'Security':        '/tools/security',
+    'Developer Tools': '/tools/developer',
+    'Text & Writing':  '/tools/text',
+    'Design':          '/tools/design',
+};
+
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.webtoolkit.tech';
 
 const ToolPage: NextPage<Props> = ({ tool }) => {
@@ -444,9 +451,10 @@ const ToolPage: NextPage<Props> = ({ tool }) => {
                         '@context': 'https://schema.org',
                         '@type': 'BreadcrumbList',
                         itemListElement: [
-                            { '@type': 'ListItem', position: 1, name: 'Home',      item: BASE_URL },
-                            { '@type': 'ListItem', position: 2, name: 'All Tools', item: `${BASE_URL}/tools` },
-                            { '@type': 'ListItem', position: 3, name: tool.name,   item: toolUrl },
+                            { '@type': 'ListItem', position: 1, name: 'Home',            item: BASE_URL },
+                            { '@type': 'ListItem', position: 2, name: 'All Tools',       item: `${BASE_URL}/tools` },
+                            { '@type': 'ListItem', position: 3, name: tool.category,     item: `${BASE_URL}${CATEGORY_SLUGS[tool.category] ?? '/tools'}` },
+                            { '@type': 'ListItem', position: 4, name: tool.name,         item: toolUrl },
                         ],
                     }),
                 }} />
@@ -457,10 +465,16 @@ const ToolPage: NextPage<Props> = ({ tool }) => {
                 <section style={{ maxWidth: 1000, margin: '0 auto', padding: 'clamp(32px, 5vw, 52px) 16px 0' }}>
                     {/* Breadcrumb — visible, also semantic */}
                     <nav aria-label="Breadcrumb" style={{ marginBottom: 20 }}>
-                        <ol style={{ display: 'flex', gap: 6, alignItems: 'center', listStyle: 'none', fontSize: 13, color: 'var(--ink-3)' }}>
-                            <li><a href="/"       style={{ color: 'var(--ink-3)', textDecoration: 'none' }}>Home</a></li>
+                        <ol style={{ display: 'flex', gap: 6, alignItems: 'center', listStyle: 'none', fontSize: 13, color: 'var(--ink-3)', flexWrap: 'wrap' }}>
+                            <li><a href="/"      style={{ color: 'var(--ink-3)', textDecoration: 'none' }}>Home</a></li>
                             <li aria-hidden>›</li>
-                            <li><a href="/tools"  style={{ color: 'var(--ink-3)', textDecoration: 'none' }}>Tools</a></li>
+                            <li><a href="/tools" style={{ color: 'var(--ink-3)', textDecoration: 'none' }}>Tools</a></li>
+                            <li aria-hidden>›</li>
+                            <li>
+                                <a href={CATEGORY_SLUGS[tool.category] ?? '/tools'} style={{ color: 'var(--ink-3)', textDecoration: 'none' }}>
+                                    {tool.category}
+                                </a>
+                            </li>
                             <li aria-hidden>›</li>
                             <li aria-current="page" style={{ color: 'var(--ink)', fontWeight: 600 }}>{tool.name}</li>
                         </ol>

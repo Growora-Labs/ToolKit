@@ -15,6 +15,13 @@ const FEATURES = [
   { Icon: IcoCount,  color: 'var(--ink-2)', bg: 'var(--border)',   title: 'Free forever',         desc: 'All tools are free with no rate limits, no paywalls, no upgrade prompts.' },
 ];
 
+const CATEGORY_SLUGS: Record<string, string> = {
+  'Security':        '/tools/security',
+  'Developer Tools': '/tools/developer',
+  'Text & Writing':  '/tools/text',
+  'Design':          '/tools/design',
+};
+
 const HomePage: NextPage = () => {
   const byCategory = getByCategory();
   const liveTools  = getLiveTools();
@@ -187,7 +194,15 @@ const HomePage: NextPage = () => {
               </div>
               {Array.from(byCategory.entries()).map(([category, tools]) => (
                   <div key={category} style={{ marginBottom: 32 }}>
-                    <p className="ov" style={{ marginBottom: 12 }}>{category}</p>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+                      <p className="ov" style={{ margin: 0 }}>{category}</p>
+                      <Link
+                          href={CATEGORY_SLUGS[category] ?? '/tools'}
+                          style={{ fontSize: 12, fontWeight: 600, color: 'var(--green)', textDecoration: 'none' }}
+                      >
+                        View all →
+                      </Link>
+                    </div>
                     <div className="tools-grid">
                       {tools.map(tool => <ToolCard key={tool.slug} tool={tool} />)}
                     </div>

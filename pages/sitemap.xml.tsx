@@ -13,9 +13,14 @@ function buildSitemap(baseUrl: string): string {
 
   const entries: SitemapEntry[] = [
     // Homepage — highest priority
-    { url: '/',      priority: '1.0', changefreq: 'weekly',  lastmod: today },
+    { url: '/',                priority: '1.0', changefreq: 'weekly',  lastmod: today },
     // Tools catalog
-    { url: '/tools', priority: '0.9', changefreq: 'weekly',  lastmod: today },
+    { url: '/tools',           priority: '0.9', changefreq: 'weekly',  lastmod: today },
+    // Category pillar pages
+    { url: '/tools/security',  priority: '0.9', changefreq: 'weekly',  lastmod: today },
+    { url: '/tools/developer', priority: '0.9', changefreq: 'weekly',  lastmod: today },
+    { url: '/tools/text',      priority: '0.9', changefreq: 'weekly',  lastmod: today },
+    { url: '/tools/design',    priority: '0.9', changefreq: 'weekly',  lastmod: today },
     // Individual tool pages
     ...getLiveTools().map(tool => ({
       url:        `/tools/${tool.slug}`,

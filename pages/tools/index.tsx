@@ -7,6 +7,13 @@ import { getByCategory, getLiveTools, getSoonTools } from '@/lib/registry';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.webtoolkit.tech';
 
+const CATEGORY_SLUGS: Record<string, string> = {
+  'Security':        '/tools/security',
+  'Developer Tools': '/tools/developer',
+  'Text & Writing':  '/tools/text',
+  'Design':          '/tools/design',
+};
+
 const ToolsPage: NextPage = () => {
   const byCategory = getByCategory();
   const liveTools  = getLiveTools();
@@ -92,7 +99,15 @@ const ToolsPage: NextPage = () => {
             {/* Categories */}
             {Array.from(byCategory.entries()).map(([category, tools]) => (
                 <div key={category} style={{ marginBottom: 36 }}>
-                  <p className="ov" style={{ marginBottom: 12 }}>{category}</p>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+                    <p className="ov" style={{ margin: 0 }}>{category}</p>
+                    <Link
+                        href={CATEGORY_SLUGS[category] ?? '/tools'}
+                        style={{ fontSize: 12, fontWeight: 600, color: 'var(--green)', textDecoration: 'none' }}
+                    >
+                      All {category} tools →
+                    </Link>
+                  </div>
                   <div className="tools-grid">
                     {tools.map(tool => <ToolCard key={tool.slug} tool={tool} />)}
                   </div>
