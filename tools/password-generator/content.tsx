@@ -48,10 +48,13 @@ export default function PasswordGeneratorContent() {
                         What makes a password strong?
                     </h2>
                     <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
-                        Password strength is measured in <strong style={{ color: 'var(--ink)' }}>entropy</strong> — the number of bits of randomness. A password with 80+ bits of entropy is considered strong by modern standards. Every additional character and character type exponentially increases entropy.
+                        Password strength is measured in <strong style={{ color: 'var(--ink)' }}>entropy</strong> — the number of bits of randomness. A password with 80+ bits of entropy is considered strong by modern standards. Every additional character and character type exponentially increases entropy, making brute-force attacks exponentially harder.
+                    </p>
+                    <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+                        Contrary to popular belief, <strong style={{ color: 'var(--ink)' }}>length matters more than complexity</strong>. A 20-character lowercase password is significantly harder to crack than an 8-character password with symbols. That said, combining length with character variety gives you the best protection against brute-force attacks and dictionary attacks.
                     </p>
                     <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 20 }}>
-                        Contrary to popular belief, <strong style={{ color: 'var(--ink)' }}>length matters more than complexity</strong>. A 20-character lowercase password is significantly harder to crack than an 8-character password with symbols. That said, combining length with character variety gives you the best protection against brute-force attacks and dictionary attacks.
+                        An alternative to random passwords is a <strong style={{ color: 'var(--ink)' }}>passphrase</strong> — a sequence of 4-6 random words like "correct-horse-battery-staple". Passphrases are long, high-entropy, and easier to remember. For accounts where you need to type the password manually, a passphrase is often the better choice.
                     </p>
 
                     {/* Strength comparison table */}
@@ -111,17 +114,68 @@ export default function PasswordGeneratorContent() {
                     </div>
                 </section>
 
-                {/* ── Password managers tip ───────────────────── */}
-                <section style={{ marginBottom: 48 }}>
-                    <div style={{ padding: '20px 24px', background: 'var(--green-lt)', border: '1px solid var(--green-mid)', borderRadius: 'var(--r-l)' }}>
-                        <h3 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 16, color: 'var(--ink)', marginBottom: 8 }}>
-                            🔒 Always pair with a password manager
-                        </h3>
-                        <p style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--ink-2)', margin: 0 }}>
-                            A strong password you can't remember is useless without a secure place to store it. Use a dedicated password manager: <strong>Bitwarden</strong> (free, open-source), <strong>1Password</strong>, or <strong>Dashlane</strong>. They encrypt your vault locally, sync across devices, and auto-fill logins — so you only need to remember one master password.
-                        </p>
-                    </div>
-                </section>
+                {/*/!* ── Password managers tip ───────────────────── *!/*/}
+                {/*<section style={{ marginBottom: 48 }}>*/}
+                {/*    <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>*/}
+                {/*        Where to store your generated passwords*/}
+                {/*    </h2>*/}
+                {/*    <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 20 }}>*/}
+                {/*        A strong password you can't remember is only useful if you store it securely. A dedicated password manager encrypts your vault locally, syncs across devices, and auto-fills logins — so you only need to remember one master password.*/}
+                {/*    </p>*/}
+                {/*    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 12 }}>*/}
+                {/*        {[*/}
+                {/*            {*/}
+                {/*                name: 'NordPass',*/}
+                {/*                badge: 'Best Free Plan',*/}
+                {/*                badgeColor: 'var(--green)',*/}
+                {/*                badgeBg: 'var(--green-lt)',*/}
+                {/*                desc: 'From the makers of NordVPN. End-to-end encrypted, free plan available, zero-knowledge architecture. Works on all platforms.',*/}
+                {/*                // TODO: Replace with your affiliate link after registering at https://nordpass.com/affiliate/ (30% commission, 30-day cookie)*/}
+                {/*                href: 'https://nordpass.com',*/}
+                {/*                cta: 'Try NordPass free',*/}
+                {/*            },*/}
+                {/*            {*/}
+                {/*                name: '1Password',*/}
+                {/*                badge: 'Best for Teams',*/}
+                {/*                badgeColor: 'var(--blue)',*/}
+                {/*                badgeBg: 'var(--blue-lt)',*/}
+                {/*                desc: 'Polished apps on all platforms, travel mode, Watchtower breach alerts. $2.99/month for personal use.',*/}
+                {/*                // TODO: Replace with your affiliate link after registering at https://1password.com/affiliate/ via Commission Junction (25% commission, 45-day cookie)*/}
+                {/*                href: 'https://1password.com',*/}
+                {/*                cta: 'Try 1Password',*/}
+                {/*            },*/}
+                {/*            {*/}
+                {/*                name: 'Dashlane',*/}
+                {/*                badge: 'Best UI',*/}
+                {/*                badgeColor: 'var(--amber)',*/}
+                {/*                badgeBg: 'var(--amber-lt)',*/}
+                {/*                desc: 'Clean interface, built-in VPN on premium, dark web monitoring. Free plan available.',*/}
+                {/*                // TODO: Replace with your affiliate link after registering at https://www.dashlane.com/partnerships/affiliates (25% commission, 45-day cookie)*/}
+                {/*                href: 'https://www.dashlane.com',*/}
+                {/*                cta: 'Try Dashlane',*/}
+                {/*            },*/}
+                {/*        ].map(({ name, badge, badgeColor, badgeBg, desc, href, cta }) => (*/}
+                {/*            <div key={name} style={{ padding: '18px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', boxShadow: 'var(--sh-xs)', display: 'flex', flexDirection: 'column', gap: 10 }}>*/}
+                {/*                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>*/}
+                {/*                    <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--ink)' }}>{name}</span>*/}
+                {/*                    <span style={{ fontSize: 11, fontWeight: 600, color: badgeColor, background: badgeBg, padding: '2px 8px', borderRadius: 99, whiteSpace: 'nowrap' }}>{badge}</span>*/}
+                {/*                </div>*/}
+                {/*                <p style={{ fontSize: 13, color: 'var(--ink-3)', lineHeight: 1.6, margin: 0, flex: 1 }}>{desc}</p>*/}
+                {/*                <a*/}
+                {/*                    href={href}*/}
+                {/*                    target="_blank"*/}
+                {/*                    rel="noopener noreferrer sponsored"*/}
+                {/*                    style={{ display: 'block', padding: '8px 14px', background: 'var(--ink)', color: '#fff', borderRadius: 'var(--r-m)', fontSize: 13, fontWeight: 600, textDecoration: 'none', textAlign: 'center', transition: 'background .13s' }}*/}
+                {/*                >*/}
+                {/*                    {cta} →*/}
+                {/*                </a>*/}
+                {/*            </div>*/}
+                {/*        ))}*/}
+                {/*    </div>*/}
+                {/*    <p style={{ fontSize: 12, color: 'var(--ink-4)', marginTop: 10, fontStyle: 'italic' }}>*/}
+                {/*        * Some links are affiliate links. We may earn a commission if you purchase — at no extra cost to you.*/}
+                {/*    </p>*/}
+                {/*</section>*/}
 
             </div>
         </div>
