@@ -4,14 +4,25 @@ export interface ToolMeta {
   slug:           string;
   name:           string;
   tagline:        string;
-  description:    string;  // short, used in cards
-  seoTitle:       string;  // <title> tag
-  seoH1:          string;  // <h1> on tool page
-  seoDescription: string;  // <meta description> — 150-160 chars with CTA
+  description:    string;
+  seoTitle:       string;
+  seoH1:          string;
+  seoDescription: string;
   category:       ToolCategory;
   keywords:       string[];
   live:           boolean;
   featured?:      boolean;
+  variants?:      ToolVariant[];
+}
+
+export interface ToolVariant {
+  slug:           string;   // URL segment: "for-wifi"
+  seoTitle:       string;
+  seoH1:          string;
+  seoDescription: string;
+  intro:          string;   // 150-200 words unique intro paragraph
+  faq:            FaqItem[];
+  defaults?:      Record<string, unknown>; // tool-specific preset values
 }
 
 export type ToolCategory =

@@ -502,7 +502,10 @@ const ToolPage: NextPage<Props> = ({ tool }) => {
                     </div>
                 </section>
 
-                {/* ── FAQ with FAQPage schema ────────────────── */}
+                {/* ── Variant pages ─────────────────────────────── */}
+                <ToolVariants tool={tool} />
+
+                {/* ── Tool content ──────────────────────────────── */}
                 <ToolContent slug={tool.slug} />
 
                 {/* ── FAQ with FAQPage schema ────────────────── */}
@@ -522,6 +525,34 @@ const ToolPage: NextPage<Props> = ({ tool }) => {
         </>
     );
 };
+
+/* ── Variant pages block ───────────────────────────────── */
+function ToolVariants({ tool }: { tool: ToolMeta }) {
+    const variants = tool.variants ?? [];
+    if (variants.length === 0) return null;
+
+    return (
+        <section style={{ maxWidth: 1000, margin: '48px auto 0', padding: '0 16px' }}>
+            <p className="ov" style={{ marginBottom: 12 }}>Specialized versions</p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 10 }}>
+                {variants.map(v => (
+                    <a
+                        key={v.slug}
+                        href={`/tools/${tool.slug}/${v.slug}`}
+                        style={{ display: 'block', padding: '14px 16px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', boxShadow: 'var(--sh-xs)', textDecoration: 'none', transition: 'border-color .13s' }}
+                    >
+                        <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--ink)', marginBottom: 4 }}>
+                            {v.seoH1}
+                        </div>
+                        <div style={{ fontSize: 13, color: 'var(--ink-3)', lineHeight: 1.5 }}>
+                            {v.seoDescription.slice(0, 80)}…
+                        </div>
+                    </a>
+                ))}
+            </div>
+        </section>
+    );
+}
 
 /* ── Tool content sections ─────────────────────────────── */
 const TOOL_CONTENT: Record<string, React.ComponentType> = {

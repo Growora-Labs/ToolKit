@@ -1,12 +1,19 @@
 import { useState, useCallback } from 'react';
-import {PasswordOptions, PasswordStrength, UsePasswordGeneratorReturn} from "@/lib/types";
-
+import type {
+  PasswordOptions,
+  PasswordStrength,
+  UsePasswordGeneratorReturn,
+} from '@/lib/types';
 
 const CHARSETS: Record<keyof Omit<PasswordOptions, 'length'>, string> = {
   uppercase: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
   lowercase: 'abcdefghijklmnopqrstuvwxyz',
   numbers:   '0123456789',
   symbols:   '!@#$%^&*()_+-=[]{}|;:,.<>?',
+};
+
+const DEFAULT_OPTIONS: PasswordOptions = {
+  length: 16, uppercase: true, lowercase: true, numbers: true, symbols: false,
 };
 
 function calculateStrength(pw: string, opts: PasswordOptions): PasswordStrength {
@@ -34,11 +41,14 @@ function secureRandInt(max: number): number {
   return Math.floor(Math.random() * max);
 }
 
-export function usePasswordGenerator(): UsePasswordGeneratorReturn {
+export function usePasswordGenerator(
+    initialOptions?: Partial<PasswordOptions>
+): UsePasswordGeneratorReturn {
   const [password, setPassword] = useState('');
   const [copied,   setCopied]   = useState(false);
   const [options,  setOptions]  = useState<PasswordOptions>({
-    length: 16, uppercase: true, lowercase: true, numbers: true, symbols: false,
+    ...DEFAULT_OPTIONS,
+    ...initialOptions,
   });
 
   const generate = useCallback(() => {
@@ -57,13 +67,13 @@ export function usePasswordGenerator(): UsePasswordGeneratorReturn {
     if (symbols)   guaranteed.push(CHARSETS.symbols[secureRandInt(CHARSETS.symbols.length)]);
 
     const rest = Array.from(
-      { length: length - guaranteed.length },
-      () => charset[secureRandInt(charset.length)],
+        { length: length - guaranteed.length },
+        () => charset[secureRandInt(charset.length)],
     );
 
     const result = [...guaranteed, ...rest]
-      .sort(() => Math.random() - 0.5)
-      .join('');
+        .sort(() => Math.random() - 0.5)
+        .join('');
 
     setPassword(result);
     setCopied(false);

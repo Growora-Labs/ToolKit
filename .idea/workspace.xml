@@ -4,11 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28d87ed4-e495-4f64-b71e-05de9470371c" name="Changes" comment="sameAs schema">
+    <list default="true" id="28d87ed4-e495-4f64-b71e-05de9470371c" name="Changes" comment="new content for best 3 tools">
+      <change afterPath="$PROJECT_DIR$/pages/tools/[slug]/[variant].tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/json-formatter/content.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/tools/json-formatter/content.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/password-generator/content.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/tools/password-generator/content.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/word-counter/content.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/tools/word-counter/content.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/registry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/registry.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/sitemap.xml.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/sitemap.xml.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/tools/[slug].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/tools/[slug].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/tools/security/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/tools/security/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tools/password-generator/component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/tools/password-generator/component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tools/password-generator/use-password-generator.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tools/password-generator/use-password-generator.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +55,7 @@
     "js.debugger.nextJs.config.created.client": "true",
     "js.debugger.nextJs.config.created.server": "true",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "D:/My/business/ToolKit",
+    "last_opened_file_path": "D:/My/business/ToolKit/pages/tools/[slug]",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -63,11 +68,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\My\business\ToolKit\pages\tools\[slug]" />
       <recent name="D:\My\business\ToolKit\pages" />
       <recent name="D:\My\business\ToolKit\pages\tools\design" />
       <recent name="D:\My\business\ToolKit\pages\tools\text" />
       <recent name="D:\My\business\ToolKit\pages\tools\developer" />
-      <recent name="D:\My\business\ToolKit\pages\tools\security" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\My\business\ToolKit\public" />
@@ -110,7 +115,7 @@
       <workItem from="1774457284243" duration="30000" />
       <workItem from="1774464330053" duration="2891000" />
       <workItem from="1774522314212" duration="8380000" />
-      <workItem from="1774592634618" duration="3484000" />
+      <workItem from="1774592634618" duration="5882000" />
     </task>
     <task id="LOCAL-00001" summary="зміна структури проєкту, додали word counter tool">
       <option name="closed" value="true" />
@@ -288,7 +293,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774596363670</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="new content for best 3 tools">
+      <option name="closed" value="true" />
+      <created>1774597609854</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1774597609854</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -311,6 +324,7 @@
     <MESSAGE value="about privacy" />
     <MESSAGE value="seo text semantic core" />
     <MESSAGE value="sameAs schema" />
-    <option name="LAST_COMMIT_MESSAGE" value="sameAs schema" />
+    <MESSAGE value="new content for best 3 tools" />
+    <option name="LAST_COMMIT_MESSAGE" value="new content for best 3 tools" />
   </component>
 </project>
