@@ -40,7 +40,7 @@ const HomePage: NextPage = () => {
       // fill in after Product Hunt / GitHub / Twitter registration:
       // 'https://github.com/your-org',
       // 'https://twitter.com/yourhandle',
-      // 'https://www.producthunt.com/products/toolkit',
+      'https://www.producthunt.com/products/toolkit-free-browser-based-tools-2',
     ],
   };
 
