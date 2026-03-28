@@ -38,6 +38,7 @@ const TOOL_DATA: Record<string, () => Promise<{ faq: FaqItem[]; [key: string]: u
     'hash-generator':     () => import('@/tools/hash-generator'),
     'url-encoder':        () => import('@/tools/url-encoder'),
     'markdown-editor':    () => import('@/tools/markdown-editor'),
+    'qr-code-generator':  () => import('@/tools/qr-code-generator'),
 };
 
 const TOOL_WIDGETS: Record<string, React.ComponentType> = {
@@ -54,6 +55,7 @@ const TOOL_WIDGETS: Record<string, React.ComponentType> = {
     'hash-generator':     dynamic(() => import('@/tools/hash-generator/component'),     { ssr: false }) as React.ComponentType,
     'url-encoder':        dynamic(() => import('@/tools/url-encoder/component'),        { ssr: false }) as React.ComponentType,
     'markdown-editor':    dynamic(() => import('@/tools/markdown-editor/component'),    { ssr: false }) as React.ComponentType,
+    'qr-code-generator':  dynamic(() => import('@/tools/qr-code-generator/component'), { ssr: false }) as React.ComponentType,
 };
 
 /* ── Password generator sidebar ────────────────────────── */
@@ -346,7 +348,36 @@ function ToolSidebar({ slug }: { slug: string }) {
     if (slug === 'url-encoder')        return <UrlSidebar />;
     if (slug === 'markdown-editor')    return <MarkdownSidebar />;
     if (slug === 'regex-tester')       return <RegexSidebar />;
+    if (slug === 'qr-code-generator')  return <QrSidebar />;
     return null;
+}
+
+function QrSidebar() {
+    const steps = [
+        { n: '1', title: 'Choose content type',    desc: 'Pick URL, Email, Phone, SMS, WiFi, or plain Text.' },
+        { n: '2', title: 'Enter your content',     desc: 'Paste a URL or type any text. The QR updates instantly.' },
+        { n: '3', title: 'Customize',              desc: 'Set colors, size, and error correction level to your needs.' },
+        { n: '4', title: 'Download PNG or SVG',    desc: 'PNG for digital use. SVG for print — scales without quality loss.' },
+        { n: '5', title: 'Test before printing',   desc: 'Scan with your phone before printing at scale.' },
+    ];
+    return (
+        <div className="tool-sidebar">
+            <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 16 }}>
+                How to generate a QR code
+            </p>
+            <ol style={{ paddingLeft: 0, listStyle: 'none', margin: 0, display: 'flex', flexDirection: 'column', gap: 0 }}>
+                {steps.map(({ n, title, desc }) => (
+                    <li key={n} style={{ display: 'flex', gap: 12, padding: '12px 0', borderBottom: '1px solid var(--border)' }}>
+                        <span style={{ width: 24, height: 24, borderRadius: '50%', background: 'var(--ink)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0, marginTop: 1 }}>{n}</span>
+                        <div>
+                            <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 3 }}>{title}</div>
+                            <div style={{ fontSize: 12, color: 'var(--ink-3)', lineHeight: 1.55 }}>{desc}</div>
+                        </div>
+                    </li>
+                ))}
+            </ol>
+        </div>
+    );
 }
 
 /* ── Page ─────────────────────────────────────────────── */
@@ -569,6 +600,7 @@ const TOOL_CONTENT: Record<string, React.ComponentType> = {
     'color-palette':      dynamic(() => import('@/tools/color-palette/content'),      { ssr: false }) as React.ComponentType,
     'regex-tester':       dynamic(() => import('@/tools/regex-tester/content'),       { ssr: false }) as React.ComponentType,
     'username-generator': dynamic(() => import('@/tools/username-generator/content'), { ssr: false }) as React.ComponentType,
+    'qr-code-generator':  dynamic(() => import('@/tools/qr-code-generator/content'), { ssr: false }) as React.ComponentType,
 };
 
 function ToolContent({ slug }: { slug: string }) {

@@ -238,13 +238,13 @@ export const TOOLS: ToolMeta[] = [
     slug:           'qr-code-generator',
     name:           'QR Code Generator',
     tagline:        'Generate QR codes for URLs and text',
-    description:    'Generate QR codes from any URL or text. Download as PNG or SVG.',
-    seoTitle:       'Free QR Code Generator Online — Create QR Codes Instantly | ToolKit',
+    description:    'Generate QR codes for any URL, text, WiFi, email or phone. Download as PNG or SVG. No watermark, no signup.',
+    seoTitle:       'Free QR Code Generator — Create QR Codes Instantly, No Signup | ToolKit',
     seoH1:          'Free QR Code Generator Online',
-    seoDescription: 'Generate QR codes for URLs, text, emails and more. Download as PNG or SVG. Free online QR code generator — no signup, no watermark.',
+    seoDescription: 'Generate QR codes for URLs, WiFi, email, phone and more. Download as PNG or SVG. Customize colors and size. 100% free, no watermark, no signup — works in your browser.',
     category:       'Security',
-    keywords:       ['qr code generator', 'qr code generator online', 'free qr code generator', 'create qr code', 'qr generator'],
-    live:           false,
+    keywords:       ['qr code generator', 'qr code generator online', 'free qr code generator', 'create qr code', 'qr generator', 'qr code maker', 'qr code creator', 'wifi qr code generator'],
+    live:           true,
   },
 
   /* ── Coming soon — Text & Writing ───────────────────── */
