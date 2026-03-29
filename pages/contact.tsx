@@ -7,6 +7,41 @@ import { Layout } from '@/components/ui/Layout';
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.webtoolkit.tech';
 const WEB3FORMS_KEY = 'f503f1c0-c9ff-4fa4-a7a0-265b022f2a65';
 
+// Rate limiting: max 3 submissions per hour, 60s cooldown between sends
+const RATE_KEY      = 'toolkit_contact_times';
+const MAX_PER_HOUR  = 3;
+const COOLDOWN_SEC  = 60;
+
+function getRateLimitState(): { blocked: boolean; cooldownLeft: number; attemptsLeft: number } {
+    if (typeof window === 'undefined') return { blocked: false, cooldownLeft: 0, attemptsLeft: MAX_PER_HOUR };
+    try {
+        const now   = Date.now();
+        const raw   = localStorage.getItem(RATE_KEY);
+        const times: number[] = raw ? JSON.parse(raw) : [];
+
+        // Keep only last hour
+        const inWindow = times.filter(t => now - t < 60 * 60 * 1000);
+        const last     = inWindow[inWindow.length - 1] ?? 0;
+        const cooldownLeft = Math.max(0, Math.ceil((last + COOLDOWN_SEC * 1000 - now) / 1000));
+        const attemptsLeft = Math.max(0, MAX_PER_HOUR - inWindow.length);
+        const blocked      = attemptsLeft === 0 || cooldownLeft > 0;
+
+        return { blocked, cooldownLeft, attemptsLeft };
+    } catch {
+        return { blocked: false, cooldownLeft: 0, attemptsLeft: MAX_PER_HOUR };
+    }
+}
+
+function recordSubmission() {
+    try {
+        const now   = Date.now();
+        const raw   = localStorage.getItem(RATE_KEY);
+        const times: number[] = raw ? JSON.parse(raw) : [];
+        const updated = [...times.filter(t => now - t < 60 * 60 * 1000), now];
+        localStorage.setItem(RATE_KEY, JSON.stringify(updated));
+    } catch { /* ignore */ }
+}
+
 type Status = 'idle' | 'sending' | 'success' | 'error';
 
 const SUBJECTS = [
@@ -113,10 +148,39 @@ const ContactPage: NextPage = () => {
     const [subject, setSubject] = useState('');
     const [message, setMessage] = useState('');
     const [status,  setStatus]  = useState<Status>('idle');
+    const [cooldown, setCooldown] = useState(0);
+    const [attemptsLeft, setAttemptsLeft] = useState(MAX_PER_HOUR);
+    const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+    // Sync rate limit state on mount
+    useEffect(() => {
+        const { cooldownLeft, attemptsLeft: left } = getRateLimitState();
+        setCooldown(cooldownLeft);
+        setAttemptsLeft(left);
+    }, []);
+
+    // Countdown timer
+    useEffect(() => {
+        if (cooldown <= 0) return;
+        timerRef.current = setInterval(() => {
+            setCooldown(c => {
+                if (c <= 1) {
+                    if (timerRef.current) clearInterval(timerRef.current);
+                    const { attemptsLeft: left } = getRateLimitState();
+                    setAttemptsLeft(left);
+                    return 0;
+                }
+                return c - 1;
+            });
+        }, 1000);
+        return () => { if (timerRef.current) clearInterval(timerRef.current); };
+    }, [cooldown]);
+
+    const isRateLimited = cooldown > 0 || attemptsLeft === 0;
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        if (!subject) return;
+        if (!subject || isRateLimited) return;
         setStatus('sending');
         try {
             const res = await fetch('https://api.web3forms.com/submit', {
@@ -126,10 +190,15 @@ const ContactPage: NextPage = () => {
                     access_key: WEB3FORMS_KEY,
                     name, email, subject, message,
                     from_name: 'ToolKit Contact Form',
+                    botcheck: '',
                 }),
             });
             const data = await res.json();
             if (data.success) {
+                recordSubmission();
+                const { cooldownLeft, attemptsLeft: left } = getRateLimitState();
+                setCooldown(cooldownLeft);
+                setAttemptsLeft(left);
                 setStatus('success');
                 setName(''); setEmail(''); setSubject(''); setMessage('');
             } else {
@@ -205,6 +274,8 @@ const ContactPage: NextPage = () => {
                         </div>
                     ) : (
                         <form onSubmit={handleSubmit} noValidate>
+                            {/* Honeypot — hidden from humans, bots fill it → rejected by Web3Forms */}
+                            <input type="checkbox" name="botcheck" style={{ display: 'none' }} tabIndex={-1} aria-hidden="true" />
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
 
                                 {/* Name + Email */}
@@ -236,6 +307,13 @@ const ContactPage: NextPage = () => {
                                               style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} />
                                 </div>
 
+                                {/* Rate limit warning */}
+                                {attemptsLeft <= 1 && attemptsLeft > 0 && !isRateLimited && (
+                                    <div style={{ padding: '10px 14px', background: 'var(--amber-lt)', border: '1px solid rgba(217,119,6,.2)', borderRadius: 'var(--r-m)', fontSize: 13, color: 'var(--amber)' }}>
+                                        {attemptsLeft} submission left this hour.
+                                    </div>
+                                )}
+
                                 {/* Error */}
                                 {status === 'error' && (
                                     <div style={{ padding: '12px 16px', background: 'var(--red-lt)', border: '1px solid #fca5a5', borderRadius: 'var(--r-m)', fontSize: 13, color: 'var(--red)' }}>
@@ -249,18 +327,22 @@ const ContactPage: NextPage = () => {
                                 {/* Submit */}
                                 <button
                                     type="submit"
-                                    disabled={status === 'sending'}
+                                    disabled={status === 'sending' || isRateLimited}
                                     style={{
                                         padding: '13px 24px',
-                                        background: status === 'sending' ? 'var(--ink-3)' : 'var(--ink)',
+                                        background: isRateLimited ? 'var(--ink-3)' : status === 'sending' ? 'var(--ink-3)' : 'var(--ink)',
                                         color: '#fff', border: 'none', borderRadius: 'var(--r-m)',
                                         fontSize: 15, fontWeight: 600,
-                                        cursor: status === 'sending' ? 'not-allowed' : 'pointer',
+                                        cursor: (status === 'sending' || isRateLimited) ? 'not-allowed' : 'pointer',
                                         display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
                                         transition: 'background .15s',
                                     }}
                                 >
-                                    {status === 'sending' ? (
+                                    {isRateLimited ? (
+                                        attemptsLeft === 0
+                                            ? 'Limit reached — try again in an hour'
+                                            : `Wait ${cooldown}s before sending again`
+                                    ) : status === 'sending' ? (
                                         <>
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ animation: 'spin 1s linear infinite' }}>
                                                 <path d="M21 12a9 9 0 11-6.219-8.56"/>
