@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28d87ed4-e495-4f64-b71e-05de9470371c" name="Changes" comment="new tool qr code">
+      <change afterPath="$PROJECT_DIR$/tools/color-converter/component.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/color-converter/content.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/color-converter/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools/color-converter/use-color-converter.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/icons/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/icons/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/registry.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/registry.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/tools/[slug].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/pages/tools/[slug].tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +78,7 @@
       <recent name="D:\My\business\ToolKit\pages\tools\developer" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Programs\WebStorm 2026.1\ToolKit\tools\color-converter" />
       <recent name="D:\Programs\WebStorm 2026.1\ToolKit\tools\qr-code-generator" />
       <recent name="D:\My\business\ToolKit\public" />
       <recent name="D:\My\business\ToolKit" />
@@ -114,7 +122,7 @@
       <workItem from="1774522314212" duration="8380000" />
       <workItem from="1774592634618" duration="5882000" />
       <workItem from="1774702925396" duration="1270000" />
-      <workItem from="1774704227731" duration="2676000" />
+      <workItem from="1774704227731" duration="4429000" />
     </task>
     <task id="LOCAL-00001" summary="зміна структури проєкту, додали word counter tool">
       <option name="closed" value="true" />
@@ -308,7 +316,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774706320857</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="new tool qr code">
+      <option name="closed" value="true" />
+      <created>1774707032137</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1774707032137</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

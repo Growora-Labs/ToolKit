@@ -39,6 +39,7 @@ const TOOL_DATA: Record<string, () => Promise<{ faq: FaqItem[]; [key: string]: u
     'url-encoder':        () => import('@/tools/url-encoder'),
     'markdown-editor':    () => import('@/tools/markdown-editor'),
     'qr-code-generator':  () => import('@/tools/qr-code-generator'),
+    'color-converter':    () => import('@/tools/color-converter'),
 };
 
 const TOOL_WIDGETS: Record<string, React.ComponentType> = {
@@ -56,6 +57,7 @@ const TOOL_WIDGETS: Record<string, React.ComponentType> = {
     'url-encoder':        dynamic(() => import('@/tools/url-encoder/component'),        { ssr: false }) as React.ComponentType,
     'markdown-editor':    dynamic(() => import('@/tools/markdown-editor/component'),    { ssr: false }) as React.ComponentType,
     'qr-code-generator':  dynamic(() => import('@/tools/qr-code-generator/component'), { ssr: false }) as React.ComponentType,
+    'color-converter':    dynamic(() => import('@/tools/color-converter/component'),    { ssr: false }) as React.ComponentType,
 };
 
 /* ── Password generator sidebar ────────────────────────── */
@@ -349,7 +351,32 @@ function ToolSidebar({ slug }: { slug: string }) {
     if (slug === 'markdown-editor')    return <MarkdownSidebar />;
     if (slug === 'regex-tester')       return <RegexSidebar />;
     if (slug === 'qr-code-generator')  return <QrSidebar />;
+    if (slug === 'color-converter')    return <ColorConverterSidebar />;
     return null;
+}
+
+function ColorConverterSidebar() {
+    return (
+        <div className="tool-sidebar">
+            <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 16 }}>How to convert a color</p>
+            <ol style={{ paddingLeft: 0, listStyle: 'none', margin: 0, display: 'flex', flexDirection: 'column', gap: 0 }}>
+                {[
+                    { n: '1', title: 'Pick or enter a color',   desc: 'Click the color swatch to open the picker, or type a value directly.' },
+                    { n: '2', title: 'Choose input format',      desc: 'Select HEX, RGB, HSL, HSV, or CMYK to match your source.' },
+                    { n: '3', title: 'See all conversions',      desc: 'All formats update instantly — HEX, RGB, HSL, HSV, CMYK, and CSS.' },
+                    { n: '4', title: 'Copy what you need',       desc: 'Click any output row to copy it to clipboard.' },
+                ].map(({ n, title, desc }) => (
+                    <li key={n} style={{ display: 'flex', gap: 12, padding: '12px 0', borderBottom: '1px solid var(--border)' }}>
+                        <span style={{ width: 24, height: 24, borderRadius: '50%', background: 'var(--ink)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0, marginTop: 1 }}>{n}</span>
+                        <div>
+                            <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 3 }}>{title}</div>
+                            <div style={{ fontSize: 12, color: 'var(--ink-3)', lineHeight: 1.55 }}>{desc}</div>
+                        </div>
+                    </li>
+                ))}
+            </ol>
+        </div>
+    );
 }
 
 function QrSidebar() {
@@ -601,6 +628,7 @@ const TOOL_CONTENT: Record<string, React.ComponentType> = {
     'regex-tester':       dynamic(() => import('@/tools/regex-tester/content'),       { ssr: false }) as React.ComponentType,
     'username-generator': dynamic(() => import('@/tools/username-generator/content'), { ssr: false }) as React.ComponentType,
     'qr-code-generator':  dynamic(() => import('@/tools/qr-code-generator/content'), { ssr: false }) as React.ComponentType,
+    'color-converter':    dynamic(() => import('@/tools/color-converter/content'),    { ssr: false }) as React.ComponentType,
 };
 
 function ToolContent({ slug }: { slug: string }) {
