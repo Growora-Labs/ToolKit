@@ -97,22 +97,28 @@ const ToolsPage: NextPage = () => {
             </div>
 
             {/* Categories */}
-            {Array.from(byCategory.entries()).map(([category, tools]) => (
-                <div key={category} style={{ marginBottom: 36 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-                    <p className="ov" style={{ margin: 0 }}>{category}</p>
-                    <Link
-                        href={CATEGORY_SLUGS[category] ?? '/tools'}
-                        style={{ fontSize: 12, fontWeight: 600, color: 'var(--green)', textDecoration: 'none' }}
-                    >
-                      All {category} tools →
-                    </Link>
+            {Array.from(byCategory.entries()).map(([category, tools]) => {
+              const sorted = [
+                ...tools.filter(t => t.live),
+                ...tools.filter(t => !t.live),
+              ];
+              return (
+                  <div key={category} style={{ marginBottom: 36 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+                      <p className="ov" style={{ margin: 0 }}>{category}</p>
+                      <Link
+                          href={CATEGORY_SLUGS[category] ?? '/tools'}
+                          style={{ fontSize: 12, fontWeight: 600, color: 'var(--green)', textDecoration: 'none' }}
+                      >
+                        All {category} tools →
+                      </Link>
+                    </div>
+                    <div className="tools-grid">
+                      {sorted.map(tool => <ToolCard key={tool.slug} tool={tool} />)}
+                    </div>
                   </div>
-                  <div className="tools-grid">
-                    {tools.map(tool => <ToolCard key={tool.slug} tool={tool} />)}
-                  </div>
-                </div>
-            ))}
+              );
+            })}
 
           </div>
         </Layout>

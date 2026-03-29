@@ -34,7 +34,7 @@ export default function HashGeneratorWidget() {
                     </div>
                     Uppercase output
                 </label>
-                <span style={{ fontSize: 12, color: 'var(--ink-4)' }}>⌘↵ to generate</span>
+                <span style={{ fontSize: 12, color: 'var(--ink-4)' }}></span>
             </div>
 
             {/* Generate */}

@@ -82,20 +82,14 @@ export default function ColorPaletteWidget() {
             </div>
 
             {/* Palette swatches */}
-            <div style={{
-                display: 'flex',
-                borderRadius: 'var(--r-l)',
-                overflow: 'hidden',
-                height: 200,
-                boxShadow: 'var(--sh-m)',
-                marginBottom: 16,
-            }}>
+            <div className="palette-swatches" style={{ marginBottom: 16 }}>
                 {swatches.map((swatch, i) => {
                     const fg = textColor(swatch.hex);
                     const isCopied = copiedHex === swatch.hex;
                     return (
                         <div
                             key={i}
+                            className="palette-swatch"
                             style={{
                                 flex: 1,
                                 background: swatch.hex,

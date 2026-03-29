@@ -1,6 +1,6 @@
 import Link from 'next/link';
+import type { ToolMeta } from '../../lib/types';
 import { TOOL_ICONS } from '../icons';
-import {ToolMeta} from "@/lib/types";
 
 interface ToolCardProps {
     tool: ToolMeta;
@@ -16,7 +16,7 @@ export function ToolCard({ tool }: ToolCardProps) {
                 <div className="ti"><Icon size={15} /></div>
                 <div style={{ minWidth: 0, flex: 1 }}>
                     <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', lineHeight: 1.2 }}>{tool.name}</div>
-                    <div style={{ fontSize: 12, color: 'var(--ink-3)', marginTop: 3 }}>{tool.tagline}</div>
+                    <div className="tc-tagline" style={{ fontSize: 12, color: 'var(--ink-3)', marginTop: 3 }}>{tool.tagline}</div>
                 </div>
                 <span className="badge b-green">Live</span>
             </Link>
@@ -28,7 +28,7 @@ export function ToolCard({ tool }: ToolCardProps) {
             <div className="ti"><Icon size={15} /></div>
             <div style={{ minWidth: 0, flex: 1 }}>
                 <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', lineHeight: 1.2 }}>{tool.name}</div>
-                <div style={{ fontSize: 12, color: 'var(--ink-3)', marginTop: 3 }}>{tool.tagline}</div>
+                <div className="tc-tagline" style={{ fontSize: 12, color: 'var(--ink-3)', marginTop: 3 }}>{tool.tagline}</div>
             </div>
             <span className="badge b-gray">Soon</span>
         </div>

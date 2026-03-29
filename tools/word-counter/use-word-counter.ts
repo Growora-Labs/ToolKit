@@ -53,15 +53,16 @@ export function useWordCounter() {
       };
     }
 
-    const wordList = text.trim().match(/\b\w+('\w+)?\b/g) ?? [];
+    // Unicode-aware word split — works for Cyrillic, Latin, and other scripts
+    const wordList = text.trim().match(/[\p{L}\p{N}]+(?:[''\-][\p{L}\p{N}]+)*/gu) ?? [];
     const words    = wordList.length;
     const chars    = text.length;
     const charsNoSpaces = text.replace(/\s/g, '').length;
 
-    // Sentences: split on . ! ? followed by space or end
-    const sentences = (text.match(/[^.!?]*[.!?]+/g) ?? []).length || (words > 0 ? 1 : 0);
+    // Sentences: ends with . ! ? (Unicode aware)
+    const sentences = (text.match(/[^.!?]*[.!?]+/gu) ?? []).length || (words > 0 ? 1 : 0);
 
-    // Paragraphs: non-empty lines separated by blank lines
+    // Paragraphs: non-empty blocks separated by blank lines
     const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0).length || (words > 0 ? 1 : 0);
 
     const uniqueWords = new Set(wordList.map(w => w.toLowerCase())).size;
@@ -89,13 +90,13 @@ export function useWordCounter() {
     const total = wordList.filter(w => !STOP_WORDS.has(w)).length || 1;
 
     return Object.entries(freq)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 8)
-      .map(([word, count]) => ({
-        word,
-        count,
-        percent: ((count / total) * 100).toFixed(1),
-      }));
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 8)
+        .map(([word, count]) => ({
+          word,
+          count,
+          percent: ((count / total) * 100).toFixed(1),
+        }));
   }, [text]);
 
   const clear = useCallback(() => setText(''), []);

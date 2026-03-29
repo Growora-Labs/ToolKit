@@ -114,7 +114,8 @@ export default function QrCodeGeneratorWidget() {
                     padding: 16, background: options.bgColor,
                     border: '1.5px solid var(--border)', borderRadius: 'var(--r-l)',
                     display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                    minWidth: 160, minHeight: 160,
+                    width: '100%', maxWidth: 288, minHeight: 160, boxSizing: 'border-box',
+                    overflow: 'hidden',
                 }}>
                     {error ? (
                         <div style={{ fontSize: 13, color: 'var(--red)', textAlign: 'center', maxWidth: 180 }}>{error}</div>
@@ -123,7 +124,10 @@ export default function QrCodeGeneratorWidget() {
                     ) : null}
                     <canvas
                         ref={canvasRef}
-                        style={{ display: options.text.trim() && !error ? 'block' : 'none', maxWidth: '100%', height: 'auto', borderRadius: 4 }}
+                        style={{
+                            display: options.text.trim() && !error ? 'block' : 'none',
+                            width: '100%', height: 'auto', borderRadius: 4,
+                        }}
                     />
                 </div>
             </div>
@@ -146,7 +150,7 @@ export default function QrCodeGeneratorWidget() {
             <div className="rule" />
 
             {/* Settings */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12 }}>
 
                 <div>
                     <label style={labelStyle}>Output size</label>
@@ -170,7 +174,7 @@ export default function QrCodeGeneratorWidget() {
                     <label style={labelStyle}>QR color</label>
                     <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                         <input type="color" value={options.fgColor} onChange={e => update('fgColor', e.target.value)}
-                               style={{ width: 40, height: 36, padding: 2, border: '1.5px solid var(--border)', borderRadius: 'var(--r-s)', cursor: 'pointer', background: 'var(--white)' }} />
+                               style={{ width: 40, height: 36, padding: 2, border: '1.5px solid var(--border)', borderRadius: 'var(--r-s)', cursor: 'pointer', background: 'var(--white)', flexShrink: 0 }} />
                         <input type="text" value={options.fgColor}
                                onChange={e => { if (/^#[0-9a-fA-F]{0,6}$/.test(e.target.value)) update('fgColor', e.target.value); }}
                                style={{ ...inputStyle, width: 'auto', flex: 1, fontFamily: 'JetBrains Mono, monospace', fontSize: 13 }}
@@ -182,7 +186,7 @@ export default function QrCodeGeneratorWidget() {
                     <label style={labelStyle}>Background</label>
                     <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                         <input type="color" value={options.bgColor} onChange={e => update('bgColor', e.target.value)}
-                               style={{ width: 40, height: 36, padding: 2, border: '1.5px solid var(--border)', borderRadius: 'var(--r-s)', cursor: 'pointer', background: 'var(--white)' }} />
+                               style={{ width: 40, height: 36, padding: 2, border: '1.5px solid var(--border)', borderRadius: 'var(--r-s)', cursor: 'pointer', background: 'var(--white)', flexShrink: 0 }} />
                         <input type="text" value={options.bgColor}
                                onChange={e => { if (/^#[0-9a-fA-F]{0,6}$/.test(e.target.value)) update('bgColor', e.target.value); }}
                                style={{ ...inputStyle, width: 'auto', flex: 1, fontFamily: 'JetBrains Mono, monospace', fontSize: 13 }}

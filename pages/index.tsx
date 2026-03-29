@@ -40,7 +40,7 @@ const HomePage: NextPage = () => {
       // fill in after Product Hunt / GitHub / Twitter registration:
       // 'https://github.com/your-org',
       // 'https://twitter.com/yourhandle',
-      'https://www.producthunt.com/products/toolkit-free-browser-based-tools-2',
+      // 'https://www.producthunt.com/products/toolkit',
     ],
   };
 
@@ -192,22 +192,29 @@ const HomePage: NextPage = () => {
                   View full directory →
                 </Link>
               </div>
-              {Array.from(byCategory.entries()).map(([category, tools]) => (
-                  <div key={category} style={{ marginBottom: 32 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-                      <p className="ov" style={{ margin: 0 }}>{category}</p>
-                      <Link
-                          href={CATEGORY_SLUGS[category] ?? '/tools'}
-                          style={{ fontSize: 12, fontWeight: 600, color: 'var(--green)', textDecoration: 'none' }}
-                      >
-                        View all →
-                      </Link>
+              {Array.from(byCategory.entries()).map(([category, tools]) => {
+                // Live first, then soon — max 4 per category on homepage
+                const sorted = [
+                  ...tools.filter(t => t.live),
+                  ...tools.filter(t => !t.live),
+                ].slice(0, 4);
+                return (
+                    <div key={category} style={{ marginBottom: 32 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+                        <p className="ov" style={{ margin: 0 }}>{category}</p>
+                        <Link
+                            href={CATEGORY_SLUGS[category] ?? '/tools'}
+                            style={{ fontSize: 12, fontWeight: 600, color: 'var(--green)', textDecoration: 'none' }}
+                        >
+                          All {category} tools →
+                        </Link>
+                      </div>
+                      <div className="tools-grid">
+                        {sorted.map(tool => <ToolCard key={tool.slug} tool={tool} />)}
+                      </div>
                     </div>
-                    <div className="tools-grid">
-                      {tools.map(tool => <ToolCard key={tool.slug} tool={tool} />)}
-                    </div>
-                  </div>
-              ))}
+                );
+              })}
             </div>
           </section>
 
