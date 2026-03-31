@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 <meta name="theme-color"     content="#f4f3ef" />
             </Head>
 
-            {/* Google Analytics — only loads when GA_ID is set */}
+            {/* Google Analytics */}
             {GA_ID && (
                 <>
                     <Script
@@ -36,6 +36,13 @@ export default function App({ Component, pageProps }: AppProps) {
                     </Script>
                 </>
             )}
+
+            {/* Google AdSense */}
+            <Script
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1948452989342011"
+                crossOrigin="anonymous"
+                strategy="afterInteractive"
+            />
 
             <Component {...pageProps} />
         </>
