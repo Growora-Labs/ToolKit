@@ -1,8 +1,11 @@
 import type { ToolVariant } from '@/lib/types';
 
-
 export const variants: ToolVariant[] = [
-    /* ── Existing 4 ────────────────────────────────────── */
+
+    // ════════════════════════════════════════════════════════
+    // BATCH 1 — Full content (5 variants)
+    // ════════════════════════════════════════════════════════
+
     {
         slug:           'for-wifi',
         seoTitle:       'WiFi Password Generator — Strong Passwords for Your Router | ToolKit',
@@ -15,6 +18,9 @@ export const variants: ToolVariant[] = [
             { q: 'Do I need to change my WiFi password regularly?', a: 'Only if you suspect a breach — for example, after a guest has used it and you want to revoke access, or after a device has been compromised. Unlike account passwords, WiFi passwords do not need routine rotation.' },
             { q: 'What is the difference between WPA2 and WPA3?', a: 'WPA3 is the newer standard with stronger encryption (SAE instead of PSK) and protection against brute-force attacks. If your router supports WPA3, enable it. If not, WPA2-AES is still considered secure with a strong password.' },
             { q: 'Can my neighbors crack my WiFi password?', a: 'A 16+ character random password with mixed character types would take billions of years to crack with current hardware. The real risk is password reuse or easy-to-guess passwords — not brute force against a strong random one.' },
+            { q: 'Should I use the same WiFi password for 2.4GHz and 5GHz bands?', a: 'You can, but using separate passwords adds a layer of control. If you share the 2.4GHz password with guests, your 5GHz network remains isolated. Alternatively, set up a dedicated guest network on most modern routers.' },
+            { q: 'Is hiding my SSID a good security measure?', a: 'Hiding your network name (SSID) provides negligible security — any WiFi scanning tool can detect hidden networks. A strong random password is far more effective than a hidden SSID. Focus your effort on password strength and WPA3 if your router supports it.' },
+            { q: 'What is the best WiFi password for a small business?', a: 'Use at least 20 characters with all character types. Set up a separate guest network for customers and visitors. For employees, consider WPA3-Enterprise with individual credentials per person rather than a shared password.' },
         ],
         defaults: { length: 20, uppercase: true, lowercase: true, numbers: true, symbols: true },
         contentSections: [
@@ -33,6 +39,10 @@ export const variants: ToolVariant[] = [
             {
                 heading: 'WiFi password security by the numbers',
                 body: 'The strength of a WiFi password depends entirely on its length and randomness. An 8-character password using only lowercase letters has roughly 26^8 (about 209 billion) possible combinations — a modern GPU can test these in under an hour against a captured WPA2 handshake. Increase to 12 characters with mixed types and the combinations jump to 95^12 (about 5.4 × 10^23), requiring thousands of years to exhaust. At 20 characters with all types, you reach approximately 131 bits of entropy — a number so large that brute force is not a viable attack vector with any known or foreseeable technology. The key takeaway: for WiFi passwords, length matters more than complexity. A 20-character password using only letters and numbers is stronger than a 10-character password using every symbol on the keyboard.',
+            },
+            {
+                heading: 'Setting up a guest WiFi network',
+                body: 'A guest network is a separate WiFi access point that shares your internet connection but isolates guests from your primary network. Visitors can browse the web and check email without accessing your computers, printers, NAS drives, or smart home devices. Most routers manufactured after 2015 support guest networks — check your router admin panel under "Guest Network" or "Guest Access." Set a different password for the guest network and change it periodically, especially after hosting events. Some routers allow you to set bandwidth limits on the guest network to prevent guests from consuming all your bandwidth. For businesses, a guest network is essential — it satisfies the common requirement of providing customer WiFi while keeping business systems on an isolated network segment.',
             },
         ],
     },
@@ -63,6 +73,9 @@ export const variants: ToolVariant[] = [
             { q: 'Do all websites accept 20-character passwords?', a: 'Most modern websites accept passwords up to 64 characters (NIST recommendation for maximum length). Some older systems have lower limits — typically 32 or 20 characters. If a site rejects your password, try reducing to 16 characters first.' },
             { q: 'What is the entropy of a 20-character password?', a: 'With 95 printable ASCII characters available (uppercase, lowercase, digits, symbols), each character contributes log₂(95) ≈ 6.57 bits of entropy. 20 characters × 6.57 = ~131 bits total.' },
             { q: 'Should I use 20 characters or a passphrase?', a: 'A 20-character random password is stronger per character but impossible to memorize. Use it for any password stored in a manager. Use a passphrase only for the few passwords you must type manually — like your password manager master password.' },
+            { q: 'Is a 20-character password safe from quantum computers?', a: 'Yes. Grover\'s algorithm — the best known quantum attack against symmetric key search — halves the effective bit strength. A 131-bit password would still have ~65 bits of effective quantum security, which remains computationally infeasible to brute-force.' },
+            { q: 'How does 20 characters compare to AES-128 encryption?', a: 'AES-128 uses a 128-bit key. A 20-character password with all types provides ~131 bits of entropy — slightly stronger than AES-128. Both are considered secure for the foreseeable future by the global cryptography community.' },
+            { q: 'Can I use a 20-character password for my password manager master password?', a: 'You can, but since you need to type it from memory, a 5-6 word passphrase may be more practical. If you can reliably memorize a 20-character random string, it provides excellent security for a master password.' },
         ],
         defaults: { length: 20, uppercase: true, lowercase: true, numbers: true, symbols: true },
         contentSections: [
@@ -82,6 +95,10 @@ export const variants: ToolVariant[] = [
                 heading: 'When to use more than 20 characters',
                 body: 'Twenty characters is sufficient for virtually every personal and business account, but there are specific use cases where longer passwords provide meaningful additional value. Encryption key passphrases (full-disk encryption, file encryption) benefit from 32 or more characters because they protect data at rest that may be attacked offline for years. API keys and service account passwords should use 32-64 characters because they are never typed manually and the additional length costs nothing in usability. Database connection passwords should be at least 32 characters because a database breach exposes every record in the system. Root and administrator accounts for infrastructure should use the maximum length the system accepts. For everything else — email, social media, banking, shopping, streaming — 20 characters with all types is more than sufficient.',
             },
+            {
+                heading: 'Password length vs complexity: what matters more',
+                body: 'A common misconception is that adding symbols makes a short password strong. In reality, length contributes far more to password security than character set complexity. A 20-character password using only lowercase letters (a-z) has approximately 94 bits of entropy — stronger than a 12-character password using every character type (~79 bits). Each additional character multiplies the total combinations by the size of the character set, while adding a new character type only increases the per-character entropy by a fraction. The ideal approach is to maximize both: use all character types AND maximize length. But if forced to choose, a longer alphanumeric password beats a shorter complex one every time. This is why NIST now emphasizes password length over complexity requirements in their latest guidelines.',
+            },
         ],
     },
     {
@@ -100,7 +117,10 @@ export const variants: ToolVariant[] = [
         defaults: { length: 20, uppercase: true, lowercase: true, numbers: true, symbols: false },
     },
 
-    /* ── By length / strength ──────────────────────────── */
+    // ════════════════════════════════════════════════════════
+    // By length / strength
+    // ════════════════════════════════════════════════════════
+
     {
         slug:           '8-characters',
         seoTitle:       '8 Character Password Generator — Minimum Length Passwords | ToolKit',
@@ -158,7 +178,10 @@ export const variants: ToolVariant[] = [
         defaults: { length: 64, uppercase: true, lowercase: true, numbers: true, symbols: true },
     },
 
-    /* ── By character type ─────────────────────────────── */
+    // ════════════════════════════════════════════════════════
+    // By character type
+    // ════════════════════════════════════════════════════════
+
     {
         slug:           'numbers-only',
         seoTitle:       'Number-Only Password Generator — Numeric PINs & Passcodes | ToolKit',
@@ -170,6 +193,9 @@ export const variants: ToolVariant[] = [
             { q: 'Is a numeric password secure?', a: 'Only with sufficient length and rate limiting. A 4-digit PIN has only 10,000 combinations — it relies on the system locking after failed attempts. A 20-digit random number has ~66 bits of entropy, which is decent but weaker than a 12-character mixed-type password.' },
             { q: 'Why do some systems only accept numbers?', a: 'Physical keypads (ATMs, door locks, safes) often have only digit buttons. Phone lock screens prioritize fast input with a numeric keypad. Some legacy systems were designed before modern password standards.' },
             { q: 'What is the difference between a PIN and a numeric password?', a: 'A PIN (Personal Identification Number) is typically 4-8 digits and used with a physical token (card, phone). A numeric password can be any length and is used alone for authentication. PINs rely on rate limiting for security; numeric passwords rely on length.' },
+            { q: 'Should I avoid sequential digits like 123456?', a: 'Absolutely. Sequential patterns, repeated digits (111111), and common combinations (000000, 654321) are the first entries in any brute-force dictionary. Always use a randomly generated numeric string to ensure unpredictability.' },
+            { q: 'Can I use a numeric password for online accounts?', a: 'Only if the system requires it. A 20-digit random number (~66 bits) is acceptable but weaker than a 12-character mixed password (~79 bits). If the system accepts letters and symbols, always use a mixed-character password instead.' },
+            { q: 'How do I generate a truly random number?', a: 'This tool uses the Web Crypto API (window.crypto.getRandomValues), which provides cryptographically secure random numbers. Do not use Math.random() in JavaScript — it is not cryptographically secure and produces predictable sequences.' },
         ],
         defaults: { length: 16, uppercase: false, lowercase: false, numbers: true, symbols: false },
         contentSections: [
@@ -188,6 +214,10 @@ export const variants: ToolVariant[] = [
             {
                 heading: 'Avoiding predictable number patterns',
                 body: 'Research analyzing millions of leaked PINs consistently reveals the same patterns. The most common 4-digit PINs are 1234, 1111, 0000, 1212, 7777, 1004, 2000, 4444, 2222, and 6969 — together these account for over 20% of all PINs in use. Birth years (1985, 1990, 1992) and dates in MMDD format (0315 for March 15) are also extremely common. Sequential patterns (1234, 5678, 2468), repeated digits (3333, 8888), and phone keypad patterns (2580 — a straight line down the middle) are among the first combinations attackers try. The only reliable defense against pattern-based attacks is true randomness. A randomly generated PIN from this tool has an equal probability of being any combination, including "unlikely" looking ones like 7301 or 0849 that humans would rarely choose on their own.',
+            },
+            {
+                heading: 'Numeric passwords in enterprise and IoT systems',
+                body: 'Beyond personal devices, numeric passwords are common in enterprise and IoT environments. Industrial control systems (SCADA, PLCs) often use numeric access codes due to simplified operator interfaces. Medical devices in hospitals frequently require numeric PINs for quick access during emergencies. Hotel room safes universally use 4-6 digit codes. Vending machines and point-of-sale terminals use numeric service codes for maintenance access. Smart home devices — door locks, security cameras, thermostats — often default to numeric PINs during initial setup. In all these contexts, the numeric password is typically just one layer of security combined with physical access control, network segmentation, or other measures. When deploying IoT devices, always change the default numeric code to a randomly generated one and document it in a secure location.',
             },
         ],
     },
@@ -234,7 +264,10 @@ export const variants: ToolVariant[] = [
         defaults: { length: 32, uppercase: false, lowercase: true, numbers: true, symbols: false },
     },
 
-    /* ── By platform / service ─────────────────────────── */
+    // ════════════════════════════════════════════════════════
+    // By platform / service
+    // ════════════════════════════════════════════════════════
+
     {
         slug:           'for-bank',
         seoTitle:       'Bank Password Generator — Secure Banking Passwords | ToolKit',
@@ -246,6 +279,9 @@ export const variants: ToolVariant[] = [
             { q: 'Why do banks restrict special characters?', a: 'Legacy banking software often runs on older systems (COBOL mainframes, AS/400) with limited character set support. Some banks also restrict characters that could cause SQL injection if their input handling is improperly coded.' },
             { q: 'Should I change my bank password regularly?', a: 'NIST no longer recommends routine password rotation. Change your bank password only if you suspect it has been compromised, if the bank reports a data breach, or if you have shared it with someone who no longer needs access.' },
             { q: 'Is my bank password the most important one?', a: 'Your email password is arguably more important — an attacker who controls your email can reset any password, including your bank. Prioritize both your email and bank passwords, and use unique passwords for each.' },
+            { q: 'What should I do if my bank has a short password limit?', a: 'If your bank caps passwords at 12 or even 8 characters, use the maximum allowed length with all character types. Enable 2FA to compensate for the shorter password. Consider voicing your concern to the bank — customer pressure drives security upgrades.' },
+            { q: 'Is mobile banking safe with a strong password?', a: 'Yes, if you also protect your phone with a strong lock screen, keep your banking app updated, and only install apps from official stores. Avoid banking on public WiFi — use your cellular connection or a trusted VPN instead.' },
+            { q: 'Can a bank see my password?', a: 'No. Properly designed banking systems store only a hashed version of your password, not the password itself. The bank cannot retrieve your actual password — if you forget it, they must issue a reset, not look it up.' },
         ],
         defaults: { length: 16, uppercase: true, lowercase: true, numbers: true, symbols: true },
         contentSections: [
@@ -264,6 +300,10 @@ export const variants: ToolVariant[] = [
             {
                 heading: 'What to do if your bank account is compromised',
                 body: 'If you suspect unauthorized access to your bank account, act within minutes — speed matters. First, log in immediately and change your password to a new randomly generated one. If you cannot log in, call your bank fraud department directly using the number on the back of your debit card, not a number found through a web search (phishing sites mimic bank support pages). Request a temporary freeze on all transactions. Review recent transactions for any you did not authorize — banks typically have a 60-day window for disputing unauthorized transactions under Regulation E in the US. After securing the account, change the password on your email account as well since the attacker may have accessed it first. Enable 2FA if not already active. Finally, check haveibeenpwned.com to determine which breach exposed your credentials and change passwords on any other accounts that shared the compromised password.',
+            },
+            {
+                heading: 'Choosing between bank app and browser banking',
+                body: 'Both your bank\'s mobile app and its website can be secure, but they carry different risk profiles. Mobile banking apps communicate through certificate-pinned connections that are harder to intercept than browser traffic. Apps also cannot be affected by browser-based attacks like phishing extensions or compromised bookmarks. However, a lost or stolen phone with a weak lock screen exposes your banking app. Browser banking works on any device but is vulnerable to phishing URLs, malicious browser extensions, and session hijacking on public WiFi. The safest approach is to use your bank\'s official mobile app on a phone protected by a strong PIN or biometric lock, keep the app updated, and never jailbreak or root your device. For browser banking, always type the bank URL directly rather than clicking links, and verify the padlock icon showing a valid HTTPS certificate.',
             },
         ],
     },
@@ -324,7 +364,10 @@ export const variants: ToolVariant[] = [
         defaults: { length: 14, uppercase: true, lowercase: true, numbers: true, symbols: true },
     },
 
-    /* ── By purpose ────────────────────────────────────── */
+    // ════════════════════════════════════════════════════════
+    // By purpose
+    // ════════════════════════════════════════════════════════
+
     {
         slug:           'bulk',
         seoTitle:       'Bulk Password Generator — Generate Multiple Passwords at Once | ToolKit',
@@ -434,6 +477,9 @@ export const variants: ToolVariant[] = [
             { q: 'What PINs should I avoid?', a: 'Never use: 1234, 1111, 0000, 1212, your birth year (1990, 1985, etc.), your birthday (0315 for March 15), repeated digits (7777), or sequential patterns (4567). These are the first combinations attackers try.' },
             { q: 'Is a PIN secure enough for my phone?', a: 'With rate limiting (increasing delays after wrong attempts and wipe after 10 failures), a random 6-digit PIN is secure for a phone. For maximum security, use a full alphanumeric password instead of a PIN.' },
             { q: 'Can I use the same PIN for my bank card and phone?', a: 'No — if someone observes you entering your phone PIN (shoulder surfing), they should not also have your bank PIN. Use different PINs for different purposes, and store them in a password manager if needed.' },
+            { q: 'What happens if I enter the wrong PIN too many times?', a: 'Most systems lock after 3-10 failed attempts. ATMs retain your card after 3 wrong PINs. iPhones disable for increasing intervals and can wipe after 10 failures. SIM cards lock permanently after 3 wrong PUK entries. These lockout mechanisms are what make short PINs viable.' },
+            { q: 'Is a longer PIN always better?', a: 'Up to a point. A 6-digit PIN is 100x stronger than 4 digits, and an 8-digit PIN is 10,000x stronger. Beyond 8 digits, the PIN becomes hard to memorize and slow to enter, reducing the usability advantage that PINs have over full passwords.' },
+            { q: 'How do I remember a random PIN?', a: 'Practice entering it manually 5-10 times when you first set it — muscle memory develops quickly for short number sequences. Avoid writing it on your phone or wallet. Store a backup in your password manager in case you forget.' },
         ],
         defaults: { length: 6, uppercase: false, lowercase: false, numbers: true, symbols: false },
         contentSections: [
@@ -452,6 +498,10 @@ export const variants: ToolVariant[] = [
             {
                 heading: 'Best practices for managing multiple PINs',
                 body: 'Most people need several PINs: bank card, credit card, phone lock screen, SIM card, alarm system, building access, and possibly a safe or parental controls. Using the same PIN across all these systems creates a single point of failure — someone who observes your phone PIN at a coffee shop (shoulder surfing) would also have your bank PIN. The solution is unique PINs for each critical system, stored in a password manager for reference. Prioritize memorizing only the PINs you enter frequently: phone lock screen and primary bank card. For PINs you rarely use (SIM PIN, safe combination), store them in your password manager and look them up when needed. When choosing which PINs to memorize, use spaced repetition — enter the PIN manually several times over the first few days rather than relying on biometric bypass, which would let you forget the PIN entirely.',
+            },
+            {
+                heading: 'PIN security on mobile devices',
+                body: 'Your phone PIN protects far more than just the device itself — it guards access to your email, banking apps, authenticator codes, photos, messages, and social media accounts. Modern smartphones implement hardware-backed security that makes PIN cracking extremely difficult even for sophisticated attackers. Apple\'s Secure Enclave and Android\'s Titan chip enforce rate limiting at the hardware level, meaning even if the operating system is compromised, the PIN attempt counter cannot be reset. After 10 failed attempts, many devices wipe all data automatically. Forensic tools used by law enforcement (like Cellebrite and GrayKey) can sometimes bypass these protections, but they require physical access, specialized equipment costing tens of thousands of dollars, and are limited to specific device models and OS versions. For the average user, a random 6-digit PIN combined with automatic wipe after failed attempts provides robust protection against theft and unauthorized access.',
             },
         ],
     },
