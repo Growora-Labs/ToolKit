@@ -131,7 +131,7 @@ const CategoryPage: NextPage<CategoryPageProps> = ({ category, tools }) => {
                     )}
 
                     {/* Content */}
-                    <div style={{ maxWidth: 720, marginBottom: 64 }}>
+                    <div style={{ marginBottom: 64 }}>
                         <section style={{ marginBottom: 48 }}>
                             <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
                                 {category.contentH2}

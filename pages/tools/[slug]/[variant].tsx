@@ -234,7 +234,7 @@ const VariantPage: NextPage<Props> = ({ tool, variant }) => {
 
           {/* Unique intro content + content sections */}
           <section style={{ maxWidth: 1000, margin: '48px auto 0', padding: '0 16px' }}>
-            <div style={{ maxWidth: 720 }}>
+            <div>
               <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 22px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
                 About this {variant.seoH1.toLowerCase()}
               </h2>
