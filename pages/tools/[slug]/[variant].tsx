@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
@@ -32,6 +33,54 @@ function VariantWidget({ tool, variant }: { tool: ToolMeta; variant: ToolVariant
   return null;
 }
 
+/* ── Collapsible variant list ─────────────────────────── */
+const VISIBLE_COUNT = 5;
+
+function VariantSidebar({ tool, currentSlug }: { tool: ToolMeta; currentSlug: string }) {
+  const [expanded, setExpanded] = useState(false);
+  const others = (tool.variants ?? []).filter(v => v.slug !== currentSlug);
+  if (others.length === 0) return null;
+
+  const visible = expanded ? others : others.slice(0, VISIBLE_COUNT);
+  const hiddenCount = others.length - VISIBLE_COUNT;
+
+  return (
+      <div style={{ padding: '16px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', boxShadow: 'var(--sh-xs)' }}>
+        <p style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--ink-4)', marginBottom: 10 }}>
+          More variants
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {visible.map(v => (
+              <Link
+                  key={v.slug}
+                  href={`/tools/${tool.slug}/${v.slug}`}
+                  style={{ fontSize: 13, color: 'var(--ink-2)', textDecoration: 'none', padding: '4px 0' }}
+              >
+                {v.seoH1} →
+              </Link>
+          ))}
+        </div>
+        {hiddenCount > 0 && (
+            <button
+                onClick={() => setExpanded(!expanded)}
+                style={{
+                  marginTop: 10,
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: 'var(--green)',
+                  padding: 0,
+                }}
+            >
+              {expanded ? 'Show less' : `Show all (+${hiddenCount} more)`}
+            </button>
+        )}
+      </div>
+  );
+}
+
 /* ── Static paths ─────────────────────────────────────── */
 export const getStaticPaths: GetStaticPaths = () => ({
   paths:    getAllVariantPaths(),
@@ -52,7 +101,6 @@ export const getStaticProps: GetStaticProps<Props> = ({ params }) => {
 
   if (!tool || !variant) return { notFound: true };
 
-  // Strip non-serializable fields (functions etc.) — registry is plain objects so fine
   return { props: { tool: JSON.parse(JSON.stringify(tool)), variant } };
 };
 
@@ -106,7 +154,6 @@ const VariantPage: NextPage<Props> = ({ tool, variant }) => {
         <Head>
           <title>{variant.seoTitle}</title>
           <meta name="description"         content={variant.seoDescription} />
-          {/* Canonical points to variant URL */}
           <link rel="canonical"            href={variantUrl} />
 
           <meta property="og:title"        content={variant.seoTitle} />
@@ -157,7 +204,7 @@ const VariantPage: NextPage<Props> = ({ tool, variant }) => {
                   {variant.seoDescription}
                 </p>
                 <div className="card a3" style={{ padding: 'clamp(16px, 3vw, 28px)' }}>
-                  <VariantWidget tool={tool} variant={variant} />
+                  <VariantWidget key={variant.slug} tool={tool} variant={variant} />
                 </div>
               </div>
 
@@ -180,26 +227,7 @@ const VariantPage: NextPage<Props> = ({ tool, variant }) => {
                 </div>
 
                 {/* Other variants */}
-                {(tool.variants ?? []).filter(v => v.slug !== variant.slug).length > 0 && (
-                    <div style={{ padding: '16px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', boxShadow: 'var(--sh-xs)' }}>
-                      <p style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--ink-4)', marginBottom: 10 }}>
-                        More variants
-                      </p>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                        {(tool.variants ?? [])
-                            .filter(v => v.slug !== variant.slug)
-                            .map(v => (
-                                <Link
-                                    key={v.slug}
-                                    href={`/tools/${tool.slug}/${v.slug}`}
-                                    style={{ fontSize: 13, color: 'var(--ink-2)', textDecoration: 'none', padding: '4px 0' }}
-                                >
-                                  {v.seoH1} →
-                                </Link>
-                            ))}
-                      </div>
-                    </div>
-                )}
+                <VariantSidebar tool={tool} currentSlug={variant.slug} />
               </aside>
             </div>
           </section>

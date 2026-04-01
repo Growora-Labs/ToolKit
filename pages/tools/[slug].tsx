@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
@@ -584,16 +585,22 @@ const ToolPage: NextPage<Props> = ({ tool }) => {
     );
 };
 
-/* ── Variant pages block ───────────────────────────────── */
+/* ── Variant pages block (collapsible) ─────────────────── */
+const VARIANTS_VISIBLE = 8;
+
 function ToolVariants({ tool }: { tool: ToolMeta }) {
+    const [expanded, setExpanded] = useState(false);
     const variants = tool.variants ?? [];
     if (variants.length === 0) return null;
+
+    const visible = expanded ? variants : variants.slice(0, VARIANTS_VISIBLE);
+    const hiddenCount = variants.length - VARIANTS_VISIBLE;
 
     return (
         <section style={{ maxWidth: 1000, margin: '48px auto 0', padding: '0 16px' }}>
             <p className="ov" style={{ marginBottom: 12 }}>Specialized versions</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 10 }}>
-                {variants.map(v => (
+                {visible.map(v => (
                     <a
                         key={v.slug}
                         href={`/tools/${tool.slug}/${v.slug}`}
@@ -608,6 +615,23 @@ function ToolVariants({ tool }: { tool: ToolMeta }) {
                     </a>
                 ))}
             </div>
+            {hiddenCount > 0 && (
+                <button
+                    onClick={() => setExpanded(!expanded)}
+                    style={{
+                        marginTop: 14,
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        fontSize: 14,
+                        fontWeight: 600,
+                        color: 'var(--green)',
+                        padding: 0,
+                    }}
+                >
+                    {expanded ? 'Show less' : `Show all ${variants.length} versions (+${hiddenCount} more)`}
+                </button>
+            )}
         </section>
     );
 }

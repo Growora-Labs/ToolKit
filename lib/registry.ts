@@ -1,4 +1,5 @@
 import type { ToolMeta } from './types';
+import { variants as passwordGeneratorVariants } from '@/tools/password-generator/variants';
 
 export const TOOLS: ToolMeta[] = [
   {
@@ -13,68 +14,7 @@ export const TOOLS: ToolMeta[] = [
     keywords:       ['password generator', 'strong password generator', 'random password generator', 'secure password generator', 'online password generator'],
     live:           true,
     featured:       true,
-    variants: [
-      {
-        slug:           'for-wifi',
-        seoTitle:       'WiFi Password Generator — Strong Passwords for Your Router | ToolKit',
-        seoH1:          'WiFi Password Generator',
-        seoDescription: 'Generate a strong, random WiFi password instantly. WPA2/WPA3 supports up to 63 characters — use all types for maximum security. Free, browser-based, no signup.',
-        intro:          'A WiFi password is one of the most important passwords in your home or office — it controls access to your entire network and every device on it. WPA2 and WPA3, the current wireless security standards, support passwords up to 63 characters. Unlike account passwords that need to be typed daily, a WiFi password is entered once per device, which means you can make it as long and random as possible without any usability penalty. This generator defaults to 20 characters with all character types enabled — the recommended setting for a residential or small business router. Avoid common mistakes like using your address, phone number, or a simple word. A strong WiFi password prevents unauthorized access, protects your bandwidth, and stops attackers from using your network as a vector for other attacks.',
-        faq: [
-          { q: 'How long should a WiFi password be?', a: 'WPA2 and WPA3 support 8–63 characters. Use at least 16 characters for a home network and 20+ for a business network. Longer is always better — you only need to type it once per device.' },
-          { q: 'What characters are allowed in a WiFi password?', a: 'WPA2/WPA3 passwords can include uppercase letters, lowercase letters, digits, and most special characters. Avoid characters that may cause issues on some devices: single quotes, double quotes, and backslashes.' },
-          { q: 'Do I need to change my WiFi password regularly?', a: 'Only if you suspect a breach — for example, after a guest has used it and you want to revoke access, or after a device has been compromised. Unlike account passwords, WiFi passwords do not need routine rotation.' },
-          { q: 'What is the difference between WPA2 and WPA3?', a: 'WPA3 is the newer standard with stronger encryption (SAE instead of PSK) and protection against brute-force attacks. If your router supports WPA3, enable it. If not, WPA2-AES is still considered secure with a strong password.' },
-          { q: 'Can my neighbors crack my WiFi password?', a: 'A 16+ character random password with mixed character types would take billions of years to crack with current hardware. The real risk is password reuse or easy-to-guess passwords — not brute force against a strong random one.' },
-        ],
-        defaults: { length: 20, uppercase: true, lowercase: true, numbers: true, symbols: true },
-      },
-      {
-        slug:           'for-testing',
-        seoTitle:       'Password Generator for Testing — Realistic Test Passwords | ToolKit',
-        seoH1:          'Password Generator for Testing & Development',
-        seoDescription: 'Generate realistic test passwords for development and QA. Configurable length and character sets. Browser-based, no data stored. Free, no signup.',
-        intro:          'When building or testing authentication systems, the passwords you use in your test data matter more than most developers realize. Using "password", "test123", or "admin" in test accounts creates two problems: it trains muscle memory for weak passwords, and it risks those credentials leaking into production via database seeds or exported fixtures. A realistic test password — 12-16 characters with mixed types — also validates that your input fields, password strength meters, and hashing functions handle real-world values correctly. Truncation bugs, encoding issues with special characters, and bcrypt length limits (72 bytes) are all easier to catch with realistic passwords. This generator lets you configure exactly the character set and length you need for your test scenarios, from simple alphanumeric passwords to full-complexity strings that stress-test your validation logic.',
-        faq: [
-          { q: 'What password length should I use for test data?', a: 'Match what real users will create — 12-20 characters covers the realistic range. Also test edge cases: the minimum allowed length (usually 8), the maximum (often 64 or 128), and lengths that would exceed bcrypt\'s 72-byte limit.' },
-          { q: 'Should test passwords include special characters?', a: 'Yes — special characters expose encoding bugs, escaping issues in SQL/HTML, and validation logic errors. Test with characters like !@#$%^&* and also with edge cases like quotes and backslashes.' },
-          { q: 'Can I use the same test password across environments?', a: 'Use different passwords for development, staging, and production test accounts. Never seed a production database with the same credentials used in development.' },
-          { q: 'What is bcrypt\'s 72-byte password limit?', a: 'bcrypt truncates input at 72 bytes. This means passwords longer than ~72 ASCII characters are silently treated as identical after that point. If your app uses bcrypt, test this boundary explicitly.' },
-          { q: 'How do I generate bulk test passwords?', a: 'Click the generator multiple times, or use the copy button for each. For programmatic bulk generation, use crypto.randomUUID() for simple tokens or the Web Crypto API\'s getRandomValues() for full password generation in Node.js or the browser.' },
-        ],
-        defaults: { length: 16, uppercase: true, lowercase: true, numbers: true, symbols: true },
-      },
-      {
-        slug:           'strong-20-characters',
-        seoTitle:       'Strong 20 Character Password Generator — High-Security Passwords | ToolKit',
-        seoH1:          '20 Character Password Generator',
-        seoDescription: 'Generate strong 20-character passwords instantly. 20 characters with mixed types gives ~131 bits of entropy — effectively uncrackable. Free, browser-based, no signup.',
-        intro:          'A 20-character random password with uppercase letters, lowercase letters, numbers, and symbols provides approximately 131 bits of entropy. To put that in perspective: even if every computer on Earth attempted a trillion guesses per second, cracking it would take longer than the current age of the universe. The NIST Digital Identity Guidelines recommend at least 15 characters for general accounts — 20 characters gives you a significant safety margin above that threshold. Twenty characters is also the sweet spot between security and usability: long enough to be essentially uncrackable, short enough to copy-paste or type without excessive effort. This generator defaults to exactly 20 characters with all four character sets enabled, producing the highest-entropy output this length allows.',
-        faq: [
-          { q: 'How secure is a 20-character password?', a: 'A 20-character password using all character types has approximately 131 bits of entropy. At 10 billion guesses per second (a high-end GPU attack), cracking it would take around 10²⁰ years — effectively impossible with any foreseeable technology.' },
-          { q: 'Is 20 characters enough for all accounts?', a: 'Yes — 20 characters exceeds the NIST recommendation of 15 characters and is sufficient for any current use case including banking, email, and cloud storage. For extremely sensitive accounts, you can go up to 32 or 64 characters.' },
-          { q: 'Do all websites accept 20-character passwords?', a: 'Most modern websites accept passwords up to 64 characters (NIST recommendation for maximum length). Some older systems have lower limits — typically 32 or 20 characters. If a site rejects your password, try reducing to 16 characters first.' },
-          { q: 'What is the entropy of a 20-character password?', a: 'With 95 printable ASCII characters available (uppercase, lowercase, digits, symbols), each character contributes log₂(95) ≈ 6.57 bits of entropy. 20 characters × 6.57 = ~131 bits total.' },
-          { q: 'Should I use 20 characters or a passphrase?', a: 'A 20-character random password is stronger per character but impossible to memorize. Use it for any password stored in a manager. Use a passphrase only for the few passwords you must type manually — like your password manager master password.' },
-        ],
-        defaults: { length: 20, uppercase: true, lowercase: true, numbers: true, symbols: true },
-      },
-      {
-        slug:           'no-symbols',
-        seoTitle:       'Password Generator Without Symbols — Letters & Numbers Only | ToolKit',
-        seoH1:          'Password Generator Without Special Characters',
-        seoDescription: 'Generate strong passwords without symbols — letters and numbers only. Ideal for systems that reject special characters. Free, browser-based, no signup.',
-        intro:          'Some systems still restrict passwords to letters and numbers only — older enterprise software, legacy banking portals, certain IoT device interfaces, and some government systems reject special characters entirely. While symbol-free passwords have lower entropy per character, you can compensate by increasing length. A 20-character alphanumeric password using uppercase and lowercase letters plus digits has approximately 119 bits of entropy — still effectively uncrackable. This generator defaults to 20 characters with uppercase, lowercase, and numbers enabled, and symbols disabled. If the system requires only letters (no numbers either), increase the length further to at least 24 characters to maintain adequate entropy.',
-        faq: [
-          { q: 'Why do some sites not allow special characters in passwords?', a: 'Usually legacy technical reasons: old databases with character encoding issues, systems that insert passwords into SQL queries without proper parameterization, or input validation written before modern security standards. NIST explicitly recommends that sites accept all printable ASCII characters.' },
-          { q: 'How long should a password be without symbols?', a: 'Without symbols, use at least 18-20 characters to maintain strong entropy. With only letters and numbers (62 possible characters), each character contributes about 5.95 bits of entropy. 20 characters gives ~119 bits — still very strong.' },
-          { q: 'Is a password without symbols still secure?', a: 'Yes, if it is long enough and truly random. The key word is random — "HelloWorld123" has no symbols but is extremely weak because it follows a predictable pattern. A randomly generated 20-character alphanumeric string is very strong.' },
-          { q: 'Can I use only lowercase letters for a password?', a: 'Only if forced to and only with extreme length (30+ characters). Lowercase-only passwords have just 26 possible characters per position (~4.7 bits each), requiring 17+ characters to reach 80 bits of entropy.' },
-          { q: 'What if the site also rejects certain letters?', a: 'Some systems reject letters that look like numbers (O, 0, I, l) to avoid confusion. If needed, generate a password and manually replace any ambiguous characters — or increase length to compensate for the reduced character set.' },
-        ],
-        defaults: { length: 20, uppercase: true, lowercase: true, numbers: true, symbols: false },
-      },
-    ],
+    variants:       passwordGeneratorVariants
   },
   {
     slug:           'word-counter',
