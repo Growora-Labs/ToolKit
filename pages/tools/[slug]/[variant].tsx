@@ -232,7 +232,7 @@ const VariantPage: NextPage<Props> = ({ tool, variant }) => {
             </div>
           </section>
 
-          {/* Unique intro content */}
+          {/* Unique intro content + content sections */}
           <section style={{ maxWidth: 1000, margin: '48px auto 0', padding: '0 16px' }}>
             <div style={{ maxWidth: 720 }}>
               <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 22px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
@@ -241,6 +241,17 @@ const VariantPage: NextPage<Props> = ({ tool, variant }) => {
               <p style={{ fontSize: 15, lineHeight: 1.8, color: 'var(--ink-2)' }}>
                 {variant.intro}
               </p>
+
+              {(variant.contentSections ?? []).map((section, i) => (
+                  <div key={i} style={{ marginTop: 32 }}>
+                    <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(17px, 2.2vw, 20px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 12 }}>
+                      {section.heading}
+                    </h2>
+                    <p style={{ fontSize: 15, lineHeight: 1.8, color: 'var(--ink-2)' }}>
+                      {section.body}
+                    </p>
+                  </div>
+              ))}
             </div>
           </section>
 

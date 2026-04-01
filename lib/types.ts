@@ -15,14 +15,20 @@ export interface ToolMeta {
   variants?:      ToolVariant[];
 }
 
+export interface VariantContentSection {
+  heading: string;
+  body:    string;
+}
+
 export interface ToolVariant {
-  slug:           string;   // URL segment: "for-wifi"
-  seoTitle:       string;
-  seoH1:          string;
-  seoDescription: string;
-  intro:          string;   // 150-200 words unique intro paragraph
-  faq:            FaqItem[];
-  defaults?:      Record<string, unknown>; // tool-specific preset values
+  slug:            string;
+  seoTitle:        string;
+  seoH1:           string;
+  seoDescription:  string;
+  intro:           string;
+  faq:             FaqItem[];
+  defaults?:       Record<string, unknown>;
+  contentSections?: VariantContentSection[];
 }
 
 export type ToolCategory =

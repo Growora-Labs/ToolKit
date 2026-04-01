@@ -1,5 +1,6 @@
 import type { ToolVariant } from '@/lib/types';
 
+
 export const variants: ToolVariant[] = [
     /* ── Existing 4 ────────────────────────────────────── */
     {
@@ -16,6 +17,24 @@ export const variants: ToolVariant[] = [
             { q: 'Can my neighbors crack my WiFi password?', a: 'A 16+ character random password with mixed character types would take billions of years to crack with current hardware. The real risk is password reuse or easy-to-guess passwords — not brute force against a strong random one.' },
         ],
         defaults: { length: 20, uppercase: true, lowercase: true, numbers: true, symbols: true },
+        contentSections: [
+            {
+                heading: 'WPA2 and WPA3 password requirements',
+                body: 'The Wi-Fi Protected Access protocols — WPA2 and WPA3 — define the rules for wireless network passwords. Both standards accept passwords between 8 and 63 characters using any printable ASCII character. WPA2 uses the PSK (Pre-Shared Key) method where the password is combined with the network name (SSID) to derive the actual encryption key through PBKDF2 with 4,096 iterations of SHA-1. WPA3 replaces this with SAE (Simultaneous Authentication of Equals), which provides stronger protection against offline dictionary attacks even if the password is relatively short. Regardless of which protocol your router uses, a longer and more random password directly increases the computational cost of any brute-force attempt. The 63-character upper limit exists because the standard encodes the password as a sequence of ASCII bytes, and 63 bytes is the maximum the protocol frame can carry.',
+            },
+            {
+                heading: 'How to change your WiFi password safely',
+                body: 'Changing your WiFi password is straightforward but requires a few precautions to avoid locking yourself out. First, connect to your router via Ethernet cable or note the current WiFi password before changing it. Access your router admin panel — usually at 192.168.0.1 or 192.168.1.1 — and navigate to the wireless security section. Generate a new password using this tool, paste it into the router settings, and save. Then reconnect each device using the new password. Start with the device you are currently using to confirm the new password works before updating phones, tablets, smart home devices, and guest devices. For smart home devices (thermostats, cameras, speakers), you may need to run their setup process again. Keep the new password in your password manager — not on a sticky note attached to the router.',
+            },
+            {
+                heading: 'Common WiFi password mistakes to avoid',
+                body: 'The most common WiFi password mistake is using personally identifiable information: your street address, apartment number, phone number, or family name followed by a year. Wardrivers — people who scan for WiFi networks from their car — specifically target networks with SSIDs like "SmithFamily" and try predictable passwords first. The second mistake is using the default password printed on the router. While these look random, manufacturers often generate them from limited character sets or patterns that have been reverse-engineered. The third mistake is sharing your main WiFi password with guests instead of setting up a guest network. Most modern routers support a separate guest network with its own password and isolated access — guests get internet but cannot reach your local devices, printers, or file shares.',
+            },
+            {
+                heading: 'WiFi password security by the numbers',
+                body: 'The strength of a WiFi password depends entirely on its length and randomness. An 8-character password using only lowercase letters has roughly 26^8 (about 209 billion) possible combinations — a modern GPU can test these in under an hour against a captured WPA2 handshake. Increase to 12 characters with mixed types and the combinations jump to 95^12 (about 5.4 × 10^23), requiring thousands of years to exhaust. At 20 characters with all types, you reach approximately 131 bits of entropy — a number so large that brute force is not a viable attack vector with any known or foreseeable technology. The key takeaway: for WiFi passwords, length matters more than complexity. A 20-character password using only letters and numbers is stronger than a 10-character password using every symbol on the keyboard.',
+            },
+        ],
     },
     {
         slug:           'for-testing',
@@ -46,6 +65,24 @@ export const variants: ToolVariant[] = [
             { q: 'Should I use 20 characters or a passphrase?', a: 'A 20-character random password is stronger per character but impossible to memorize. Use it for any password stored in a manager. Use a passphrase only for the few passwords you must type manually — like your password manager master password.' },
         ],
         defaults: { length: 20, uppercase: true, lowercase: true, numbers: true, symbols: true },
+        contentSections: [
+            {
+                heading: 'Understanding 131 bits of entropy',
+                body: 'When we say a 20-character password with all character types has approximately 131 bits of entropy, we mean there are 2^131 possible passwords — roughly 2.7 × 10^39 combinations. To appreciate this scale, consider that the estimated number of atoms in the observable universe is about 10^80. If every atom in the solar system were a supercomputer performing a trillion password guesses per second, testing all combinations would still take longer than the current age of the universe. This is not a theoretical exercise — it means that brute-force attacks against a properly generated 20-character random password are not merely difficult but physically impossible with any computing technology that obeys the laws of thermodynamics.',
+            },
+            {
+                heading: 'Why 20 characters hits the sweet spot',
+                body: 'Password length involves a trade-off between security and usability. Eight characters is demonstrably too short — modern GPUs crack 8-character passwords in hours. Twelve characters is adequate but provides no margin for future advances in computing. Sixteen characters is strong but sometimes truncated by older systems without warning. Twenty characters provides 131 bits of entropy — well above the 128-bit threshold that the cryptography community considers secure for the foreseeable future, including against quantum computing attacks using Grover algorithm (which would halve the effective entropy to approximately 65 bits, still requiring centuries to brute-force). At the same time, 20 characters is short enough to copy-paste without difficulty and fits comfortably in any password field.',
+            },
+            {
+                heading: 'NIST guidelines and password length recommendations',
+                body: 'The National Institute of Standards and Technology (NIST) publishes the most widely referenced password guidelines through Special Publication 800-63B. The current revision recommends that systems accept passwords of at least 64 characters and require a minimum of 8 characters. However, NIST explicitly notes that longer passwords are exponentially more secure and that users should be encouraged to use passwords well above the minimum. The European Union Agency for Cybersecurity (ENISA) recommends at least 14 characters for personal accounts. Microsoft recommends at least 12 characters for consumer accounts and 14 or more for organizational accounts. A 20-character random password exceeds every major guideline by a significant margin, future-proofing your security against evolving recommendations.',
+            },
+            {
+                heading: 'When to use more than 20 characters',
+                body: 'Twenty characters is sufficient for virtually every personal and business account, but there are specific use cases where longer passwords provide meaningful additional value. Encryption key passphrases (full-disk encryption, file encryption) benefit from 32 or more characters because they protect data at rest that may be attacked offline for years. API keys and service account passwords should use 32-64 characters because they are never typed manually and the additional length costs nothing in usability. Database connection passwords should be at least 32 characters because a database breach exposes every record in the system. Root and administrator accounts for infrastructure should use the maximum length the system accepts. For everything else — email, social media, banking, shopping, streaming — 20 characters with all types is more than sufficient.',
+            },
+        ],
     },
     {
         slug:           'no-symbols',
@@ -135,6 +172,24 @@ export const variants: ToolVariant[] = [
             { q: 'What is the difference between a PIN and a numeric password?', a: 'A PIN (Personal Identification Number) is typically 4-8 digits and used with a physical token (card, phone). A numeric password can be any length and is used alone for authentication. PINs rely on rate limiting for security; numeric passwords rely on length.' },
         ],
         defaults: { length: 16, uppercase: false, lowercase: false, numbers: true, symbols: false },
+        contentSections: [
+            {
+                heading: 'Entropy comparison: numeric vs mixed passwords',
+                body: 'The security of a password is measured in bits of entropy, which depends on the size of the character set and the password length. A single digit (0-9) provides log₂(10) ≈ 3.32 bits of entropy. A single character from the full printable ASCII set (95 characters including letters, digits, and symbols) provides log₂(95) ≈ 6.57 bits. This means a numeric password needs to be roughly twice as long as a mixed-character password to achieve the same security level. For example, a 12-character mixed password has about 79 bits of entropy, while reaching the same level with digits alone requires approximately 24 digits. A 16-digit numeric password provides about 53 bits of entropy — equivalent to a mixed password of roughly 8 characters. When you are forced to use numeric-only input, always compensate by increasing the length significantly.',
+            },
+            {
+                heading: 'Where numeric-only passwords are required',
+                body: 'Several common systems restrict input to digits only. ATM and debit card PINs are the most universal example — physical keypads with only 0-9 buttons make mixed characters impossible. Phone lock screens default to numeric PINs because the digit keypad allows faster unlocking than a full keyboard. Safe and vault combinations use mechanical dials or electronic keypads with numeric input. Building access systems and garage door openers typically accept 4-8 digit codes. SIM card PINs (used when the phone restarts) are limited to 4-8 digits. Some older voicemail systems require numeric passwords entered via telephone keypad. Parental control PINs on streaming services, gaming consoles, and smart TVs also use numeric-only input. In all these cases, the physical input mechanism — not a security policy — dictates the numeric constraint.',
+            },
+            {
+                heading: 'Rate limiting: why short PINs can still be secure',
+                body: 'A 4-digit PIN has only 10,000 possible combinations — a computer could test all of them in a fraction of a second. Yet ATM PINs have protected bank accounts for over 50 years. The reason is rate limiting: the ATM locks the card after 3 failed attempts, the bank flags the account after suspicious activity, and physical access to the card is required. This reduces the effective attack from 10,000 attempts to just 3, making even a 4-digit PIN adequate. The same principle applies to phone lock screens — iOS introduces increasing delays after failed attempts and can wipe the device after 10 failures. However, rate limiting only works when the system enforces it. If an attacker obtains a hashed numeric password from a database breach, they can test all combinations offline without rate limiting. This is why numeric passwords for online accounts should be at least 16-20 digits — offline attacks face no attempt limits.',
+            },
+            {
+                heading: 'Avoiding predictable number patterns',
+                body: 'Research analyzing millions of leaked PINs consistently reveals the same patterns. The most common 4-digit PINs are 1234, 1111, 0000, 1212, 7777, 1004, 2000, 4444, 2222, and 6969 — together these account for over 20% of all PINs in use. Birth years (1985, 1990, 1992) and dates in MMDD format (0315 for March 15) are also extremely common. Sequential patterns (1234, 5678, 2468), repeated digits (3333, 8888), and phone keypad patterns (2580 — a straight line down the middle) are among the first combinations attackers try. The only reliable defense against pattern-based attacks is true randomness. A randomly generated PIN from this tool has an equal probability of being any combination, including "unlikely" looking ones like 7301 or 0849 that humans would rarely choose on their own.',
+            },
+        ],
     },
     {
         slug:           'letters-only',
@@ -193,6 +248,24 @@ export const variants: ToolVariant[] = [
             { q: 'Is my bank password the most important one?', a: 'Your email password is arguably more important — an attacker who controls your email can reset any password, including your bank. Prioritize both your email and bank passwords, and use unique passwords for each.' },
         ],
         defaults: { length: 16, uppercase: true, lowercase: true, numbers: true, symbols: true },
+        contentSections: [
+            {
+                heading: 'Why banking passwords face unique threats',
+                body: 'Banking passwords are targeted differently than other passwords. While a compromised Netflix account might cost you a monthly subscription, a compromised bank account can drain your savings in minutes. The primary attack vector is not brute force — banks implement lockout policies after 3-5 failed attempts. Instead, attackers use credential stuffing: automated tools that test email and password combinations leaked from other breaches against banking login portals. In 2024 alone, over 26 billion records were exposed in data breaches worldwide. If your bank password matches a password used on any breached service, your account is at risk regardless of how complex that password appears. This is why the most important property of a bank password is not its complexity but its uniqueness — it must exist nowhere else in the digital world.',
+            },
+            {
+                heading: 'Two-factor authentication for financial accounts',
+                body: 'A strong password is necessary but not sufficient for banking security. Two-factor authentication (2FA) adds a second verification step — something you have in addition to something you know. The strongest option is a hardware security key (YubiKey, Titan) which is immune to phishing. Next is an authenticator app (Google Authenticator, Authy, Microsoft Authenticator) which generates time-based codes on your phone. SMS-based 2FA is better than no 2FA but is vulnerable to SIM swapping attacks where an attacker convinces your phone carrier to transfer your number to their SIM card. Many banks now support push notification verification through their mobile app, which is more secure than SMS. If your bank offers any form of 2FA, enable it immediately — it transforms a single point of failure into a system that requires two independent compromises.',
+            },
+            {
+                heading: 'Legacy banking system limitations',
+                body: 'Many banks run their core systems on decades-old mainframe software — COBOL applications on IBM zSeries hardware that have been continuously maintained since the 1970s and 1980s. These systems often impose password restrictions that modern security standards would not recommend: maximum lengths of 12-16 characters, no special characters allowed, case-insensitive comparison, or limited character sets. When you encounter these restrictions, maximize what you can control. If the bank limits you to 12 alphanumeric characters, use all 12 with mixed case and numbers. If only 8 characters are allowed, enable every character type available and ensure the password is completely random rather than based on dictionary words. Even within tight constraints, a random password generated by this tool is orders of magnitude stronger than a human-chosen password of the same length.',
+            },
+            {
+                heading: 'What to do if your bank account is compromised',
+                body: 'If you suspect unauthorized access to your bank account, act within minutes — speed matters. First, log in immediately and change your password to a new randomly generated one. If you cannot log in, call your bank fraud department directly using the number on the back of your debit card, not a number found through a web search (phishing sites mimic bank support pages). Request a temporary freeze on all transactions. Review recent transactions for any you did not authorize — banks typically have a 60-day window for disputing unauthorized transactions under Regulation E in the US. After securing the account, change the password on your email account as well since the attacker may have accessed it first. Enable 2FA if not already active. Finally, check haveibeenpwned.com to determine which breach exposed your credentials and change passwords on any other accounts that shared the compromised password.',
+            },
+        ],
     },
     {
         slug:           'for-email',
@@ -363,6 +436,24 @@ export const variants: ToolVariant[] = [
             { q: 'Can I use the same PIN for my bank card and phone?', a: 'No — if someone observes you entering your phone PIN (shoulder surfing), they should not also have your bank PIN. Use different PINs for different purposes, and store them in a password manager if needed.' },
         ],
         defaults: { length: 6, uppercase: false, lowercase: false, numbers: true, symbols: false },
+        contentSections: [
+            {
+                heading: 'The mathematics behind PIN security',
+                body: 'A PIN code is a simplified password with a severely limited character set — just 10 digits (0-9). The security mathematics are straightforward: a 4-digit PIN has 10^4 = 10,000 possible combinations, a 6-digit PIN has 10^6 = 1,000,000 combinations, and an 8-digit PIN has 10^8 = 100,000,000 combinations. Each additional digit multiplies the search space by exactly 10. In terms of entropy, a 4-digit PIN provides approximately 13.3 bits, a 6-digit PIN provides 19.9 bits, and an 8-digit PIN provides 26.6 bits. These are low numbers compared to full passwords, which is why PINs always rely on additional security measures: physical possession of a card or device, rate limiting on failed attempts, and in many cases biometric verification as an alternative. The PIN is not meant to be uncrackable in isolation — it is one factor in a multi-factor system.',
+            },
+            {
+                heading: '4-digit vs 6-digit vs 8-digit PINs',
+                body: 'The jump from 4 to 6 digits increases the number of possible combinations by a factor of 100 — from 10,000 to 1,000,000. This matters significantly for phone lock screens where an attacker might have physical access and time to attempt guesses (even with rate limiting delays). Apple switched to 6-digit PINs as the default in iOS 9, and Google followed for Android devices. For banking, most ATMs still use 4-digit PINs because the card itself serves as a second factor and ATMs lock after 3 failed attempts. Eight-digit PINs are less common but appear in some enterprise systems, high-security door access panels, and certain safe models. The extra digits provide 100 million combinations but are harder to memorize, so they are typically used only where the PIN is entered infrequently. For phone lock screens, 6 digits is the current best practice — a good balance between security and the dozens of daily unlocks.',
+            },
+            {
+                heading: 'PIN codes in multi-factor authentication',
+                body: 'PINs rarely function as standalone security. They are almost always combined with another authentication factor to create a system stronger than either factor alone. ATM transactions require both the physical card (something you have) and the PIN (something you know). Phone lock screens combine the PIN with the device itself — and often add biometric authentication (fingerprint, face recognition) as a convenience layer. Chip-and-PIN credit cards verify both the embedded chip and the PIN at the point of sale terminal. Windows Hello for Business combines a PIN with the specific device hardware through the TPM (Trusted Platform Module) chip, meaning the PIN only works on that specific computer. This multi-factor approach is why a 4-6 digit PIN provides acceptable security despite its mathematical simplicity — compromising the system requires defeating multiple independent security layers simultaneously.',
+            },
+            {
+                heading: 'Best practices for managing multiple PINs',
+                body: 'Most people need several PINs: bank card, credit card, phone lock screen, SIM card, alarm system, building access, and possibly a safe or parental controls. Using the same PIN across all these systems creates a single point of failure — someone who observes your phone PIN at a coffee shop (shoulder surfing) would also have your bank PIN. The solution is unique PINs for each critical system, stored in a password manager for reference. Prioritize memorizing only the PINs you enter frequently: phone lock screen and primary bank card. For PINs you rarely use (SIM PIN, safe combination), store them in your password manager and look them up when needed. When choosing which PINs to memorize, use spaced repetition — enter the PIN manually several times over the first few days rather than relying on biometric bypass, which would let you forget the PIN entirely.',
+            },
+        ],
     },
     {
         slug:           'for-database',
