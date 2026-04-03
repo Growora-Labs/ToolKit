@@ -21,14 +21,15 @@ export interface VariantContentSection {
 }
 
 export interface ToolVariant {
-  slug:            string;
-  seoTitle:        string;
-  seoH1:           string;
-  seoDescription:  string;
-  intro:           string;
-  faq:             FaqItem[];
-  defaults?:       Record<string, unknown>;
+  slug:             string;
+  seoTitle:         string;
+  seoH1:            string;
+  seoDescription:   string;
+  intro:            string;
+  faq:              FaqItem[];
+  defaults?:        Record<string, unknown>;
   contentSections?: VariantContentSection[];
+  relatedVariants?: string[];
 }
 
 export type ToolCategory =

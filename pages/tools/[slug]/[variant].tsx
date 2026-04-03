@@ -88,9 +88,15 @@ export const getStaticPaths: GetStaticPaths = () => ({
 });
 
 /* ── Static props ─────────────────────────────────────── */
+interface RelatedVariantItem {
+  slug:   string;
+  seoH1:  string;
+}
+
 interface Props {
-  tool:    ToolMeta;
-  variant: ToolVariant;
+  tool:                ToolMeta;
+  variant:             ToolVariant;
+  relatedVariantItems: RelatedVariantItem[];
 }
 
 export const getStaticProps: GetStaticProps<Props> = ({ params }) => {
@@ -101,11 +107,18 @@ export const getStaticProps: GetStaticProps<Props> = ({ params }) => {
 
   if (!tool || !variant) return { notFound: true };
 
-  return { props: { tool: JSON.parse(JSON.stringify(tool)), variant } };
+  const relatedVariantItems: RelatedVariantItem[] = (variant.relatedVariants ?? [])
+      .map(s => {
+        const v = (tool.variants ?? []).find(x => x.slug === s);
+        return v ? { slug: v.slug, seoH1: v.seoH1 } : null;
+      })
+      .filter((x): x is RelatedVariantItem => x !== null);
+
+  return { props: { tool: JSON.parse(JSON.stringify(tool)), variant, relatedVariantItems } };
 };
 
 /* ── Page ─────────────────────────────────────────────── */
-const VariantPage: NextPage<Props> = ({ tool, variant }) => {
+const VariantPage: NextPage<Props> = ({ tool, variant, relatedVariantItems }) => {
   const toolUrl      = `${BASE_URL}/tools/${tool.slug}`;
   const variantUrl   = `${toolUrl}/${variant.slug}`;
   const categoryHref = CATEGORY_SLUGS[tool.category] ?? '/tools';
@@ -254,6 +267,40 @@ const VariantPage: NextPage<Props> = ({ tool, variant }) => {
               ))}
             </div>
           </section>
+
+          {/* Related variants */}
+          {relatedVariantItems.length > 0 && (
+              <section style={{ maxWidth: 1000, margin: '48px auto 0', padding: '0 16px' }}>
+                <p style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--ink-4)', marginBottom: 14 }}>
+                  Related variants
+                </p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+                  {relatedVariantItems.map(rv => (
+                      <Link
+                          key={rv.slug}
+                          href={`/tools/${tool.slug}/${rv.slug}`}
+                          style={{
+                            display:        'inline-flex',
+                            alignItems:     'center',
+                            gap:            6,
+                            padding:        '8px 14px',
+                            background:     'var(--white)',
+                            border:         '1px solid var(--border)',
+                            borderRadius:   'var(--r-m)',
+                            fontSize:       13,
+                            fontWeight:     500,
+                            color:          'var(--ink-2)',
+                            textDecoration: 'none',
+                            boxShadow:      'var(--sh-xs)',
+                            transition:     'border-color 0.15s, color 0.15s',
+                          }}
+                      >
+                        {rv.seoH1} →
+                      </Link>
+                  ))}
+                </div>
+              </section>
+          )}
 
           {/* FAQ */}
           {variant.faq.length > 0 && (

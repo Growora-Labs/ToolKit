@@ -23,6 +23,7 @@ export const variants: ToolVariant[] = [
             { q: 'What is the best WiFi password for a small business?', a: 'Use at least 20 characters with all character types. Set up a separate guest network for customers and visitors. For employees, consider WPA3-Enterprise with individual credentials per person rather than a shared password.' },
         ],
         defaults: { length: 20, uppercase: true, lowercase: true, numbers: true, symbols: true },
+        relatedVariants: ['strong-20-characters', 'for-bank', 'no-symbols', 'for-testing'],
         contentSections: [
             {
                 heading: 'WPA2 and WPA3 password requirements',
@@ -63,6 +64,7 @@ export const variants: ToolVariant[] = [
             { q: 'How do I test password strength meters?', a: 'Generate passwords at known entropy levels: 8 chars lowercase (~37 bits, should show "weak"), 12 chars mixed (~79 bits, "fair" to "strong"), 20 chars all types (~131 bits, "very strong"). Verify the meter responds correctly to each.' },
         ],
         defaults: { length: 16, uppercase: true, lowercase: true, numbers: true, symbols: true },
+        relatedVariants: ['for-database', 'alphanumeric', 'bulk', 'no-symbols'],
         contentSections: [
             {
                 heading: 'Why "test123" is dangerous in your codebase',
@@ -103,6 +105,7 @@ export const variants: ToolVariant[] = [
             { q: 'Can I use a 20-character password for my password manager master password?', a: 'You can, but since you need to type it from memory, a 5-6 word passphrase may be more practical. If you can reliably memorize a 20-character random string, it provides excellent security for a master password.' },
         ],
         defaults: { length: 20, uppercase: true, lowercase: true, numbers: true, symbols: true },
+        relatedVariants: ['for-wifi', 'for-bank', 'for-email', 'for-ssh'],
         contentSections: [
             {
                 heading: 'Understanding 131 bits of entropy',
@@ -143,6 +146,7 @@ export const variants: ToolVariant[] = [
             { q: 'Is an alphanumeric password safe for banking?', a: 'Yes, if long enough. A 20-character alphanumeric password (~119 bits) is stronger than a 16-character password with symbols (~105 bits). Length compensates fully for the absence of symbols. Combine with 2FA for maximum security.' },
         ],
         defaults: { length: 20, uppercase: true, lowercase: true, numbers: true, symbols: false },
+        relatedVariants: ['alphanumeric', 'for-database', 'for-ssh', 'for-testing'],
         contentSections: [
             {
                 heading: 'Why some systems reject special characters',
@@ -187,6 +191,7 @@ export const variants: ToolVariant[] = [
             { q: 'Why does my company still require exactly 8 characters?', a: 'Some legacy enterprise systems (particularly mainframe-based ones) store passwords in fixed-width fields. Active Directory historically had issues with passwords beyond certain lengths in older versions. Advocate for upgrading — modern systems should support at least 64 characters per NIST guidelines.' },
         ],
         defaults: { length: 8, uppercase: true, lowercase: true, numbers: true, symbols: true },
+        relatedVariants: ['12-characters', 'pin-code', 'for-temporary', 'for-kids'],
         contentSections: [
             {
                 heading: 'The real-world risk of 8-character passwords',
@@ -226,6 +231,7 @@ export const variants: ToolVariant[] = [
             { q: 'Why do Google and Microsoft recommend 12 characters?', a: 'Both companies analyzed billions of authentication attempts and found that 12 characters with mixed types provides a practical balance between security and user compliance. Shorter passwords lead to higher breach rates; longer ones lead to more password resets and support tickets.' },
         ],
         defaults: { length: 12, uppercase: true, lowercase: true, numbers: true, symbols: true },
+        relatedVariants: ['strong-20-characters', '8-characters', '32-characters', 'for-work'],
         contentSections: [
             {
                 heading: 'Why 12 characters is the modern minimum',
@@ -265,6 +271,7 @@ export const variants: ToolVariant[] = [
             { q: 'Can 32-character passwords cause issues?', a: 'Rarely. Most modern systems handle 32+ characters correctly. The main risk is legacy systems that silently truncate — always verify by logging in with the full password immediately after setting it. MySQL native auth limits passwords to 32 characters; use mysql_native_password plugin for longer.' },
         ],
         defaults: { length: 32, uppercase: true, lowercase: true, numbers: true, symbols: true },
+        relatedVariants: ['64-characters', 'for-database', 'for-ssh', 'for-crypto'],
         contentSections: [
             {
                 heading: '32 characters in the context of encryption standards',
@@ -305,6 +312,7 @@ export const variants: ToolVariant[] = [
             { q: 'Is there any attack that can crack a 64-character random password?', a: 'No realistic attack exists. Even with Grover\'s quantum algorithm reducing ~420 bits to ~210 effective bits, and even with all current computational resources on Earth, exhausting the search space would take longer than the age of the universe. The threat model for these passwords is focused on storage and access control, not cracking.' },
         ],
         defaults: { length: 64, uppercase: true, lowercase: true, numbers: true, symbols: true },
+        relatedVariants: ['32-characters', 'for-ssh', 'for-crypto', 'for-database'],
         contentSections: [
             {
                 heading: 'What 420 bits of entropy actually means',
@@ -349,6 +357,7 @@ export const variants: ToolVariant[] = [
             { q: 'How do I generate a truly random number?', a: 'This tool uses the Web Crypto API (window.crypto.getRandomValues), which provides cryptographically secure random numbers. Do not use Math.random() in JavaScript — it is not cryptographically secure and produces predictable sequences.' },
         ],
         defaults: { length: 16, uppercase: false, lowercase: false, numbers: true, symbols: false },
+        relatedVariants: ['pin-code', '8-characters', 'for-bank', 'for-temporary'],
         contentSections: [
             {
                 heading: 'Entropy comparison: numeric vs mixed passwords',
@@ -389,6 +398,7 @@ export const variants: ToolVariant[] = [
             { q: 'What is the uppercase-only character set entropy per character?', a: 'Uppercase only (26 characters) provides log₂(26) ≈ 4.7 bits per character. A 20-character uppercase-only password provides ~94 bits — adequate but noticeably weaker than mixed-case. Always use both cases unless the system forces uppercase only.' },
         ],
         defaults: { length: 16, uppercase: true, lowercase: true, numbers: false, symbols: false },
+        relatedVariants: ['alphanumeric', 'pronounceable', 'memorable', 'for-school'],
         contentSections: [
             {
                 heading: 'The entropy mathematics of letters-only passwords',
@@ -429,6 +439,7 @@ export const variants: ToolVariant[] = [
             { q: 'What is the entropy difference between alphanumeric and full ASCII passwords?', a: 'With 62 alphanumeric characters you get ~5.95 bits per character; with 95 printable ASCII characters you get ~6.57 bits. The difference is 0.62 bits per character. For a 16-character password that is about 10 bits total — easily offset by adding 2 characters to your length.' },
         ],
         defaults: { length: 16, uppercase: true, lowercase: true, numbers: true, symbols: false },
+        relatedVariants: ['no-symbols', 'letters-only', 'for-database', 'for-ssh'],
         contentSections: [
             {
                 heading: 'The entropy trade-off: symbols vs length',
@@ -469,6 +480,7 @@ export const variants: ToolVariant[] = [
             { q: 'How does hex compare to Base64 encoding for tokens and secrets?', a: 'Both encode binary data as text. Hex uses 2 characters per byte (50% efficient). Base64 uses ~1.33 characters per byte (75% efficient), making it more compact. For the same security level, a Base64 token is about 25% shorter than a hex token. Hex is preferred when the receiving system explicitly expects hex format; Base64 is preferred for URL-safe tokens and compact storage.' },
         ],
         defaults: { length: 32, uppercase: false, lowercase: true, numbers: true, symbols: false },
+        relatedVariants: ['for-crypto', 'for-ssh', 'for-database', '32-characters'],
         contentSections: [
             {
                 heading: 'Hexadecimal encoding: how it works and why it matters',
@@ -513,6 +525,7 @@ export const variants: ToolVariant[] = [
             { q: 'Can a bank see my password?', a: 'No. Properly designed banking systems store only a hashed version of your password, not the password itself. The bank cannot retrieve your actual password — if you forget it, they must issue a reset, not look it up.' },
         ],
         defaults: { length: 16, uppercase: true, lowercase: true, numbers: true, symbols: true },
+        relatedVariants: ['for-email', 'strong-20-characters', 'for-wifi', 'pin-code'],
         contentSections: [
             {
                 heading: 'Why banking passwords face unique threats',
@@ -553,6 +566,7 @@ export const variants: ToolVariant[] = [
             { q: 'What is the safest way to store my email password?', a: 'In a reputable password manager (Bitwarden, 1Password, or similar) with a strong master password and 2FA enabled. Do not write it in a notes app, a text file, or a browser\'s built-in password save without a master password protecting the vault.' },
         ],
         defaults: { length: 20, uppercase: true, lowercase: true, numbers: true, symbols: true },
+        relatedVariants: ['for-bank', 'for-social-media', 'strong-20-characters', 'memorable'],
         contentSections: [
             {
                 heading: 'Why your email password is the most critical password you own',
@@ -593,6 +607,7 @@ export const variants: ToolVariant[] = [
             { q: 'Is it safe to save my gaming password in the browser?', a: 'Browser-saved passwords are convenient but less secure than a dedicated password manager. If your browser profile is synced to the cloud without a sync passphrase, your saved passwords are accessible from any device that logs into your browser account. Use a dedicated password manager with a strong master password for sensitive gaming credentials.' },
         ],
         defaults: { length: 16, uppercase: true, lowercase: true, numbers: true, symbols: true },
+        relatedVariants: ['for-social-media', 'for-email', 'strong-20-characters', 'bulk'],
         contentSections: [
             {
                 heading: 'Why gaming accounts are high-value targets',
@@ -633,6 +648,7 @@ export const variants: ToolVariant[] = [
             { q: 'Is it worth securing accounts I rarely use?', a: 'Yes — inactive accounts are often targeted specifically because owners are less likely to notice suspicious activity. An attacker can use a dormant account to send spam, run scams, or impersonate you without your knowledge for months. Either secure inactive accounts with a strong password and 2FA, or delete them entirely.' },
         ],
         defaults: { length: 16, uppercase: true, lowercase: true, numbers: true, symbols: true },
+        relatedVariants: ['for-gaming', 'for-email', 'for-bank', 'strong-20-characters'],
         contentSections: [
             {
                 heading: 'How social media accounts are compromised',
@@ -673,6 +689,7 @@ export const variants: ToolVariant[] = [
             { q: 'What is the risk of using school WiFi with a weak password?', a: 'On an open or weak university WiFi network, an attacker on the same network can intercept unencrypted traffic. Use HTTPS websites only (check for the padlock), consider a VPN for sensitive activities, and never access banking or highly sensitive accounts on a shared campus network without a VPN.' },
         ],
         defaults: { length: 14, uppercase: true, lowercase: true, numbers: true, symbols: true },
+        relatedVariants: ['for-kids', 'memorable', '12-characters', 'for-work'],
         contentSections: [
             {
                 heading: 'Why school and university accounts are targeted',
@@ -718,6 +735,7 @@ export const variants: ToolVariant[] = [
             { q: 'What is the risk of generating passwords on behalf of others?', a: 'When you generate a password for another person, you briefly know their credential. For low-risk internal systems, this is acceptable with proper process. For high-security accounts, require users to generate and set their own passwords, or use a system that sends one-time setup links directly to the user without an intermediate administrator knowing the password.' },
         ],
         defaults: { length: 16, uppercase: true, lowercase: true, numbers: true, symbols: true },
+        relatedVariants: ['for-testing', 'for-database', 'for-temporary', 'for-work'],
         contentSections: [
             {
                 heading: 'When and why bulk password generation is needed',
@@ -758,6 +776,7 @@ export const variants: ToolVariant[] = [
             { q: 'Can attackers crack memorable passwords more easily?', a: 'Targeted dictionary attacks against word-based passwords are more efficient than random attacks. This is why word randomness matters: "correct-horse-battery-staple" is weak now because it is famous. But "marble-sunset7-notebook!river" (randomly selected words) has genuine entropy because attackers cannot predict the specific combination — they would need to try every combination from a word list.' },
         ],
         defaults: { length: 16, uppercase: true, lowercase: true, numbers: true, symbols: false },
+        relatedVariants: ['passphrase', 'pronounceable', 'for-wifi', 'for-work'],
         contentSections: [
             {
                 heading: 'The memorability vs security trade-off',
@@ -798,6 +817,7 @@ export const variants: ToolVariant[] = [
             { q: 'Are multi-word passphrases vulnerable to phrase-guessing attacks?', a: 'Only if the words are chosen in a predictable pattern (common phrases, song titles, quotes). Randomly selected words from a large word list — where each word is independent of the others — are not vulnerable to phrase guessing. An attacker would need to try every combination of words from the list, which for 6 words from 7,776 is 7,776^6 ≈ 2.2 × 10^23 combinations.' },
         ],
         defaults: { length: 20, uppercase: true, lowercase: true, numbers: true, symbols: false },
+        relatedVariants: ['memorable', 'pronounceable', 'for-ssh', 'for-crypto'],
         contentSections: [
             {
                 heading: 'The origin and security of the Diceware method',
@@ -838,6 +858,7 @@ export const variants: ToolVariant[] = [
             { q: 'What is the typical entropy of a pronounceable password?', a: 'It depends on the generation method. Syllable-based pronounceable passwords typically have 3-5 bits per character versus 5.95-6.57 bits for fully random passwords. A 20-character pronounceable password may provide 60-80 bits of effective entropy — adequate for rate-limited systems but not for offline attacks.' },
         ],
         defaults: { length: 16, uppercase: true, lowercase: true, numbers: true, symbols: false },
+        relatedVariants: ['passphrase', 'memorable', 'for-temporary', 'for-wifi'],
         contentSections: [
             {
                 heading: 'How pronounceable passwords are constructed',
@@ -878,6 +899,7 @@ export const variants: ToolVariant[] = [
             { q: 'Is it safe for a child to use the same device as parents for password entry?', a: 'Be cautious about children seeing or accidentally memorizing parent passwords. Use a password manager with biometric unlock so children see only the vault prompt, not the actual passwords. Keep sensitive accounts like banking inaccessible from shared family devices.' },
         ],
         defaults: { length: 10, uppercase: true, lowercase: true, numbers: true, symbols: false },
+        relatedVariants: ['for-school', 'memorable', '8-characters', 'for-temporary'],
         contentSections: [
             {
                 heading: 'Age-appropriate password complexity by stage',
@@ -918,6 +940,7 @@ export const variants: ToolVariant[] = [
             { q: 'How do I handle work passwords when I leave a company?', a: 'Do not take work passwords with you — they belong to the company and accessing systems after employment ends is unauthorized. Before your last day, ensure any personally important data (calendar, contacts) is exported through approved channels. Your employer should revoke your credentials on your last day; if they do not do so promptly, notify HR or IT.' },
         ],
         defaults: { length: 16, uppercase: true, lowercase: true, numbers: true, symbols: true },
+        relatedVariants: ['for-email', 'strong-20-characters', 'bulk', 'for-temporary'],
         contentSections: [
             {
                 heading: 'Corporate password policies and compliance requirements',
@@ -958,6 +981,7 @@ export const variants: ToolVariant[] = [
             { q: 'What should happen to temporary credentials when a contractor\'s engagement ends?', a: 'Credentials should be revoked on the contractor\'s last day, or preferably scheduled for automatic expiration to coincide with the contract end date. Review all systems the contractor had access to, revoke access on each, and change any shared credentials they may have known. Document the revocation for compliance purposes.' },
         ],
         defaults: { length: 10, uppercase: true, lowercase: true, numbers: true, symbols: false },
+        relatedVariants: ['for-work', 'bulk', 'pronounceable', '8-characters'],
         contentSections: [
             {
                 heading: 'The purpose and lifecycle of temporary passwords',
@@ -997,6 +1021,7 @@ export const variants: ToolVariant[] = [
             { q: 'How do I remember a random PIN?', a: 'Practice entering it manually 5-10 times when you first set it — muscle memory develops quickly for short number sequences. Avoid writing it on your phone or wallet. Store a backup in your password manager in case you forget.' },
         ],
         defaults: { length: 6, uppercase: false, lowercase: false, numbers: true, symbols: false },
+        relatedVariants: ['numbers-only', '8-characters', 'for-bank', 'for-kids'],
         contentSections: [
             {
                 heading: 'The mathematics behind PIN security',
@@ -1037,6 +1062,7 @@ export const variants: ToolVariant[] = [
             { q: 'What is a secrets manager and should I use one?', a: 'A secrets manager (AWS Secrets Manager, HashiCorp Vault, GCP Secret Manager, Azure Key Vault) stores credentials encrypted, controls access through IAM policies, logs every access, and can automatically rotate secrets. For any production database, a secrets manager is strongly recommended over plain environment variables, which can be exposed through process inspection on a compromised server.' },
         ],
         defaults: { length: 32, uppercase: true, lowercase: true, numbers: true, symbols: false },
+        relatedVariants: ['for-ssh', 'alphanumeric', '32-characters', 'for-crypto'],
         contentSections: [
             {
                 heading: 'Database credential security fundamentals',
@@ -1077,6 +1103,7 @@ export const variants: ToolVariant[] = [
             { q: 'How do I rotate an SSH passphrase if I suspect it was compromised?', a: 'Run `ssh-keygen -p` to change the passphrase immediately. If you suspect the private key file itself was copied, generate a completely new key pair and remove the old public key from all `~/.ssh/authorized_keys` files on your servers.' },
         ],
         defaults: { length: 20, uppercase: true, lowercase: true, numbers: true, symbols: false },
+        relatedVariants: ['for-database', 'for-crypto', 'passphrase', '32-characters'],
         contentSections: [
             {
                 heading: 'How SSH key encryption works',
@@ -1113,6 +1140,7 @@ export const variants: ToolVariant[] = [
             { q: 'Can attackers brute-force my wallet encryption?', a: 'Software wallets like MetaMask use PBKDF2 or similar key derivation with limited iterations. Given enough time and GPU power, weak passwords can be cracked offline. A 24-character random password with all types would take longer than the heat death of the universe to crack, even with dedicated hardware.' },
         ],
         defaults: { length: 24, uppercase: true, lowercase: true, numbers: true, symbols: true },
+        relatedVariants: ['for-ssh', 'for-database', 'hex', '64-characters'],
         contentSections: [
             {
                 heading: 'Why crypto account security is uniquely high-stakes',
