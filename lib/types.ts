@@ -36,7 +36,8 @@ export type ToolCategory =
     | 'Security'
     | 'Text & Writing'
     | 'Developer Tools'
-    | 'Design';
+    | 'Design'
+    | 'Value Converter';
 
 /* ── FAQ ────────────────────────────────────────────── */
 
