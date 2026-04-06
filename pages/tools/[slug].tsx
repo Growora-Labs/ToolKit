@@ -43,7 +43,12 @@ const TOOL_DATA: Record<string, () => Promise<{ faq: FaqItem[]; [key: string]: u
     'color-converter':    () => import('@/tools/color-converter'),
     'time-converter':     () => import('@/tools/time-converter'),
     'csv-to-json':        () => import('@/tools/csv-to-json'),
-    'text-diff':          () => import('@/tools/text-diff'),
+    'text-diff':                () => import('@/tools/text-diff'),
+    'reading-time-calculator':  () => import('@/tools/reading-time-calculator'),
+    'random-text-generator':    () => import('@/tools/random-text-generator'),
+    'timestamp-converter':      () => import('@/tools/timestamp-converter'),
+    'cron-generator':           () => import('@/tools/cron-generator'),
+    'favicon-generator':        () => import('@/tools/favicon-generator'),
 };
 
 const TOOL_WIDGETS: Record<string, React.ComponentType> = {
@@ -64,7 +69,12 @@ const TOOL_WIDGETS: Record<string, React.ComponentType> = {
     'color-converter':    dynamic(() => import('@/tools/color-converter/component'),    { ssr: false }) as React.ComponentType,
     'time-converter':     dynamic(() => import('@/tools/time-converter/component'),     { ssr: false }) as React.ComponentType,
     'csv-to-json':        dynamic(() => import('@/tools/csv-to-json/component'),        { ssr: false }) as React.ComponentType,
-    'text-diff':          dynamic(() => import('@/tools/text-diff/component'),          { ssr: false }) as React.ComponentType,
+    'text-diff':                dynamic(() => import('@/tools/text-diff/component'),                { ssr: false }) as React.ComponentType,
+    'reading-time-calculator':  dynamic(() => import('@/tools/reading-time-calculator/component'),  { ssr: false }) as React.ComponentType,
+    'random-text-generator':    dynamic(() => import('@/tools/random-text-generator/component'),    { ssr: false }) as React.ComponentType,
+    'timestamp-converter':      dynamic(() => import('@/tools/timestamp-converter/component'),      { ssr: false }) as React.ComponentType,
+    'cron-generator':           dynamic(() => import('@/tools/cron-generator/component'),           { ssr: false }) as React.ComponentType,
+    'favicon-generator':        dynamic(() => import('@/tools/favicon-generator/component'),        { ssr: false }) as React.ComponentType,
 };
 
 /* ── Password generator sidebar ────────────────────────── */
@@ -361,7 +371,12 @@ function ToolSidebar({ slug }: { slug: string }) {
     if (slug === 'color-converter')    return <ColorConverterSidebar />;
     if (slug === 'time-converter')     return <TimeConverterSidebar />;
     if (slug === 'csv-to-json')        return <CsvToJsonSidebar />;
-    if (slug === 'text-diff')          return <TextDiffSidebar />;
+    if (slug === 'text-diff')               return <TextDiffSidebar />;
+    if (slug === 'reading-time-calculator') return <ReadingTimeSidebar />;
+    if (slug === 'random-text-generator')   return <RandomTextSidebar />;
+    if (slug === 'timestamp-converter')     return <TimestampSidebar />;
+    if (slug === 'cron-generator')          return <CronSidebar />;
+    if (slug === 'favicon-generator')       return <FaviconSidebar />;
     return null;
 }
 
@@ -443,6 +458,142 @@ function TextDiffSidebar() {
                     <div key={label} style={{ padding: '10px 12px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-m)' }}>
                         <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink)', marginBottom: 3 }}>{label}</div>
                         <div style={{ fontSize: 12, color: 'var(--ink-3)', lineHeight: 1.5 }}>{desc}</div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+function ReadingTimeSidebar() {
+    return (
+        <div className="tool-sidebar">
+            <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 14 }}>Reading speeds</p>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {[
+                    { label: 'Slow reader',     value: '150 WPM' },
+                    { label: 'Average adult',   value: '238 WPM' },
+                    { label: 'Fast reader',     value: '350 WPM' },
+                    { label: 'Speed reading',   value: '400+ WPM' },
+                    { label: 'Presentation',    value: '130 WPM' },
+                    { label: 'Podcast/audio',   value: '150 WPM' },
+                ].map(({ label, value }) => (
+                    <div key={label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '9px 0', borderBottom: '1px solid var(--border)' }}>
+                        <span style={{ fontSize: 13, color: 'var(--ink-2)' }}>{label}</span>
+                        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, fontWeight: 700, color: 'var(--ink)', background: 'var(--border)', padding: '2px 8px', borderRadius: 'var(--r-s)' }}>{value}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+function RandomTextSidebar() {
+    return (
+        <div className="tool-sidebar">
+            <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 14 }}>Use cases</p>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {[
+                    { label: 'UI mockups',          desc: 'Fill cards and lists with realistic text' },
+                    { label: 'Database seeding',    desc: 'Populate test tables with varied content' },
+                    { label: 'Performance testing', desc: 'Stress-test with large volumes of text'   },
+                    { label: 'Layout prototyping',  desc: 'Test how text length affects your design' },
+                ].map(({ label, desc }) => (
+                    <div key={label} style={{ padding: '10px 0', borderBottom: '1px solid var(--border)' }}>
+                        <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 2 }}>{label}</div>
+                        <div style={{ fontSize: 12, color: 'var(--ink-3)' }}>{desc}</div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+function TimestampSidebar() {
+    return (
+        <div className="tool-sidebar">
+            <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 14 }}>Key timestamps</p>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {[
+                    { label: 'Unix epoch',       value: '0'           },
+                    { label: 'Y2K',              value: '946684800'   },
+                    { label: '2038 limit',       value: '2147483647'  },
+                    { label: '10 digits',        value: 'seconds'     },
+                    { label: '13 digits',        value: 'milliseconds'},
+                ].map(({ label, value }) => (
+                    <div key={label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '9px 0', borderBottom: '1px solid var(--border)' }}>
+                        <span style={{ fontSize: 12, color: 'var(--ink-2)' }}>{label}</span>
+                        <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, fontWeight: 700, color: 'var(--ink)', background: 'var(--border)', padding: '2px 6px', borderRadius: 'var(--r-s)' }}>{value}</code>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+function CronSidebar() {
+    return (
+        <div className="tool-sidebar">
+            <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 14 }}>Field reference</p>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {[
+                    { pos: '1', name: 'Minute',       range: '0–59'  },
+                    { pos: '2', name: 'Hour',          range: '0–23'  },
+                    { pos: '3', name: 'Day of month',  range: '1–31'  },
+                    { pos: '4', name: 'Month',         range: '1–12'  },
+                    { pos: '5', name: 'Day of week',   range: '0–6'   },
+                ].map(({ pos, name, range }) => (
+                    <div key={pos} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 0', borderBottom: '1px solid var(--border)' }}>
+                        <span style={{ width: 22, height: 22, borderRadius: '50%', background: 'var(--ink)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0 }}>{pos}</span>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                            <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--ink)' }}>{name}</div>
+                            <div style={{ fontSize: 11, color: 'var(--ink-4)', fontFamily: 'JetBrains Mono, monospace' }}>{range}</div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', margin: '16px 0 10px' }}>Special chars</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                {[
+                    { ch: '*',    desc: 'Every value'   },
+                    { ch: '/',    desc: 'Step (every N)'},
+                    { ch: ',',    desc: 'List'          },
+                    { ch: '-',    desc: 'Range'         },
+                ].map(({ ch, desc }) => (
+                    <div key={ch} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <code style={{ fontFamily: 'JetBrains Mono, monospace', fontWeight: 700, fontSize: 14, color: 'var(--green)', background: 'var(--green-lt)', width: 24, textAlign: 'center', borderRadius: 4, flexShrink: 0 }}>{ch}</code>
+                        <span style={{ fontSize: 12, color: 'var(--ink-3)' }}>{desc}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+function FaviconSidebar() {
+    return (
+        <div className="tool-sidebar">
+            <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 14 }}>Favicon sizes</p>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {[
+                    { size: '16×16',  use: 'Browser tab'         },
+                    { size: '32×32',  use: 'Taskbar / pinned'    },
+                    { size: '180×180',use: 'Apple touch icon'    },
+                    { size: '192×192',use: 'Android home screen' },
+                    { size: '512×512',use: 'PWA splash screen'   },
+                ].map(({ size, use }) => (
+                    <div key={size} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '9px 0', borderBottom: '1px solid var(--border)' }}>
+                        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, fontWeight: 700, color: 'var(--ink)' }}>{size}</span>
+                        <span style={{ fontSize: 12, color: 'var(--ink-3)' }}>{use}</span>
+                    </div>
+                ))}
+            </div>
+            <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', margin: '16px 0 10px' }}>Tips</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {['Use 1–2 characters for clarity at 16px', 'High contrast = better legibility', 'Emoji favicons require no design skill'].map(t => (
+                    <div key={t} style={{ display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+                        <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--green)', flexShrink: 0, marginTop: 5 }} />
+                        <span style={{ fontSize: 12, color: 'var(--ink-3)', lineHeight: 1.5 }}>{t}</span>
                     </div>
                 ))}
             </div>
@@ -750,7 +901,12 @@ const TOOL_CONTENT: Record<string, React.ComponentType> = {
     'color-converter':    dynamic(() => import('@/tools/color-converter/content'),    { ssr: false }) as React.ComponentType,
     'time-converter':     dynamic(() => import('@/tools/time-converter/content'),     { ssr: false }) as React.ComponentType,
     'csv-to-json':        dynamic(() => import('@/tools/csv-to-json/content'),        { ssr: false }) as React.ComponentType,
-    'text-diff':          dynamic(() => import('@/tools/text-diff/content'),          { ssr: false }) as React.ComponentType,
+    'text-diff':                dynamic(() => import('@/tools/text-diff/content'),                { ssr: false }) as React.ComponentType,
+    'reading-time-calculator':  dynamic(() => import('@/tools/reading-time-calculator/content'),  { ssr: false }) as React.ComponentType,
+    'random-text-generator':    dynamic(() => import('@/tools/random-text-generator/content'),    { ssr: false }) as React.ComponentType,
+    'timestamp-converter':      dynamic(() => import('@/tools/timestamp-converter/content'),      { ssr: false }) as React.ComponentType,
+    'cron-generator':           dynamic(() => import('@/tools/cron-generator/content'),           { ssr: false }) as React.ComponentType,
+    'favicon-generator':        dynamic(() => import('@/tools/favicon-generator/content'),        { ssr: false }) as React.ComponentType,
 };
 
 function ToolContent({ slug }: { slug: string }) {
