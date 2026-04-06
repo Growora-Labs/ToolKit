@@ -43,6 +43,7 @@ const TOOL_DATA: Record<string, () => Promise<{ faq: FaqItem[]; [key: string]: u
     'color-converter':    () => import('@/tools/color-converter'),
     'time-converter':     () => import('@/tools/time-converter'),
     'csv-to-json':        () => import('@/tools/csv-to-json'),
+    'text-diff':          () => import('@/tools/text-diff'),
 };
 
 const TOOL_WIDGETS: Record<string, React.ComponentType> = {
@@ -63,6 +64,7 @@ const TOOL_WIDGETS: Record<string, React.ComponentType> = {
     'color-converter':    dynamic(() => import('@/tools/color-converter/component'),    { ssr: false }) as React.ComponentType,
     'time-converter':     dynamic(() => import('@/tools/time-converter/component'),     { ssr: false }) as React.ComponentType,
     'csv-to-json':        dynamic(() => import('@/tools/csv-to-json/component'),        { ssr: false }) as React.ComponentType,
+    'text-diff':          dynamic(() => import('@/tools/text-diff/component'),          { ssr: false }) as React.ComponentType,
 };
 
 /* ── Password generator sidebar ────────────────────────── */
@@ -359,6 +361,7 @@ function ToolSidebar({ slug }: { slug: string }) {
     if (slug === 'color-converter')    return <ColorConverterSidebar />;
     if (slug === 'time-converter')     return <TimeConverterSidebar />;
     if (slug === 'csv-to-json')        return <CsvToJsonSidebar />;
+    if (slug === 'text-diff')          return <TextDiffSidebar />;
     return null;
 }
 
@@ -404,6 +407,42 @@ function TimeConverterSidebar() {
                     <div key={label + value} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '9px 0', borderBottom: '1px solid var(--border)' }}>
                         <span style={{ fontSize: 13, color: 'var(--ink-2)' }}>{label}</span>
                         <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, fontWeight: 600, color: 'var(--ink)', background: 'var(--border)', padding: '2px 8px', borderRadius: 'var(--r-s)' }}>{value}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+function TextDiffSidebar() {
+    return (
+        <div className="tool-sidebar">
+            <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 14 }}>Diff legend</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+                {[
+                    { symbol: '+', label: 'Added',     bg: 'rgba(5,150,105,.08)',  color: 'var(--green)', desc: 'In Modified only' },
+                    { symbol: '−', label: 'Removed',   bg: 'rgba(220,38,38,.08)', color: '#dc2626',       desc: 'In Original only' },
+                    { symbol: ' ', label: 'Unchanged', bg: 'transparent',          color: 'var(--ink-3)',  desc: 'In both texts' },
+                ].map(({ symbol, label, bg, color, desc }) => (
+                    <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 0', borderBottom: '1px solid var(--border)' }}>
+                        <span style={{ width: 28, height: 28, borderRadius: 6, background: bg, border: `1.5px solid ${color === 'var(--ink-3)' ? 'var(--border)' : color}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700, fontSize: 14, color, flexShrink: 0 }}>{symbol}</span>
+                        <div>
+                            <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)' }}>{label}</div>
+                            <div style={{ fontSize: 12, color: 'var(--ink-3)' }}>{desc}</div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', margin: '18px 0 12px' }}>Options</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {[
+                    { label: 'Ignore whitespace', desc: 'Treats lines equal if they differ only in spaces/indentation (like git diff -w)' },
+                    { label: 'Ignore case',        desc: 'Treats uppercase and lowercase as identical during comparison' },
+                    { label: 'Hide unchanged',     desc: 'Collapses unchanged lines — shows only context around changes' },
+                ].map(({ label, desc }) => (
+                    <div key={label} style={{ padding: '10px 12px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-m)' }}>
+                        <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink)', marginBottom: 3 }}>{label}</div>
+                        <div style={{ fontSize: 12, color: 'var(--ink-3)', lineHeight: 1.5 }}>{desc}</div>
                     </div>
                 ))}
             </div>
@@ -711,6 +750,7 @@ const TOOL_CONTENT: Record<string, React.ComponentType> = {
     'color-converter':    dynamic(() => import('@/tools/color-converter/content'),    { ssr: false }) as React.ComponentType,
     'time-converter':     dynamic(() => import('@/tools/time-converter/content'),     { ssr: false }) as React.ComponentType,
     'csv-to-json':        dynamic(() => import('@/tools/csv-to-json/content'),        { ssr: false }) as React.ComponentType,
+    'text-diff':          dynamic(() => import('@/tools/text-diff/content'),          { ssr: false }) as React.ComponentType,
 };
 
 function ToolContent({ slug }: { slug: string }) {

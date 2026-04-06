@@ -210,7 +210,7 @@ export const TOOLS: ToolMeta[] = [
     seoDescription: 'Compare two texts and highlight differences instantly. See added, removed and changed lines color-coded. Free online diff tool — no signup required.',
     category:       'Text & Writing',
     keywords:       ['text diff checker', 'diff checker online', 'compare two texts', 'text compare online', 'text difference tool'],
-    live:           false,
+    live:           true,
   },
   {
     slug:           'reading-time-calculator',
