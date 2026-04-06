@@ -222,7 +222,7 @@ export const TOOLS: ToolMeta[] = [
     seoDescription: 'Calculate how long it takes to read any text. Set your reading speed, get reading and speaking time estimates. Free online reading time calculator.',
     category:       'Text & Writing',
     keywords:       ['reading time calculator', 'read time estimator', 'words per minute calculator', 'article reading time'],
-    live:           false,
+    live:           true,
   },
   {
     slug:           'random-text-generator',
@@ -234,7 +234,7 @@ export const TOOLS: ToolMeta[] = [
     seoDescription: 'Generate random words, sentences or paragraphs instantly. Choose length and style. Great for testing, mockups and development. Free, no signup.',
     category:       'Text & Writing',
     keywords:       ['random text generator', 'random word generator', 'random sentence generator', 'random paragraph generator'],
-    live:           false,
+    live:           true,
   },
   /* ── Coming soon — Developer Tools ─────────────────── */
   {
@@ -259,7 +259,7 @@ export const TOOLS: ToolMeta[] = [
     seoDescription: 'Convert Unix/epoch timestamps to human-readable dates and back. Supports seconds and milliseconds. Shows current timestamp live. Free online timestamp converter.',
     category:       'Developer Tools',
     keywords:       ['timestamp converter', 'unix timestamp converter', 'epoch converter', 'epoch to date', 'timestamp to date online'],
-    live:           false,
+    live:           true,
   },
   {
     slug:           'cron-generator',
@@ -271,7 +271,7 @@ export const TOOLS: ToolMeta[] = [
     seoDescription: 'Build cron expressions visually, validate syntax and see next 10 run times in plain English. Free cron job generator — no signup, works in browser.',
     category:       'Developer Tools',
     keywords:       ['cron generator', 'cron expression generator', 'cron job generator online', 'crontab generator', 'cron expression validator'],
-    live:           false,
+    live:           true,
   },
   {
     slug:           'css-minifier',
@@ -359,7 +359,7 @@ export const TOOLS: ToolMeta[] = [
     seoDescription: 'Generate favicons from text, letters or emoji. Download as ICO (16×16, 32×32) and PNG (192×192). Free online favicon generator — no signup, instant download.',
     category:       'Design',
     keywords:       ['favicon generator', 'favicon generator online', 'create favicon', 'favicon maker', 'free favicon generator'],
-    live:           false,
+    live:           true,
   },
 ];
 
