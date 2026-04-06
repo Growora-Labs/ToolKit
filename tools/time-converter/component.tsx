@@ -53,14 +53,7 @@ function Row({ unit, value, active, onChange }: RowProps) {
   const [focused, setFocused] = useState(false);
 
   return (
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: '100px 1fr',
-      alignItems: 'center',
-      gap: 12,
-      padding: '10px 0',
-      borderBottom: '1px solid var(--border)',
-    }}>
+    <div className="tc-row">
       <label
         htmlFor={`tc-${unit}`}
         style={{ fontSize: 13, fontWeight: 600, color: active ? 'var(--green)' : 'var(--ink)', transition: 'color .15s' }}
@@ -162,8 +155,8 @@ export default function TimeConverterWidget() {
       {/* Reference table */}
       <div style={{ marginTop: 24 }}>
         <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 10 }}>Common reference values</p>
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+        <div style={{ overflowX: 'auto', width: '100%' }}>
+          <table style={{ minWidth: 480, borderCollapse: 'collapse', fontSize: 13 }}>
             <thead>
               <tr style={{ background: 'var(--ink)', color: '#fff' }}>
                 {['Duration', 'Seconds', 'Minutes', 'Hours', 'Days'].map(h => (

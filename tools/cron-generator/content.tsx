@@ -132,8 +132,8 @@ export default function CronContent() {
                     <p style={pStyle}>
                         Each of the five fields accepts a set of special characters in addition to numeric values. These characters dramatically expand the expressiveness of cron expressions without requiring one entry per match.
                     </p>
-                    <div style={{ overflowX: 'auto' }}>
-                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
+                    <div style={{ overflowX: 'auto', width: '100%' }}>
+                        <table style={{ minWidth: 480, borderCollapse: 'collapse', fontSize: 14 }}>
                             <thead>
                                 <tr style={{ background: 'var(--ink)', color: '#fff' }}>
                                     {['Character', 'Name', 'Example', 'Meaning'].map(h => (
@@ -170,8 +170,8 @@ export default function CronContent() {
                     <p style={pStyle}>
                         These expressions cover the vast majority of real-world scheduling needs. Copy them directly into your crontab, GitHub Actions workflow, or cloud scheduler configuration.
                     </p>
-                    <div style={{ overflowX: 'auto' }}>
-                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
+                    <div style={{ overflowX: 'auto', width: '100%' }}>
+                        <table style={{ minWidth: 360, borderCollapse: 'collapse', fontSize: 14 }}>
                             <thead>
                                 <tr style={{ background: 'var(--ink)', color: '#fff' }}>
                                     {['Expression', 'Meaning'].map(h => (

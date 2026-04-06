@@ -84,7 +84,7 @@ html, body { overflow-x: hidden; }
 /* ─── Tool page 2-col grid ───────────────────── */
 .tool-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 24px;
   align-items: start;
 }
@@ -344,6 +344,22 @@ html, body { overflow-x: hidden; }
     grid-template-columns: 220px 1fr;
     gap: 48px;
     align-items: start;
+  }
+}
+
+/* ─── Time converter row ─────────────────────── */
+.tc-row {
+  display: grid;
+  grid-template-columns: minmax(72px, 100px) 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+@media (max-width: 480px) {
+  .tc-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
   }
 }
 

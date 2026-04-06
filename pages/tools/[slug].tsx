@@ -796,7 +796,7 @@ const ToolPage: NextPage<Props> = ({ tool }) => {
                                 {tool.description}
                             </p>
                             {Widget && (
-                                <div className="card a3" style={{ padding: 'clamp(16px, 3vw, 28px)' }}>
+                                <div className="card a3" style={{ padding: 'clamp(16px, 3vw, 28px)', overflow: 'hidden' }}>
                                     <Widget />
                                 </div>
                             )}

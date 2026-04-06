@@ -63,7 +63,7 @@ export default function TimeConverterContent() {
                             <div key={unit} style={{ padding: '16px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 8, flexWrap: 'wrap' }}>
                                     <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)' }}>{unit}</span>
-                                    <code style={{ fontSize: 12, fontFamily: 'JetBrains Mono, monospace', background: 'var(--green-lt)', color: 'var(--green)', padding: '2px 8px', borderRadius: 4, whiteSpace: 'nowrap' }}>{key}</code>
+                                    <code style={{ fontSize: 12, fontFamily: 'JetBrains Mono, monospace', background: 'var(--green-lt)', color: 'var(--green)', padding: '2px 8px', borderRadius: 4 }}>{key}</code>
                                 </div>
                                 <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.65, margin: 0 }}>{def}</p>
                             </div>
@@ -122,8 +122,8 @@ export default function TimeConverterContent() {
                     <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 20 }}>
                         These values appear so frequently in software that many developers memorise them. Bookmark this section or use the converter above whenever you need them.
                     </p>
-                    <div style={{ overflowX: 'auto' }}>
-                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
+                    <div style={{ overflowX: 'auto', width: '100%' }}>
+                        <table style={{ minWidth: 420, borderCollapse: 'collapse', fontSize: 14 }}>
                             <thead>
                                 <tr style={{ background: 'var(--ink)', color: '#fff' }}>
                                     {['Duration', 'Seconds', 'Minutes', 'Hours'].map(h => (
@@ -168,8 +168,8 @@ export default function TimeConverterContent() {
                     <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 20 }}>
                         Service Level Agreements express reliability as a percentage of uptime. The table below shows how many minutes and hours of allowed downtime correspond to each SLA level per year — useful for understanding what your uptime commitment actually means in practice.
                     </p>
-                    <div style={{ overflowX: 'auto' }}>
-                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
+                    <div style={{ overflowX: 'auto', width: '100%' }}>
+                        <table style={{ minWidth: 520, borderCollapse: 'collapse', fontSize: 14 }}>
                             <thead>
                                 <tr style={{ background: 'var(--ink)', color: '#fff' }}>
                                     {['Uptime SLA', 'Downtime / year', 'Downtime / month', 'Downtime / week'].map(h => (
