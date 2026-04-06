@@ -41,6 +41,7 @@ const TOOL_DATA: Record<string, () => Promise<{ faq: FaqItem[]; [key: string]: u
     'markdown-editor':    () => import('@/tools/markdown-editor'),
     'qr-code-generator':  () => import('@/tools/qr-code-generator'),
     'color-converter':    () => import('@/tools/color-converter'),
+    'time-converter':     () => import('@/tools/time-converter'),
 };
 
 const TOOL_WIDGETS: Record<string, React.ComponentType> = {
@@ -59,6 +60,7 @@ const TOOL_WIDGETS: Record<string, React.ComponentType> = {
     'markdown-editor':    dynamic(() => import('@/tools/markdown-editor/component'),    { ssr: false }) as React.ComponentType,
     'qr-code-generator':  dynamic(() => import('@/tools/qr-code-generator/component'), { ssr: false }) as React.ComponentType,
     'color-converter':    dynamic(() => import('@/tools/color-converter/component'),    { ssr: false }) as React.ComponentType,
+    'time-converter':     dynamic(() => import('@/tools/time-converter/component'),     { ssr: false }) as React.ComponentType,
 };
 
 /* ── Password generator sidebar ────────────────────────── */
@@ -353,6 +355,7 @@ function ToolSidebar({ slug }: { slug: string }) {
     if (slug === 'regex-tester')       return <RegexSidebar />;
     if (slug === 'qr-code-generator')  return <QrSidebar />;
     if (slug === 'color-converter')    return <ColorConverterSidebar />;
+    if (slug === 'time-converter')     return <TimeConverterSidebar />;
     return null;
 }
 
@@ -376,6 +379,31 @@ function ColorConverterSidebar() {
                     </li>
                 ))}
             </ol>
+        </div>
+    );
+}
+
+function TimeConverterSidebar() {
+    return (
+        <div className="tool-sidebar">
+            <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 16 }}>Key time values</p>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {[
+                    { label: '1 minute',  value: '60 s'         },
+                    { label: '1 hour',    value: '3,600 s'      },
+                    { label: '1 day',     value: '86,400 s'     },
+                    { label: '1 week',    value: '604,800 s'    },
+                    { label: '1 year',    value: '31,536,000 s' },
+                    { label: '1 day',     value: '1,440 min'    },
+                    { label: '1 week',    value: '168 h'        },
+                    { label: '1 year',    value: '8,760 h'      },
+                ].map(({ label, value }) => (
+                    <div key={label + value} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '9px 0', borderBottom: '1px solid var(--border)' }}>
+                        <span style={{ fontSize: 13, color: 'var(--ink-2)' }}>{label}</span>
+                        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, fontWeight: 600, color: 'var(--ink)', background: 'var(--border)', padding: '2px 8px', borderRadius: 'var(--r-s)' }}>{value}</span>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
@@ -416,6 +444,7 @@ const CATEGORY_SLUGS: Record<string, string> = {
     'Developer Tools': '/tools/developer',
     'Text & Writing':  '/tools/text',
     'Design':          '/tools/design',
+    'Value Converter': '/tools/value-converter',
 };
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://www.webtoolkit.tech';
@@ -653,6 +682,7 @@ const TOOL_CONTENT: Record<string, React.ComponentType> = {
     'username-generator': dynamic(() => import('@/tools/username-generator/content'), { ssr: false }) as React.ComponentType,
     'qr-code-generator':  dynamic(() => import('@/tools/qr-code-generator/content'), { ssr: false }) as React.ComponentType,
     'color-converter':    dynamic(() => import('@/tools/color-converter/content'),    { ssr: false }) as React.ComponentType,
+    'time-converter':     dynamic(() => import('@/tools/time-converter/content'),     { ssr: false }) as React.ComponentType,
 };
 
 function ToolContent({ slug }: { slug: string }) {

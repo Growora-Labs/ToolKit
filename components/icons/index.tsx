@@ -45,4 +45,5 @@ export const TOOL_ICONS: Record<string, ComponentType<IconProps>> = {
   'qr-code-generator':   IcoQr,
   'color-converter':     IcoColorConv,
   'username-generator':  IcoUser,
+  'time-converter':      IcoClock,
 };

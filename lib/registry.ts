@@ -299,6 +299,20 @@ export const TOOLS: ToolMeta[] = [
     live:           false,
   },
 
+  /* ── Value Converter ───────────────────────────────── */
+  {
+    slug:           'time-converter',
+    name:           'Time Converter',
+    tagline:        'Convert seconds, minutes, hours, days, weeks, years',
+    description:    'Convert any time value between seconds, minutes, hours, days, weeks, months and years instantly.',
+    seoTitle:       'Free Time Converter Online — Seconds to Days, Weeks, Years | ToolKit',
+    seoH1:          'Free Time Converter Online',
+    seoDescription: 'Convert time values instantly between seconds, minutes, hours, days, weeks, months and years. Enter any value and get all units at once. Free, browser-based, no signup.',
+    category:       'Value Converter',
+    keywords:       ['time converter', 'seconds to days', 'seconds to years', 'days to seconds', 'time unit converter', 'convert seconds to hours', 'convert days to weeks'],
+    live:           true,
+  },
+
   /* ── Coming soon — Design ───────────────────────────── */
   {
     slug:           'color-converter',

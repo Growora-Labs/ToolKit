@@ -45,9 +45,10 @@ export const CATEGORIES: CategoryMeta[] = [
             { q: 'What is a QR code used for in security?', a: 'QR codes are used for 2FA setup, sharing WiFi credentials, and encoding URLs. Use a client-side generator so sensitive data never leaves your device.' },
         ],
         otherCategories: [
-            { href: '/tools/developer', label: 'Developer Tools' },
-            { href: '/tools/text',      label: 'Text & Writing'  },
-            { href: '/tools/design',    label: 'Design'          },
+            { href: '/tools/developer',       label: 'Developer Tools'  },
+            { href: '/tools/text',            label: 'Text & Writing'   },
+            { href: '/tools/design',          label: 'Design'           },
+            { href: '/tools/value-converter', label: 'Value Converter'  },
         ],
     },
 
@@ -80,9 +81,10 @@ export const CATEGORIES: CategoryMeta[] = [
             { q: 'What regex flags does the tester support?', a: 'The tester uses JavaScript\'s ECMAScript RegExp engine and supports all standard flags: g (global), i (case-insensitive), m (multiline), s (dotAll), u (unicode), and y (sticky).' },
         ],
         otherCategories: [
-            { href: '/tools/security', label: 'Security'       },
-            { href: '/tools/text',     label: 'Text & Writing' },
-            { href: '/tools/design',   label: 'Design'         },
+            { href: '/tools/security',        label: 'Security'        },
+            { href: '/tools/text',            label: 'Text & Writing'  },
+            { href: '/tools/design',          label: 'Design'          },
+            { href: '/tools/value-converter', label: 'Value Converter' },
         ],
     },
 
@@ -115,9 +117,10 @@ export const CATEGORIES: CategoryMeta[] = [
             { q: 'What is the difference between camelCase and PascalCase?', a: 'camelCase starts with a lowercase letter (myVariable). PascalCase starts with an uppercase letter (MyComponent). Both use uppercase letters to delimit words with no spaces.' },
         ],
         otherCategories: [
-            { href: '/tools/security',  label: 'Security'        },
-            { href: '/tools/developer', label: 'Developer Tools' },
-            { href: '/tools/design',    label: 'Design'          },
+            { href: '/tools/security',        label: 'Security'        },
+            { href: '/tools/developer',       label: 'Developer Tools' },
+            { href: '/tools/design',          label: 'Design'          },
+            { href: '/tools/value-converter', label: 'Value Converter' },
         ],
     },
 
@@ -150,9 +153,46 @@ export const CATEGORIES: CategoryMeta[] = [
             { q: 'How do I create a consistent username style?', a: 'Choose one style and stick to it: professional (firstlast or first.last), minimal (short, single word), fun (adjective + noun), or gamer (compact, no separators). Consistency matters more than creativity for brand usernames.' },
         ],
         otherCategories: [
+            { href: '/tools/security',         label: 'Security'         },
+            { href: '/tools/developer',         label: 'Developer Tools'  },
+            { href: '/tools/text',              label: 'Text & Writing'   },
+            { href: '/tools/value-converter',   label: 'Value Converter'  },
+        ],
+    },
+
+    /* ── Value Converter ──────────────────────────────────── */
+    {
+        slug:        'value-converter',
+        name:        'Value Converter',
+        registryKey: 'Value Converter',
+        seoTitle:    'Free Online Value Converter Tools — Time, Units & More | ToolKit',
+        seoH1:       'Free Online Value Converter Tools',
+        seoDescription: 'Free browser-based value converters: time converter (seconds, minutes, hours, days, weeks, years) and more. Instant results, no signup, 100% client-side.',
+        intro: 'Instant unit and value conversion tools that run entirely in your browser. Convert time durations, numeric values, and units between any format — no calculations needed, no data sent to any server.',
+        contentH2: 'Why use a browser-based converter?',
+        contentBody: [
+            'Value converters are some of the most frequently needed utilities in everyday computing — yet most online converters are cluttered with ads, require page refreshes, or send your input to a server. Every converter on ToolKit runs locally in your browser with zero network requests.',
+            'Whether you\'re a developer calculating cache TTLs in seconds, a project manager converting sprint durations to days, or a student converting between units — instant, clean results without friction is what matters.',
+            'All conversion logic is handled by pure JavaScript in your browser tab. There is nothing to install, no signup required, and no rate limits.',
+        ],
+        tips: [
+            { title: 'Use seconds as the common denominator', desc: 'When working across multiple time units in code, store durations in seconds. Convert to human-readable units only for display — it prevents off-by-one errors and timezone confusion.' },
+            { title: 'Days vs calendar months', desc: 'A month is not a fixed unit — it can have 28, 29, 30 or 31 days. Use days or weeks for precise duration calculations rather than "months" wherever possible.' },
+            { title: 'Know your year length', desc: 'A standard year has 365 days, a leap year 366. For precise calculations over multi-year periods, always account for leap years rather than assuming 365 days × N.' },
+            { title: 'Milliseconds for code, seconds for humans', desc: 'APIs and databases typically store timestamps as milliseconds (Unix ms). Human-readable displays should use seconds or larger units. Keep the conversion explicit in your code.' },
+        ],
+        faq: [
+            { q: 'How many seconds are in a day?', a: 'There are exactly 86,400 seconds in a day: 60 seconds × 60 minutes × 24 hours = 86,400.' },
+            { q: 'How many seconds are in a year?', a: 'A standard year has 31,536,000 seconds (365 × 86,400). A leap year has 31,622,400 seconds (366 × 86,400).' },
+            { q: 'How many weeks are in a year?', a: 'A year has 52 weeks and 1 day (or 2 days in a leap year). Precisely: 52.1775 weeks on average when accounting for the leap year cycle.' },
+            { q: 'Are these converters accurate for programming?', a: 'Yes. The converters use exact integer arithmetic for whole-unit conversions. Fractional results are shown to sufficient decimal precision for most use cases.' },
+            { q: 'Do these tools work offline?', a: 'Once the page is loaded, all conversion logic runs in your browser with no network requests. You can save the page and use it offline.' },
+        ],
+        otherCategories: [
             { href: '/tools/security',  label: 'Security'        },
             { href: '/tools/developer', label: 'Developer Tools' },
             { href: '/tools/text',      label: 'Text & Writing'  },
+            { href: '/tools/design',    label: 'Design'          },
         ],
     },
 ];
