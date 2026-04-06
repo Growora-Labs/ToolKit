@@ -42,6 +42,7 @@ const TOOL_DATA: Record<string, () => Promise<{ faq: FaqItem[]; [key: string]: u
     'qr-code-generator':  () => import('@/tools/qr-code-generator'),
     'color-converter':    () => import('@/tools/color-converter'),
     'time-converter':     () => import('@/tools/time-converter'),
+    'csv-to-json':        () => import('@/tools/csv-to-json'),
 };
 
 const TOOL_WIDGETS: Record<string, React.ComponentType> = {
@@ -61,6 +62,7 @@ const TOOL_WIDGETS: Record<string, React.ComponentType> = {
     'qr-code-generator':  dynamic(() => import('@/tools/qr-code-generator/component'), { ssr: false }) as React.ComponentType,
     'color-converter':    dynamic(() => import('@/tools/color-converter/component'),    { ssr: false }) as React.ComponentType,
     'time-converter':     dynamic(() => import('@/tools/time-converter/component'),     { ssr: false }) as React.ComponentType,
+    'csv-to-json':        dynamic(() => import('@/tools/csv-to-json/component'),        { ssr: false }) as React.ComponentType,
 };
 
 /* ── Password generator sidebar ────────────────────────── */
@@ -356,6 +358,7 @@ function ToolSidebar({ slug }: { slug: string }) {
     if (slug === 'qr-code-generator')  return <QrSidebar />;
     if (slug === 'color-converter')    return <ColorConverterSidebar />;
     if (slug === 'time-converter')     return <TimeConverterSidebar />;
+    if (slug === 'csv-to-json')        return <CsvToJsonSidebar />;
     return null;
 }
 
@@ -404,6 +407,30 @@ function TimeConverterSidebar() {
                     </div>
                 ))}
             </div>
+        </div>
+    );
+}
+
+function CsvToJsonSidebar() {
+    return (
+        <div className="tool-sidebar">
+            <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 16 }}>How to convert CSV</p>
+            <ol style={{ paddingLeft: 0, listStyle: 'none', margin: 0, display: 'flex', flexDirection: 'column', gap: 0 }}>
+                {[
+                    { n: '1', title: 'Paste your CSV',       desc: 'Copy rows from Excel, Google Sheets, or any text file and paste them into the input.' },
+                    { n: '2', title: 'Pick delimiter',        desc: 'Choose comma, semicolon, tab or pipe to match your file\'s format.' },
+                    { n: '3', title: 'Toggle headers',        desc: 'Enable to use the first row as JSON object keys. Disable for an array of arrays.' },
+                    { n: '4', title: 'Copy or download',      desc: 'Copy the JSON to clipboard or download it as a .json file.' },
+                ].map(({ n, title, desc }) => (
+                    <li key={n} style={{ display: 'flex', gap: 12, padding: '12px 0', borderBottom: '1px solid var(--border)' }}>
+                        <span style={{ width: 24, height: 24, borderRadius: '50%', background: 'var(--ink)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, flexShrink: 0, marginTop: 1 }}>{n}</span>
+                        <div>
+                            <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 3 }}>{title}</div>
+                            <div style={{ fontSize: 12, color: 'var(--ink-3)', lineHeight: 1.55 }}>{desc}</div>
+                        </div>
+                    </li>
+                ))}
+            </ol>
         </div>
     );
 }
@@ -683,6 +710,7 @@ const TOOL_CONTENT: Record<string, React.ComponentType> = {
     'qr-code-generator':  dynamic(() => import('@/tools/qr-code-generator/content'), { ssr: false }) as React.ComponentType,
     'color-converter':    dynamic(() => import('@/tools/color-converter/content'),    { ssr: false }) as React.ComponentType,
     'time-converter':     dynamic(() => import('@/tools/time-converter/content'),     { ssr: false }) as React.ComponentType,
+    'csv-to-json':        dynamic(() => import('@/tools/csv-to-json/content'),        { ssr: false }) as React.ComponentType,
 };
 
 function ToolContent({ slug }: { slug: string }) {

@@ -65,6 +65,18 @@ export const TOOLS: ToolMeta[] = [
     live:           true,
   },
   {
+    slug:           'csv-to-json',
+    name:           'CSV to JSON',
+    tagline:        'Convert CSV data to JSON instantly',
+    description:    'Convert CSV files to JSON arrays. Supports custom delimiters, header rows, type coercion, and one-click download.',
+    seoTitle:       'Free CSV to JSON Converter Online — Convert CSV to JSON Instantly | ToolKit',
+    seoH1:          'Free CSV to JSON Converter Online',
+    seoDescription: 'Convert CSV to JSON instantly in your browser. Supports comma, semicolon, tab and pipe delimiters. Auto-detects numbers and booleans. Download the result as a .json file. Free, no signup, no data sent to any server.',
+    category:       'Developer Tools',
+    keywords:       ['csv to json', 'csv to json converter', 'convert csv to json', 'csv to json online', 'csv json converter', 'parse csv online', 'csv converter'],
+    live:           true,
+  },
+  {
     slug:           'json-formatter',
     name:           'JSON Formatter',
     tagline:        'Prettify, minify & validate JSON',
@@ -224,19 +236,6 @@ export const TOOLS: ToolMeta[] = [
     keywords:       ['random text generator', 'random word generator', 'random sentence generator', 'random paragraph generator'],
     live:           false,
   },
-  {
-    slug:           'csv-to-json',
-    name:           'CSV to JSON Converter',
-    tagline:        'Convert CSV data to JSON format',
-    description:    'Paste CSV data and convert it to JSON instantly. Supports headers.',
-    seoTitle:       'Free CSV to JSON Converter Online — Convert CSV Instantly | ToolKit',
-    seoH1:          'Free CSV to JSON Converter Online',
-    seoDescription: 'Convert CSV to JSON format instantly. Paste your CSV data, choose options, and get clean JSON output. Free online CSV to JSON converter — no signup.',
-    category:       'Text & Writing',
-    keywords:       ['csv to json', 'csv to json converter', 'convert csv to json online', 'csv json converter'],
-    live:           false,
-  },
-
   /* ── Coming soon — Developer Tools ─────────────────── */
   {
     slug:           'regex-tester',
