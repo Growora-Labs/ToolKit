@@ -103,7 +103,7 @@ function FieldEditor({ label, value, onChange, hint }: { label: string; value: s
       <label style={{ fontSize: 11, fontWeight: 700, color: 'var(--ink-3)', display: 'block', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{label}</label>
       <input
         value={value} onChange={e => onChange(e.target.value)}
-        style={{ width: '100%', padding: '8px 10px', border: `1.5px solid ${focused ? 'var(--green)' : isValid ? 'var(--border-md)' : 'var(--border)'}`, borderRadius: 'var(--r-m)', fontFamily: 'JetBrains Mono, monospace', fontSize: 15, fontWeight: 700, textAlign: 'center', color: 'var(--ink)', background: 'var(--page-bg)', outline: 'none', boxSizing: 'border-box', transition: 'border-color .15s', boxShadow: focused ? '0 0 0 3px rgba(5,150,105,.09)' : 'none' }}
+        style={{ width: '100%', padding: 'clamp(5px, 1.5vw, 8px) clamp(4px, 1.5vw, 10px)', border: `1.5px solid ${focused ? 'var(--green)' : isValid ? 'var(--border-md)' : 'var(--border)'}`, borderRadius: 'var(--r-m)', fontFamily: 'JetBrains Mono, monospace', fontSize: 'clamp(12px, 3vw, 15px)', fontWeight: 700, textAlign: 'center', color: 'var(--ink)', background: 'var(--page-bg)', outline: 'none', boxSizing: 'border-box', transition: 'border-color .15s', boxShadow: focused ? '0 0 0 3px rgba(5,150,105,.09)' : 'none' }}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
       />
@@ -150,7 +150,7 @@ export default function CronWidget() {
       </div>
 
       {/* Field editors */}
-      <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(0, 1fr))', gap: 8, marginBottom: 12 }}>
         <FieldEditor label="Minute"       value={fields.min} onChange={setField('min')} hint="0-59" />
         <FieldEditor label="Hour"         value={fields.hr}  onChange={setField('hr')}  hint="0-23" />
         <FieldEditor label="Day (month)"  value={fields.dom} onChange={setField('dom')} hint="1-31" />
@@ -160,7 +160,7 @@ export default function CronWidget() {
 
       {/* Expression + copy */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 16px', background: 'var(--ink)', borderRadius: 'var(--r-m)', marginBottom: 12 }}>
-        <code style={{ flex: 1, fontFamily: 'JetBrains Mono, monospace', fontSize: 18, fontWeight: 700, color: '#fff', letterSpacing: '0.08em', wordBreak: 'break-all' }}>{expr}</code>
+        <code style={{ flex: 1, fontFamily: 'JetBrains Mono, monospace', fontSize: 'clamp(13px, 3.5vw, 18px)', fontWeight: 700, color: '#fff', letterSpacing: '0.05em', wordBreak: 'break-all', minWidth: 0 }}>{expr}</code>
         <button onClick={copy} style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '6px 12px', background: copied ? 'var(--green)' : 'rgba(255,255,255,.12)', color: '#fff', border: 'none', borderRadius: 'var(--r-s)', fontSize: 12, fontWeight: 600, cursor: 'pointer', transition: 'all .14s', flexShrink: 0 }}>
           {copied ? <IcoCheck /> : <IcoCopy />} {copied ? 'Copied!' : 'Copy'}
         </button>
@@ -180,7 +180,7 @@ export default function CronWidget() {
             {runs.map((d, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '7px 12px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-s)' }}>
                 <span style={{ fontSize: 11, color: 'var(--ink-4)', minWidth: 16, fontWeight: 700 }}>#{i+1}</span>
-                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, color: 'var(--ink)' }}>{d.toLocaleString()}</span>
+                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 'clamp(11px, 2.8vw, 13px)', color: 'var(--ink)', wordBreak: 'break-word' }}>{d.toLocaleString()}</span>
               </div>
             ))}
           </div>

@@ -108,7 +108,7 @@ export default function CronContent() {
                     <p style={pStyle}>
                         A standard Unix cron expression consists of <strong style={{ color: 'var(--ink)' }}>five fields</strong> separated by spaces. Each field controls a different unit of time. The fields are evaluated left to right, and a job runs only when <em>all five fields</em> match the current time simultaneously.
                     </p>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 8, marginBottom: 20 }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(160px, 100%), 1fr))', gap: 8, marginBottom: 20 }}>
                         {cronFields.map(({ pos, name, range, chars }) => (
                             <div key={pos} style={{ padding: '12px 14px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', textAlign: 'center' }}>
                                 <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>Field {pos}</div>
@@ -182,7 +182,7 @@ export default function CronContent() {
                             <tbody>
                                 {essentialExpressions.map(({ expr, meaning }, i) => (
                                     <tr key={expr} style={{ background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', borderBottom: '1px solid var(--border)' }}>
-                                        <td style={{ ...tdStyle, fontFamily: 'JetBrains Mono, monospace', fontSize: 13, whiteSpace: 'nowrap', color: 'var(--ink)', fontWeight: 600 }}>{expr}</td>
+                                        <td style={{ ...tdStyle, fontFamily: 'JetBrains Mono, monospace', fontSize: 13, wordBreak: 'break-all', color: 'var(--ink)', fontWeight: 600 }}>{expr}</td>
                                         <td style={tdStyle}>{meaning}</td>
                                     </tr>
                                 ))}
