@@ -75,6 +75,87 @@ export default function ColorPaletteContent() {
             </div>
           </section>
 
+          {/* ── Building a design system palette ─────────── */}
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              Building a design system color palette
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              A well-structured design system palette goes beyond 5 random harmonious colors. It defines a complete color vocabulary that designers and developers can use consistently across an entire product. Most modern design systems use a <strong style={{ color: 'var(--ink)' }}>scale-based approach</strong> where each hue has a range of 10–12 lightness steps (e.g. 50, 100, 200 … 900, 950).
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 20 }}>
+              Start by generating your primary brand color palette using this tool, then use the HSL values to create a full scale. For a given hue, keep the hue and saturation constant and vary only the lightness: 950 is near-black, 50 is near-white, and 500 is the pure color. Use <a href="/tools/color-converter" style={{ color: 'var(--green)', textDecoration: 'underline' }}>Color Converter</a> to translate your generated HEX values to HSL for easier scale creation.
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 12 }}>
+              {[
+                { role: 'Primary', purpose: 'Brand color — buttons, links, active states, primary CTAs', example: 'Blue, Green, Indigo' },
+                { role: 'Neutral / Gray', purpose: 'Text, backgrounds, borders, dividers, disabled states', example: 'Slate, Zinc, Stone' },
+                { role: 'Semantic: Success', purpose: 'Positive states, confirmations, success messages', example: 'Green hues' },
+                { role: 'Semantic: Warning', purpose: 'Caution states, non-blocking alerts, attention indicators', example: 'Amber, Yellow' },
+                { role: 'Semantic: Error', purpose: 'Error states, destructive actions, form validation', example: 'Red hues' },
+                { role: 'Accent / Secondary', purpose: 'Supporting color for visual interest, highlights, tags', example: 'Complementary to primary' },
+              ].map(({ role, purpose, example }) => (
+                <div key={role} style={{ padding: '14px 16px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)' }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)', marginBottom: 4 }}>{role}</div>
+                  <div style={{ fontSize: 13, color: 'var(--ink-3)', lineHeight: 1.55, marginBottom: 6 }}>{purpose}</div>
+                  <div style={{ fontSize: 12, color: 'var(--green)', fontWeight: 600 }}>e.g. {example}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ── Color and brand identity ──────────────────── */}
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              Color psychology in brand and UI design
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 20 }}>
+              Color perception is culturally shaped and context-dependent, but certain associations are consistent enough across Western markets to be useful starting points for brand color selection:
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {[
+                { color: 'Blue', feel: 'Trust, reliability, calm, professionalism', used: 'Finance, healthcare, tech (LinkedIn, PayPal, Samsung, Ford)' },
+                { color: 'Green', feel: 'Growth, health, sustainability, nature', used: 'Finance (wealth), food, wellness, eco brands (Whole Foods, Robinhood)' },
+                { color: 'Red', feel: 'Energy, urgency, passion, appetite stimulation', used: 'Food, retail, entertainment (Coca-Cola, Netflix, YouTube)' },
+                { color: 'Yellow / Amber', feel: 'Optimism, warmth, attention-grabbing', used: 'Warnings, food, creative brands (IKEA, McDonald\'s, Snapchat)' },
+                { color: 'Purple', feel: 'Creativity, luxury, mystery, wisdom', used: 'Premium products, beauty, creative tools (Cadbury, Hallmark, Twitch)' },
+                { color: 'Black / Charcoal', feel: 'Sophistication, premium, authority', used: 'Luxury fashion, high-end tech (Apple, Chanel, Nike)' },
+              ].map(({ color, feel, used }) => (
+                <div key={color} style={{ display: 'flex', gap: 14, padding: '12px 16px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', flexWrap: 'wrap' }}>
+                  <div style={{ minWidth: 80, fontSize: 14, fontWeight: 700, color: 'var(--ink)' }}>{color}</div>
+                  <div style={{ flex: 1, minWidth: 180 }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink-2)', marginBottom: 2 }}>{feel}</div>
+                    <div style={{ fontSize: 12, color: 'var(--ink-4)' }}>{used}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ── FAQ ─────────────────────────────────────── */}
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>
+              Frequently asked questions
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', overflow: 'hidden' }}>
+              {[
+                { q: 'What is the difference between analogous and monochromatic palettes?', a: 'Analogous palettes use neighboring hues on the color wheel (e.g. blue, teal, green) — multiple colors but a unified feel. Monochromatic palettes use a single hue at different lightness and saturation levels (e.g. light blue, medium blue, dark blue). Monochromatic is easier to keep accessible and cohesive; analogous gives more tonal variety while still feeling harmonious.' },
+                { q: 'How do I choose the right harmony mode for my project?', a: 'Match the harmony to the emotional tone of the brand. Analogous works for calm, natural, wellness brands. Complementary works for bold, high-contrast retail and sports brands. Triadic works for playful, creative, children\'s brands. Monochromatic works for premium, minimal, corporate brands. Tetradic offers maximum variety but is the hardest to execute — best left to experienced designers.' },
+                { q: 'Can I use the generated colors directly in my CSS?', a: 'Yes. Click "Copy CSS" to get a :root {} block with CSS custom properties (--color-1 through --color-5) ready to paste into your stylesheet. You can then use var(--color-1) anywhere in your CSS. For a more complete design token system, use the Color Converter to generate HSL values for each color and create lightness scales.' },
+                { q: 'How many colors should a UI color palette have?', a: 'Most UI design systems define 2–3 brand colors (primary, secondary, accent) plus a full neutral gray scale. This gives you 30–60 named color tokens when you include all lightness steps. Five harmonious colors from a generator are a good starting point for exploring combinations — not the final production palette.' },
+                { q: 'What does "locking" a color do?', a: 'Locking a color prevents it from changing when you click Generate. This is useful when you have a fixed brand color (e.g. your company\'s logo blue) and need to find harmonious companions for it. Lock your brand color, select a harmony mode, and regenerate the remaining slots until you find a combination that works.' },
+                { q: 'How do I ensure my generated colors are accessible?', a: 'After generating your palette, check each color\'s contrast ratio against your text color (usually dark gray or black) and background color (usually white or light gray). WCAG AA requires at least 4.5:1 contrast for normal text. Adjust lightness in the Color Converter until the ratio passes. Monochromatic palettes are the easiest to make accessible because you control lightness directly.' },
+                { q: 'What is the difference between a tint, shade, and tone?', a: 'These terms describe how you modify a pure color. A tint adds white (lighter version). A shade adds black (darker version). A tone adds gray (more muted version). Monochromatic palettes use tints and shades of a single hue. Understanding these terms helps when communicating with print designers and when building lightness scales for design systems.' },
+                { q: 'Can I generate a palette starting from a specific color?', a: 'Not directly in this tool — the generator creates harmonious palettes from a randomly chosen base color. To start from a specific color, generate a few palettes, lock colors manually, or use the Color Converter to find the HSL values of your target color and manually select harmony colors at the appropriate angular offsets (e.g. +120° and +240° for triadic).' },
+              ].map(({ q, a }, i, arr) => (
+                <div key={q} style={{ padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid var(--border)' : 'none', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)' }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>{q}</div>
+                  <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.65, margin: 0 }}>{a}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
         </div>
       </div>
   );

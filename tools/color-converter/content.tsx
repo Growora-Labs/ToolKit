@@ -179,6 +179,72 @@ export default function ColorConverterContent() {
           </div>
         </section>
 
+        {/* ── Accessibility and color contrast ─────────── */}
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+            Color accessibility — contrast ratios and WCAG
+          </h2>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+            Converting a color to the right format is only half the job. Before using any color for text or interactive elements, verify that it meets <strong style={{ color: 'var(--ink)' }}>WCAG 2.2 contrast requirements</strong>. Low-contrast colors are the most common accessibility failure on the web, and they make content unreadable for users with low vision or in bright sunlight.
+          </p>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+            The contrast ratio is calculated from the <strong style={{ color: 'var(--ink)' }}>relative luminance</strong> of two colors — a value derived from their linear RGB components. The luminance calculation uses non-linear gamma correction to match human visual perception, which is why two colors that look similar in HEX can have very different luminance values.
+          </p>
+          <div style={{ overflowX: 'auto', marginBottom: 14 }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
+              <thead>
+                <tr style={{ background: 'var(--ink)', color: '#fff' }}>
+                  {['WCAG Level', 'Min contrast ratio', 'Applies to', 'Passes?'].map(h => (
+                    <th key={h} style={{ padding: '10px 14px', textAlign: 'left', fontWeight: 600, fontFamily: 'Outfit, sans-serif' }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ['AA (normal text)',  '4.5:1', 'Text under 18px regular / 14px bold', '✅ Minimum required'],
+                  ['AA (large text)',   '3:1',   'Text 18px+ regular or 14px+ bold',    '✅ Minimum required'],
+                  ['AA (UI components)','3:1',   'Buttons, inputs, icons, focus rings',  '✅ Minimum required'],
+                  ['AAA (enhanced)',    '7:1',   'Normal text — highest accessibility',  '⭐ Gold standard'],
+                ].map(([level, ratio, applies, status], i) => (
+                  <tr key={level} style={{ background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', borderBottom: '1px solid var(--border)' }}>
+                    <td style={{ padding: '10px 14px', fontWeight: 600, color: 'var(--ink)' }}>{level}</td>
+                    <td style={{ padding: '10px 14px', fontFamily: 'JetBrains Mono, monospace', fontSize: 13, color: 'var(--green)', fontWeight: 700 }}>{ratio}</td>
+                    <td style={{ padding: '10px 14px', color: 'var(--ink-2)' }}>{applies}</td>
+                    <td style={{ padding: '10px 14px', color: 'var(--ink-3)' }}>{status}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--ink-3)' }}>
+            After converting your colors with this tool, test your text/background combinations with a dedicated contrast checker. Use <a href="/tools/color-palette" style={{ color: 'var(--green)', textDecoration: 'underline' }}>Color Palette Generator</a> to generate accessible color combinations from the start.
+          </p>
+        </section>
+
+        {/* ── FAQ ─────────────────────────────────────── */}
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>
+            Frequently asked questions
+          </h2>
+          <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', overflow: 'hidden' }}>
+            {[
+              { q: 'Why do HEX and RGB describe the same color differently?', a: 'HEX is just a compact notation for RGB using hexadecimal numbers. The color #3b82f6 is identical to rgb(59, 130, 246) — the two hex digits 3b equal decimal 59, 82 equals 130, and f6 equals 246. HEX is shorter to write in CSS; RGB is easier to manipulate mathematically in JavaScript.' },
+              { q: 'Can every screen color be printed in CMYK?', a: 'No. RGB screens can display colors with a wider gamut than CMYK printing allows. Bright neon blues, electric greens, and vivid reds are particularly affected. When you convert these colors to CMYK, the nearest printable color is used, which will appear noticeably muted. This is called "gamut compression" — always proof print colors before finalizing branded materials.' },
+              { q: 'What does the alpha channel do in rgba() and hsla()?', a: 'The alpha channel controls opacity, expressed as a decimal from 0 (fully transparent) to 1 (fully opaque). For example, rgba(59, 130, 246, 0.5) is the same blue at 50% opacity. Alpha is useful for overlays, shadows, and semi-transparent UI elements. This converter shows solid colors; add the alpha channel manually in your CSS.' },
+              { q: 'Why does HSL make it easier to create color variations?', a: 'Because Lightness is a single axis. To make a color lighter, increase the L value. To make it darker, decrease it. To desaturate, decrease S. In HEX or RGB, changing brightness requires adjusting all three channels simultaneously and recalculating. HSL is the most practical format for creating tints, shades, and tones in design systems.' },
+              { q: 'What is the difference between HSV and HSL saturation?', a: 'Although both use the same "Saturation" label, they measure different things. In HSL, maximum saturation at 50% lightness gives the purest color. In HSV, maximum saturation at 100% value also gives the purest color. They diverge for dark colors: a dark pure color has high HSV saturation but low HSL lightness. Design tools like Figma typically use HSV for their color picker controls, while CSS uses HSL.' },
+              { q: 'How do I convert a Figma color to CSS?', a: 'Figma displays colors in HEX and HSL natively. Click any color in Figma\'s inspector to copy it as HEX (#rrggbb) or HSL. Paste the HEX value into this converter to get all formats simultaneously, including the CSS custom property declaration. For design tokens, HSL is recommended because you can programmatically generate color scales by varying the L value.' },
+              { q: 'What HEX shorthand does CSS support?', a: 'CSS supports 3-digit HEX shorthand (#rgb) where each digit is doubled: #f06 expands to #ff0066, and #fff expands to #ffffff. This works only when each pair of hex digits is identical (e.g. #aabbcc can be shortened to #abc, but #a1b2c3 cannot). CSS also supports 4-digit (#rgba) and 8-digit (#rrggbbaa) formats including the alpha channel.' },
+              { q: 'Why does the CMYK output look different in Adobe software than expected?', a: 'Adobe applications apply ICC color profiles that shift colors based on the target printing device (coated paper, uncoated paper, newsprint, etc.). A simple mathematical CMYK conversion does not account for ink behavior, dot gain, or paper absorption. For print production, always specify the target ICC profile (e.g. FOGRA39 for European coated paper) and let the print shop convert from your RGB source.' },
+            ].map(({ q, a }, i, arr) => (
+              <div key={q} style={{ padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid var(--border)' : 'none', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)' }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>{q}</div>
+                <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.65, margin: 0 }}>{a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
       </div>
     </div>
   );

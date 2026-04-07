@@ -89,6 +89,76 @@ export default function HashGeneratorContent() {
             </div>
           </section>
 
+          {/* ── File integrity verification ───────────────── */}
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              File integrity verification with checksums
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              One of the most common practical uses for SHA hashing is verifying that a downloaded file has not been corrupted or tampered with. Software distributors publish a SHA-256 checksum alongside their download. After downloading, you hash the file locally and compare the result to the published value. If they match, the file is authentic and intact.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              This works because even a single bit change in the file produces a completely different hash — a property called the <strong style={{ color: 'var(--ink)' }}>avalanche effect</strong>. Changing one character in a 1 MB file will produce a hash with no resemblance to the original. You can verify file integrity on the command line:
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {[
+                { label: 'macOS / Linux', code: 'shasum -a 256 downloaded-file.zip\n# Compare output to the published checksum' },
+                { label: 'Windows (PowerShell)', code: 'Get-FileHash downloaded-file.zip -Algorithm SHA256\n# Compare output to the published checksum' },
+              ].map(({ label, code }) => (
+                <div key={label} style={{ padding: '14px 16px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)' }}>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink-3)', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{label}</div>
+                  <pre style={{ margin: 0, padding: '10px 12px', background: 'var(--page-bg)', borderRadius: 'var(--r-s)', fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--green)', lineHeight: 1.7 }}>{code}</pre>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ── Common hashing use cases ──────────────────── */}
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              Common hashing use cases in software development
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 10 }}>
+              {[
+                { title: 'API request signing', desc: 'HMAC-SHA256 is used to sign API requests (AWS Signature V4, GitHub webhooks) to prove authenticity without exposing the secret key.' },
+                { title: 'Git commit IDs', desc: 'Every Git commit, tree, blob, and tag is identified by its SHA-1 hash (migrating to SHA-256). This ensures immutability — any change produces a new hash.' },
+                { title: 'Data deduplication', desc: 'Hash file or record content to detect duplicates without byte-by-byte comparison. If two files have the same SHA-256 hash, they are identical.' },
+                { title: 'Cache keys', desc: 'Hash the input parameters of a function or query to generate a cache key. Same inputs always produce the same key, regardless of parameter ordering.' },
+                { title: 'Content addressing', desc: 'Content-addressable systems (IPFS, Docker image layers) use SHA-256 hashes as addresses. The content itself determines where it is stored.' },
+                { title: 'Digital certificates (TLS)', desc: 'X.509 certificates are signed using SHA-256. The certificate fingerprint is the SHA-256 hash of the certificate DER-encoded form — used to verify authenticity.' },
+              ].map(({ title, desc }) => (
+                <div key={title} style={{ padding: '14px 16px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', boxShadow: 'var(--sh-xs)' }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)', marginBottom: 6 }}>{title}</div>
+                  <div style={{ fontSize: 13, color: 'var(--ink-3)', lineHeight: 1.55 }}>{desc}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ── FAQ ─────────────────────────────────────── */}
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>
+              Frequently asked questions
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', overflow: 'hidden' }}>
+              {[
+                { q: 'Can I reverse a SHA hash to get the original text?', a: 'No. SHA hashing is a one-way function — it is computationally infeasible to reverse. You cannot reconstruct the input from the hash. However, for short or common inputs (like simple words or weak passwords), an attacker can use rainbow tables or dictionary attacks to find the matching preimage. This is why SHA should not be used for password storage without additional protections like salting.' },
+                { q: 'What is the difference between a hash and a checksum?', a: 'The terms are often used interchangeably, but they differ in intent. A checksum (like CRC32 or Adler-32) is designed to detect accidental corruption — fast to compute but easily forged. A cryptographic hash (like SHA-256) is designed to resist intentional manipulation — much slower but collision-resistant. Use checksums for error detection in data transmission; use cryptographic hashes for security applications.' },
+                { q: 'Why is SHA-1 deprecated?', a: 'Researchers demonstrated the first practical SHA-1 collision in 2017 (the SHAttered attack) — two different PDF files with the same SHA-1 hash. This breaks the fundamental collision-resistance property. Google announced deprecation of SHA-1 in Chrome certificate validation in 2017. Do not use SHA-1 for new projects — use SHA-256 or stronger.' },
+                { q: 'What is HMAC and how is it different from a plain hash?', a: 'HMAC (Hash-based Message Authentication Code) combines a hash function with a secret key: HMAC(key, message). Unlike a plain hash, HMAC verifies both integrity (the message has not been changed) and authenticity (the sender knows the secret key). Plain hashes prove only integrity. HMAC-SHA256 is used for API request signing, JWT signature verification, and cookie authentication.' },
+                { q: 'Is SHA-512 always stronger than SHA-256?', a: 'SHA-512 has a larger output (512 vs 256 bits) and is theoretically more secure against brute force. However, for practical purposes both are computationally secure against current attacks. SHA-512 is actually faster than SHA-256 on 64-bit processors because it uses 64-bit operations. The difference matters for very high-security applications like long-term document archiving, not for typical web application needs.' },
+                { q: 'How do I generate a SHA-256 hash in JavaScript?', a: 'Use the Web Crypto API\'s SubtleCrypto.digest() method, which is the same API this tool uses: const msgBuffer = new TextEncoder().encode(text); const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer); const hashArray = Array.from(new Uint8Array(hashBuffer)); const hash = hashArray.map(b => b.toString(16).padStart(2, "0")).join(""). This runs entirely in the browser and requires no external library.' },
+                { q: 'What does "uppercase vs lowercase" toggle change?', a: 'Nothing about the hash value itself — only the representation. A SHA-256 hash is a sequence of bytes, conventionally displayed as lowercase hexadecimal. The uppercase toggle simply converts a through f to A through F. Some systems (particularly older ones and certain APIs) require the uppercase form. Both representations decode to identical bytes.' },
+                { q: 'Can two different inputs produce the same SHA-256 hash?', a: 'Theoretically yes — this is called a collision — but no SHA-256 collision has ever been found. With 2^256 possible outputs, the probability of accidental collision is approximately 1 in 10^77. By comparison, there are an estimated 10^80 atoms in the observable universe. For practical purposes, SHA-256 collisions do not exist.' },
+              ].map(({ q, a }, i, arr) => (
+                <div key={q} style={{ padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid var(--border)' : 'none', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)' }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>{q}</div>
+                  <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.65, margin: 0 }}>{a}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
         </div>
       </div>
   );

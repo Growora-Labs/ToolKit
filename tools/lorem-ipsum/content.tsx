@@ -59,6 +59,96 @@ export default function LoremIpsumContent() {
             </div>
           </section>
 
+          {/* ── History extended ──────────────────────────── */}
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              The origin and history of Lorem Ipsum
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              The standard Lorem Ipsum passage begins with <em>"Lorem ipsum dolor sit amet, consectetur adipiscing elit..."</em> — a scrambled excerpt from sections 1.10.32 and 1.10.33 of Cicero's philosophical text <em>De Finibus Bonorum et Malorum</em> (On the Ends of Good and Evil), written in 45 BC. The original Latin reads <em>"Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet..."</em> — meaning "Nor is there anyone who loves pain itself because it is pain."
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              The Lorem Ipsum passage as we know it today gained widespread use in the 1960s through Letraset, a British company that produced dry-transfer sheets for graphic designers. The sheets featured the Lorem Ipsum text as filler to demonstrate typefaces. The adoption by desktop publishing software — particularly Aldus PageMaker in the 1980s — cemented its status as the universal placeholder text of the design industry.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)' }}>
+              Today, Lorem Ipsum is built into virtually every design tool, CMS, and prototyping application. Despite being 2,000 years old in origin, it serves exactly the same purpose as when Letraset first used it: it looks like real text without containing any meaningful message, allowing viewers to evaluate layout and typography without being distracted by actual content.
+            </p>
+          </section>
+
+          {/* ── When NOT to use Lorem Ipsum ──────────────── */}
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              When NOT to use Lorem Ipsum
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              Despite its widespread use, Lorem Ipsum is the wrong choice in certain situations. Real text reveals layout problems that placeholder text hides:
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {[
+                { situation: 'User testing and usability research', why: 'Test participants can\'t evaluate whether content helps them complete a task if the text is gibberish. Real or realistic content is essential for any test that involves comprehension or navigation.' },
+                { situation: 'Content-heavy components (cards, tables, lists)', why: 'Lorem Ipsum obscures how varying content lengths affect layout. A card with a 3-word title looks different from one with a 12-word title. Test with both extremes.' },
+                { situation: 'Presentations to stakeholders and clients', why: 'Non-technical stakeholders often misread Lorem Ipsum as a sign the product is unfinished. Use realistic representative content for client presentations, even if it\'s placeholder.' },
+                { situation: 'Navigation and menu items', why: 'Menu labels should reflect actual terminology. "Lorem ipsum" in a navigation item makes it impossible to evaluate whether the information architecture is clear.' },
+                { situation: 'Error messages and system text', why: 'Error messages are critical UI elements. Design and test them with real text — the emotional tone and length of "Something went wrong. Please try again." matters for the design.' },
+              ].map(({ situation, why }) => (
+                <div key={situation} style={{ padding: '14px 16px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)' }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)', marginBottom: 6 }}>{situation}</div>
+                  <p style={{ fontSize: 13, color: 'var(--ink-3)', lineHeight: 1.6, margin: 0 }}>{why}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ── Lorem Ipsum alternatives ──────────────────── */}
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              Lorem Ipsum alternatives for specific contexts
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 20 }}>
+              Sometimes you need placeholder text that fits a specific context better than Latin. These alternatives are more appropriate for certain design scenarios:
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 10 }}>
+              {[
+                { type: 'Cupcake Ipsum', context: 'Food, lifestyle, e-commerce', example: '"Cupcake ipsum dolor sit amet chocolate bar lollipop."' },
+                { type: 'Bacon Ipsum', context: 'Food, restaurant, casual', example: '"Bacon ipsum dolor amet strip steak pancetta brisket."' },
+                { type: 'Random Text Generator', context: 'Any context needing English text', desc: 'Generates readable English-like text using common word patterns. Use the Random Text Generator on this site.' },
+                { type: 'Corporate Ipsum', context: 'Business, SaaS, enterprise', example: '"Synergize core competencies to leverage actionable insights."' },
+                { type: 'Hipster Ipsum', context: 'Creative, indie, lifestyle brands', example: '"Artisan chia tattooed, vegan poutine craft beer."' },
+                { type: 'Actual content drafts', context: 'User testing, stakeholder reviews', desc: 'Write rough content for the most important 2–3 screens. Even imperfect real text beats placeholder text for evaluation.' },
+              ].map(({ type, context, example, desc }) => (
+                <div key={type} style={{ padding: '14px 16px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', boxShadow: 'var(--sh-xs)' }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)', marginBottom: 4 }}>{type}</div>
+                  <div style={{ fontSize: 11, color: 'var(--green)', fontWeight: 600, marginBottom: 6 }}>{context}</div>
+                  <div style={{ fontSize: 12, color: 'var(--ink-4)', lineHeight: 1.5, fontStyle: example ? 'italic' : 'normal' }}>{example || desc}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ── FAQ ─────────────────────────────────────── */}
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>
+              Frequently asked questions
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', overflow: 'hidden' }}>
+              {[
+                { q: 'Where does Lorem Ipsum come from?', a: 'Lorem Ipsum is derived from Cicero\'s "De Finibus Bonorum et Malorum" written in 45 BC. The passage is scrambled and altered from the original Latin text, making it meaningless as prose while preserving a natural distribution of letters and word lengths. It has been used as standard placeholder text in publishing since the 1960s.' },
+                { q: 'Why is Lorem Ipsum better than repeating "text here" or "abc abc abc"?', a: 'Real text has natural word length variation — a mix of short and long words creates authentic line breaks and hyphenation patterns. Repeating a single word or short phrase creates artificial uniform patterns that make it impossible to evaluate how real content will flow. Lorem Ipsum\'s pseudo-Latin has word length distribution similar to English, making it a better stand-in for layout purposes.' },
+                { q: 'How many words is a standard Lorem Ipsum paragraph?', a: 'A standard Lorem Ipsum paragraph contains approximately 50–75 words. When this generator creates paragraphs, each one is randomly assembled to be approximately that length. For layout mockups, 1 paragraph ≈ 60 words ≈ 5 lines at standard body text size and column width.' },
+                { q: 'Does Lorem Ipsum affect SEO if published on a live page?', a: 'Yes — publishing Lorem Ipsum on a live website is an SEO mistake. Search engines index placeholder text as content. Latin gibberish signals low-quality content, can trigger thin content penalties, and provides no semantic value. Always replace placeholder text before publishing. If you need SEO-friendly placeholder content, use the Random Text Generator to create English filler text.' },
+                { q: 'Can I use Lorem Ipsum in a client presentation?', a: 'It depends on the context. For technical stakeholders reviewing a wireframe, Lorem Ipsum is standard and accepted. For business stakeholders evaluating a design for approval, real or realistic representative content is strongly preferred. The text color, layout, and visual hierarchy are what you\'re presenting — but stakeholders often cannot look past placeholder text and focus on what it says instead of how it looks.' },
+                { q: 'What is the difference between "paragraphs", "sentences", and "words" modes?', a: 'Paragraphs generate full blocks of 4–7 sentences, ideal for body copy in articles and blog post mockups. Sentences generate individual sentences of 10–20 words, useful for subtitles, card descriptions, and testimonials. Words generate 1–10 words, useful for headings, button labels, navigation items, and tags.' },
+                { q: 'Why does the "Start with Lorem ipsum..." toggle matter?', a: 'The opening "Lorem ipsum dolor sit amet, consectetur adipiscing elit" is instantly recognizable. When sharing designs with non-designers, this recognizable phrase signals that the text is placeholder — which can be helpful or distracting depending on context. Disabling this option generates fully randomized text without the tell-tale opening, which looks more like real content.' },
+                { q: 'How do I generate Lorem Ipsum in my code or build process?', a: 'Multiple libraries exist for every language: lorem-ipsum (npm/Node.js), faker.js (JavaScript), Faker (Python/PHP/Ruby), and others. These are useful for seeding databases, generating realistic test fixtures, and populating mock API responses during development. For quick one-off generation in the browser, this tool is faster than setting up a library.' },
+              ].map(({ q, a }, i, arr) => (
+                <div key={q} style={{ padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid var(--border)' : 'none', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)' }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>{q}</div>
+                  <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.65, margin: 0 }}>{a}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
         </div>
       </div>
   );
