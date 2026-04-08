@@ -241,6 +241,50 @@ export default function TimeConverterContent() {
                     </div>
                 </section>
 
+
+                {/* ── Time zones and UTC ──────────────────── */}
+                <section style={{ marginBottom: 48 }}>
+                    <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+                        Milliseconds, microseconds, and nanoseconds in software
+                    </h2>
+                    <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 16 }}>
+                        This converter covers seconds to years — the units you use when discussing durations in human terms. But software also works with sub-second units that are critical for performance measurement, timestamps, and high-frequency operations:
+                    </p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
+                        {[
+                            {
+                                unit: 'Millisecond (ms)',
+                                val: '1 s = 1,000 ms',
+                                uses: 'JavaScript Date.now(), setTimeout/setInterval arguments, HTTP response time logging, animation frame budgets (16ms per frame at 60 fps), database query timeouts, Redis TTL in some clients.',
+                            },
+                            {
+                                unit: 'Microsecond (μs)',
+                                val: '1 s = 1,000,000 μs',
+                                uses: 'Linux system call latency, CPU cache miss cost, network packet round-trip within a data center, performance.now() in browsers (1μs resolution), PostgreSQL query planning statistics.',
+                            },
+                            {
+                                unit: 'Nanosecond (ns)',
+                                val: '1 s = 1,000,000,000 ns',
+                                uses: 'CPU clock cycles (a 3GHz CPU executes one cycle in ~0.33 ns), memory access latency (L1 cache: ~1ns, RAM: ~100ns), Go time.Duration, Java System.nanoTime(), high-frequency trading timestamps.',
+                            },
+                        ].map(({ unit, val, uses }) => (
+                            <div key={unit} style={{ padding: '14px 16px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 8, flexWrap: 'wrap' }}>
+                                    <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)' }}>{unit}</span>
+                                    <code style={{ fontSize: 12, fontFamily: 'JetBrains Mono, monospace', background: 'var(--green-lt)', color: 'var(--green)', padding: '2px 8px', borderRadius: 4 }}>{val}</code>
+                                </div>
+                                <p style={{ fontSize: 13, color: 'var(--ink-3)', lineHeight: 1.65, margin: 0 }}><strong style={{ color: 'var(--ink-2)' }}>Used in:</strong> {uses}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+                        The most dangerous unit mismatch in web development is <strong style={{ color: 'var(--ink)' }}>seconds vs milliseconds</strong>. Unix timestamps are in seconds; JavaScript's Date.now() returns milliseconds; many APIs (including AWS and Stripe webhooks) use seconds; but setTimeout() uses milliseconds. Always check the unit before using a numeric timestamp, and name your variables accordingly: <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>expiresAtSeconds</code> vs <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>delayMs</code>.
+                    </p>
+                    <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)' }}>
+                        For performance measurement in Node.js, prefer <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>process.hrtime.bigint()</code> over Date.now() — it returns nanoseconds as a BigInt and is not affected by system clock adjustments. In the browser, use <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>performance.now()</code> for sub-millisecond resolution.
+                    </p>
+                </section>
+
             </div>
         </div>
     );

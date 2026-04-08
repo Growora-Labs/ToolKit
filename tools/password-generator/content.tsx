@@ -257,7 +257,7 @@ export default function PasswordGeneratorContent() {
                         ))}
                     </div>
                 </section>
-
+
 
                 {/* ── Password managers tip ───────────────────── */}
                 <section style={{ marginBottom: 48 }}>
@@ -320,6 +320,36 @@ export default function PasswordGeneratorContent() {
                     <p style={{ fontSize: 12, color: 'var(--ink-4)', marginTop: 10, fontStyle: 'italic' }}>
                         * Some links are affiliate links. We may earn a commission if you purchase — at no extra cost to you.
                     </p>
+                </section>
+
+                {/* ── Two-factor authentication ────────────────── */}
+                <section style={{ marginBottom: 48 }}>
+                    <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+                        Two-factor authentication — the essential companion to strong passwords
+                    </h2>
+                    <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+                        A strong, unique password protects you from password guessing and credential stuffing attacks. But if your password is exposed in a data breach — and breaches happen to even the most security-conscious services — your account is still vulnerable. Two-factor authentication (2FA) is the layer that protects you when your password alone is no longer enough.
+                    </p>
+                    <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+                        2FA requires a second form of verification in addition to your password. The most common forms are SMS codes (convenient but vulnerable to SIM-swapping attacks), authenticator app codes (TOTP — time-based one-time passwords via Google Authenticator, Authy, or 1Password's built-in TOTP), and hardware security keys (FIDO2/WebAuthn — the most secure option, used by Google, Cloudflare, and government agencies). For important accounts, always use an authenticator app or hardware key rather than SMS.
+                    </p>
+                    <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+                        The hierarchy of account security is: unique strong password + 2FA + secure email account. Your email is the master key — nearly every other account can be reset via email. Securing your email account with a strong generated password and hardware key 2FA is the single highest-impact security action most people can take.
+                    </p>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(210px, 100%), 1fr))', gap: 10 }}>
+                        {[
+                            { method: 'SMS codes', security: 'Low', note: 'Vulnerable to SIM-swapping. Use only if no other option is available.' },
+                            { method: 'Authenticator app (TOTP)', security: 'Good', note: 'Google Authenticator, Authy, 1Password. Offline, not interceptable by phone number hijacking.' },
+                            { method: 'Hardware key (FIDO2)', security: 'Best', note: 'YubiKey, Google Titan. Phishing-resistant. Strongly recommended for email and financial accounts.' },
+                            { method: 'Passkeys', security: 'Best', note: 'The modern replacement for passwords. Biometric + device-bound key. No password required at all.' },
+                        ].map(({ method, security, note }) => (
+                            <div key={method} style={{ padding: '14px 16px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)' }}>
+                                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)', marginBottom: 4 }}>{method}</div>
+                                <div style={{ fontSize: 11, fontWeight: 600, color: security === 'Best' ? 'var(--green)' : security === 'Good' ? 'var(--blue)' : 'var(--amber)', marginBottom: 6 }}>Security: {security}</div>
+                                <div style={{ fontSize: 12, color: 'var(--ink-3)', lineHeight: 1.55 }}>{note}</div>
+                            </div>
+                        ))}
+                    </div>
                 </section>
 
             </div>

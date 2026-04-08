@@ -112,6 +112,47 @@ export default function UsernameGeneratorContent() {
             </p>
           </section>
 
+
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              Username security and account recovery
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              Your username is public by design, but it creates security implications worth understanding. On platforms that use your username as a login identifier (rather than your email), an attacker who knows your username has completed half of the credential pair. For these platforms, treat your username with slightly more discretion than your public display name.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              <strong style={{ color: 'var(--ink)' }}>Username squatting</strong> is the practice of registering a desirable username before the intended user does. On major platforms this is increasingly prohibited, but it still happens. If you are building a brand, register your chosen username on all relevant platforms as soon as you decide on it — even if you are not ready to use them all immediately. A placeholder account is better than losing the name.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              <strong style={{ color: 'var(--ink)' }}>Account recovery</strong> is the vulnerability most people overlook. If you lose access to the email address associated with an account, recovering that account becomes very difficult or impossible on some platforms. Always register accounts with an email address you own long-term (preferably a custom domain rather than a free provider you may abandon). Keep your recovery email and phone number updated.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)' }}>
+              <strong style={{ color: 'var(--ink)' }}>Impersonation and variations.</strong> Once you establish a username, search periodically for similar usernames that could be used for impersonation — your_name_, _yourname, yourname0. On high-visibility platforms, register the most obvious variations yourself to prevent impersonators. Report any accounts impersonating you using the platform's official reporting flow.
+            </p>
+          </section>
+
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              The psychology of a memorable username
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              Memorable usernames share patterns with memorable brand names: they are short, pronounceable, distinctive, and ideally carry some connotation relevant to the person or brand. The best usernames feel like a natural extension of the owner's identity — not a random string with numbers appended to make it available.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {[
+                { principle: 'Pronounceable', why: 'Names that can be said aloud are shared more easily in conversation. "Find me at swiftnova" is more effective word-of-mouth than "find me at sw1ft_n0va_84".' },
+                { principle: 'Distinctive without being bizarre', why: 'Mildly unusual is memorable. Extremely unusual is hard to recall and spell. Aim for a name that makes someone say "oh that is clever" rather than "how do you spell that?".' },
+                { principle: 'Consistent with your domain', why: 'A username that relates to your craft or personality creates immediate context. A developer named "nullbytes", a designer named "pixelframe", a writer named "inkwell" — each signals expertise at a glance.' },
+                { principle: 'Forward-compatible', why: 'Avoid names that will feel wrong in 5 years — references to current trends, age-specific tags (born_2001), or company-specific names if you might change jobs. Pick something you can grow into.' },
+              ].map(({ principle, why }, i) => (
+                <div key={principle} style={{ padding: '12px 16px', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)' }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 4 }}>{principle}</div>
+                  <p style={{ fontSize: 13, lineHeight: 1.65, color: 'var(--ink-2)', margin: 0 }}>{why}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
         </div>
       </div>
   );

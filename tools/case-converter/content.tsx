@@ -204,6 +204,25 @@ export default function CaseConverterContent() {
         </section>
 
 
+
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              Choosing the right case for different contexts
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              The correct case convention is not just a style preference — it communicates intent and context to anyone reading your code. Using the wrong case creates cognitive friction and can even introduce bugs (for example, CSS class names with uppercase letters will not match, and Linux file paths are case-sensitive while Windows ones are not).
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              <strong style={{ color: 'var(--ink)' }}>For UI copy (buttons, labels, navigation):</strong> Use sentence case as the default. Modern UI guidelines from Apple (Human Interface Guidelines), Google (Material Design), and Microsoft (Fluent Design) all recommend sentence case for labels and buttons because it reads more naturally and feels less formal. Reserve Title Case for page headings and dialog titles that function like document titles.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              <strong style={{ color: 'var(--ink)' }}>For API design:</strong> Choose one convention and apply it consistently across all endpoints. The most common REST API convention is camelCase for JSON property names (matching JavaScript object conventions) and kebab-case for URL path segments (/user-profiles not /userProfiles). GraphQL schemas use camelCase for field names and PascalCase for type names.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)' }}>
+              <strong style={{ color: 'var(--ink)' }}>For file and folder naming:</strong> kebab-case is the safest choice for web projects because it is URL-safe, works consistently across Linux, macOS, and Windows, and avoids case collision issues when files are moved between operating systems. Component files in React projects are a common exception — PascalCase.tsx matches the component name and makes imports readable.
+            </p>
+          </section>
+
       </div>
     </div>
   );

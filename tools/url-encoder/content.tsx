@@ -168,6 +168,55 @@ export default function UrlEncoderContent() {
             </div>
           </section>
 
+
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              URL encoding across programming languages
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 16 }}>
+              Every language has built-in URL encoding utilities. Here are the canonical functions to use — and the ones to avoid:
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 16 }}>
+              {[
+                { lang: 'JavaScript / TypeScript', encode: 'encodeURIComponent(value)', decode: 'decodeURIComponent(encoded)', avoid: 'escape() — deprecated, broken for Unicode' },
+                { lang: 'Python 3',                encode: 'urllib.parse.quote(value, safe="")', decode: 'urllib.parse.unquote(encoded)', avoid: 'urllib.quote() — removed in Python 3' },
+                { lang: 'Node.js',                 encode: 'encodeURIComponent() or new URLSearchParams()', decode: 'decodeURIComponent()', avoid: 'querystring — deprecated since Node 14' },
+                { lang: 'PHP',                     encode: 'rawurlencode($value)', decode: 'rawurldecode($encoded)', avoid: 'urlencode() — encodes spaces as + not %20' },
+                { lang: 'Go',                      encode: 'url.QueryEscape(value)', decode: 'url.QueryUnescape(encoded)', avoid: 'Manual string replacement' },
+                { lang: 'Java',                    encode: 'URLEncoder.encode(value, StandardCharsets.UTF_8)', decode: 'URLDecoder.decode(encoded, StandardCharsets.UTF_8)', avoid: 'URLEncoder.encode(value) without charset arg' },
+                { lang: 'Ruby',                    encode: 'URI.encode_www_form_component(value)', decode: 'URI.decode_www_form_component(encoded)', avoid: 'CGI.escape() — spaces become +' },
+                { lang: 'C# / .NET',               encode: 'Uri.EscapeDataString(value)', decode: 'Uri.UnescapeDataString(encoded)', avoid: 'HttpUtility.UrlEncode() — encodes spaces as +' },
+              ].map(({ lang, encode, decode, avoid }, i) => (
+                <div key={lang} style={{ padding: '12px 16px', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)' }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)', marginBottom: 6 }}>{lang}</div>
+                  <div style={{ fontSize: 12, fontFamily: 'JetBrains Mono, monospace', color: 'var(--green)', marginBottom: 3 }}>Encode: {encode}</div>
+                  <div style={{ fontSize: 12, fontFamily: 'JetBrains Mono, monospace', color: 'var(--ink-2)', marginBottom: 3 }}>Decode: {decode}</div>
+                  <div style={{ fontSize: 12, color: 'var(--ink-4)' }}>Avoid: {avoid}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              Debugging common URL encoding mistakes
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {[
+                { problem: 'Spaces encoded as + instead of %20', cause: 'application/x-www-form-urlencoded (HTML form POST) encodes spaces as +. This is correct for form bodies but wrong for URL paths and REST API query strings.', fix: 'Use encodeURIComponent() — it always produces %20. When decoding a + as a space: decodeURIComponent(str.replace(/\\+/g, " ")).' },
+                { problem: 'Double-encoding: %2520 instead of %20', cause: 'The URL was encoded twice. The % in %20 was then encoded to %25, producing %2520. Happens when encoding an already-encoded string.', fix: 'Always encode raw values, never pre-encoded strings. If in doubt, decode first then re-encode.' },
+                { problem: 'Non-ASCII characters not encoded', cause: "Older functions like JavaScript's escape() or Python 2's urllib.quote() do not handle multi-byte UTF-8 correctly.", fix: 'Use encodeURIComponent() in JS and urllib.parse.quote(value, safe="", encoding="utf-8") in Python.' },
+                { problem: 'Slashes in path values not encoded', cause: 'A value like /uploads/user/file.jpg passed as a query parameter must have its slashes encoded as %2F. Leaving them unencoded breaks the URL parser.', fix: 'Always use encodeURIComponent() (not encodeURI()) for individual values. encodeURI() intentionally skips encoding slashes.' },
+              ].map(({ problem, cause, fix }, i) => (
+                <div key={problem} style={{ padding: '14px 16px', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)' }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 6 }}>{problem}</div>
+                  <div style={{ fontSize: 13, color: 'var(--ink-3)', lineHeight: 1.6, marginBottom: 4 }}><strong>Cause:</strong> {cause}</div>
+                  <div style={{ fontSize: 13, color: 'var(--green)', lineHeight: 1.6 }}><strong>Fix:</strong> {fix}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
         </div>
       </div>
   );

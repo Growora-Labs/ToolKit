@@ -224,7 +224,36 @@ export default function TextDiffContent() {
         </section>
 
 
-        {/* ── Privacy note ────────────────────────────── */}
+        
+        {/* ── Git diff deep dive ──────────────────── */}
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+            How Git uses diffs internally
+          </h2>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+            Git does not store file snapshots for every commit — that would consume enormous storage. Instead, Git stores the <strong style={{ color: 'var(--ink)' }}>objects</strong> (blobs) for each version of a file and computes diffs on demand when you run <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>git diff</code> or view a commit. Each commit object points to a tree of blob hashes, and the diff is computed by comparing the blob content of matching file paths between two commits.
+          </p>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+            Git's default diff algorithm is <strong style={{ color: 'var(--ink)' }}>Myers diff</strong>, the same algorithm described by Eugene Myers in 1986. For most text, it produces optimal diffs. Git also supports the <strong style={{ color: 'var(--ink)' }}>patience diff</strong> algorithm (<code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>--diff-algorithm=patience</code>) which produces more readable diffs for code by anchoring around unique lines — particularly useful when a function is moved rather than modified. The <strong style={{ color: 'var(--ink)' }}>histogram diff</strong> (<code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>--diff-algorithm=histogram</code>) is an evolution of patience diff and is often recommended for code review workflows.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {[
+              { cmd: 'git diff', desc: 'Shows unstaged changes — what is in the working directory but not yet staged for commit.' },
+              { cmd: 'git diff --staged', desc: 'Shows staged changes — what will be included in the next commit. Alias: --cached.' },
+              { cmd: 'git diff HEAD~1 HEAD', desc: 'Shows what changed between the previous commit and the current one.' },
+              { cmd: 'git diff main...feature', desc: 'Shows changes in the feature branch since it diverged from main — the "what did this PR change" view.' },
+              { cmd: 'git diff -w', desc: 'Ignores whitespace-only changes. Equivalent to the "Ignore whitespace" option in this tool.' },
+              { cmd: 'git log -p', desc: "Shows commit history with the full diff for each commit inline — useful for auditing a file's change history." },
+            ].map(({ cmd, desc }, i) => (
+              <div key={cmd} style={{ padding: '12px 16px', display: 'flex', gap: 16, alignItems: 'flex-start', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)' }}>
+                <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--green)', background: 'var(--green-lt)', padding: '2px 8px', borderRadius: 4, flexShrink: 0, marginTop: 2, whiteSpace: 'nowrap' }}>{cmd}</code>
+                <p style={{ fontSize: 13, color: 'var(--ink-2)', lineHeight: 1.65, margin: 0 }}>{desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+{/* ── Privacy note ────────────────────────────── */}
         <section style={{ marginBottom: 48 }}>
           <div style={{ padding: '20px 24px', background: 'var(--green-lt)', border: '1px solid rgba(5,150,105,.2)', borderRadius: 'var(--r-l)' }}>
             <h3 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 16, color: 'var(--ink)', marginBottom: 8 }}>

@@ -169,6 +169,46 @@ export default function MarkdownEditorContent() {
             </p>
           </section>
 
+
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              Writing technical documentation in Markdown
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              Technical documentation differs from blog posts and READMEs in scope and longevity — it must remain accurate across software versions, serve multiple skill levels simultaneously, and be maintainable by a team. Markdown's simplicity is a feature here: anyone can contribute without learning a CMS or documentation framework.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
+              {[
+                { rule: 'One H1 per document', detail: 'The H1 is the document title and should appear once at the top. Use H2 for major sections, H3 for subsections. Deep nesting (H4+) usually signals a section that should be split into a separate document.' },
+                { rule: 'Use fenced code blocks with language identifiers', detail: 'Always specify the language after the opening backticks: ```python, ```bash, ```json. This enables syntax highlighting in all major renderers and signals to readers what runtime the code targets.' },
+                { rule: 'Write self-contained sections', detail: 'Technical readers scan and jump to relevant sections. Each H2 section should make sense without reading the previous ones. Avoid forward references that assume the reader has read earlier sections.' },
+                { rule: 'Prefer absolute links for cross-references', detail: 'Relative links break when documentation is viewed from different base paths or mirrored to another platform. For links between documents, use the full path from the documentation root.' },
+                { rule: 'Use admonitions for warnings and notes', detail: 'Many documentation platforms (Docusaurus, MkDocs, GitBook) support callout blocks — > [!WARNING], > [!NOTE], or custom syntax. Use them for important caveats, deprecation notices, and security warnings.' },
+                { rule: 'Version-stamp time-sensitive content', detail: 'Add a "Last updated" date or version tag to pages that describe APIs, configuration, or behavior that may change between releases. This helps readers assess whether the documentation is still current.' },
+              ].map(({ rule, detail }, i) => (
+                <div key={rule} style={{ padding: '12px 16px', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)' }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 4 }}>{rule}</div>
+                  <p style={{ fontSize: 13, lineHeight: 1.65, color: 'var(--ink-2)', margin: 0 }}>{detail}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              Markdown rendering pipelines — how .md becomes HTML
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              Understanding how Markdown is processed helps you debug rendering inconsistencies across tools. The pipeline has three stages: parsing (source text → AST), transformation (AST → modified AST), and serialization (AST → HTML or another format).
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              Popular parsers include <strong style={{ color: 'var(--ink)' }}>marked.js</strong> (fast, browser-friendly, used by this editor), <strong style={{ color: 'var(--ink)' }}>remark</strong> (AST-based, plugin ecosystem, used by Next.js MDX and Docusaurus), <strong style={{ color: 'var(--ink)' }}>markdown-it</strong> (CommonMark compliant, plugin-friendly), and <strong style={{ color: 'var(--ink)' }}>Pandoc</strong> (multi-format, used in academic publishing and PDF generation). The choice of parser determines which extensions and plugins are available.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)' }}>
+              For security, all Markdown renderers should sanitize the HTML output before injecting it into the DOM. Raw Markdown can contain inline HTML, including script tags and event handlers, which become XSS vectors if rendered without sanitization. This editor uses DOMPurify to sanitize the rendered output. When building your own Markdown pipeline, use a sanitizer like DOMPurify (browser) or sanitize-html (Node.js) as the final step before rendering.
+            </p>
+          </section>
+
         </div>
       </div>
   );

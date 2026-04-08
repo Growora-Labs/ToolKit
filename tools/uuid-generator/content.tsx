@@ -107,6 +107,45 @@ export default function UuidGeneratorContent() {
           </div>
         </section>
 
+
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+            UUID best practices for backend developers
+          </h2>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 16 }}>
+            Using UUIDs effectively in production systems requires understanding the performance tradeoffs and common pitfalls. Here are the patterns that experienced engineers follow:
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {[
+              { title: 'Prefer UUID v7 for database primary keys', body: 'UUID v4 is fully random — B-tree index pages split constantly as new rows land at random positions. UUID v7 embeds a millisecond timestamp so new rows cluster near the end of the index, dramatically reducing write amplification and fragmentation at scale.' },
+              { title: 'Store as BINARY(16), not CHAR(36)', body: 'The hyphenated string wastes 20 bytes versus the 16-byte binary form. MySQL: use BINARY(16) with UNHEX(REPLACE(uuid,"-","")). PostgreSQL has a native UUID type that stores 16 bytes automatically.' },
+              { title: 'Never expose sequential IDs publicly', body: 'Auto-increment IDs reveal your record count and enable enumeration attacks. Replace public-facing IDs with UUIDs. Keep integer primary keys internal for foreign keys and joins.' },
+              { title: 'Validate at the API boundary', body: 'Before using a UUID from user input in a query, validate the 8-4-4-4-12 hex format. An invalid UUID may cause silent type coercion in some databases.' },
+              { title: 'Add expiry for token use cases', body: 'UUID v4 cannot be guessed by brute force — great for password reset links. But always store a creation time server-side and mark the token used after redemption. UUID alone does not expire.' },
+            ].map(({ title, body }, i) => (
+              <div key={title} style={{ padding: '14px 16px', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)' }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 6 }}>{title}</div>
+                <p style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--ink-2)', margin: 0 }}>{body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+            UUID collision probability and security
+          </h2>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+            UUID v4's 122 bits of randomness make it statistically impossible to guess a valid identifier by brute force. This makes UUIDs an excellent choice for public-facing resource identifiers — shareable document URLs, order confirmation links, file upload paths. An attacker cannot enumerate resources: guessing the next valid UUID requires trying approximately 5.3 × 10³⁶ possibilities.
+          </p>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+            Collision probability is similarly negligible. To have a 1% chance of generating a duplicate within your system, you would need to have already generated approximately 2.6 × 10¹⁷ UUIDs. At one million per second, reaching that number would take over 8,000 years.
+          </p>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)' }}>
+            The one caveat is random number generator quality. Use only CSPRNG-backed generators: the browser's crypto.randomUUID(), Python's uuid.uuid4(), or PostgreSQL's gen_random_uuid(). Avoid any library that seeds from a timestamp or weak random source — those UUIDs are predictable and defeat the purpose entirely.
+          </p>
+        </section>
+
       </div>
     </div>
   );

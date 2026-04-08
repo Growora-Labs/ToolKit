@@ -149,6 +149,71 @@ export default function RegexTesterContent() {
             </div>
           </section>
 
+
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              Common regex mistakes and how to avoid them
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {[
+                {
+                  mistake: 'Catastrophic backtracking',
+                  desc: 'Patterns like /(a+)+b/ applied to "aaaaaaaaaaac" cause exponential backtracking — the engine tries every possible combination of ways to group the "a"s before concluding there is no match. This can freeze a browser tab or crash a Node.js process. Avoid nested quantifiers (a+)+ and alternations that can match the same character in multiple ways.',
+                  fix: 'Use possessive quantifiers or atomic groups where available, or rewrite the pattern to avoid ambiguity. Test potentially slow patterns against long non-matching strings.',
+                },
+                {
+                  mistake: 'Greedy quantifiers consuming too much',
+                  desc: 'By default, quantifiers like *, +, and ? are greedy — they match as much as possible. The pattern /<.+>/ against "<b>bold</b>" matches the entire string including both tags, not just the first tag. The greedy + consumed everything up to the last >.',
+                  fix: 'Make quantifiers lazy by appending ?: /<.+?>/ matches the shortest possible sequence. Or use a negated character class: /<[^>]+>/ matches any sequence that excludes > — more precise and faster.',
+                },
+                {
+                  mistake: 'Forgetting to escape special characters',
+                  desc: 'In regex, the characters . * + ? ^ $ { } [ ] | ( ) \ have special meaning. Matching a literal period in a domain name requires \\. not . — an unescaped . matches any character. /example.com/ matches "exampleXcom", "example-com", and "example.com" equally.',
+                  fix: 'Escape any character that should be treated literally: /example\\.com/. If unsure, escape all non-alphanumeric characters when you mean them literally.',
+                },
+                {
+                  mistake: 'Using regex for full email or URL validation',
+                  desc: 'A truly correct email regex that validates every edge case in RFC 5321 is several thousand characters long. Patterns that look correct will reject valid addresses (those with + signs, subdomain labels, or international domain names) or accept invalid ones.',
+                  fix: 'Use regex for basic format screening, not authoritative validation. The gold standard for email validation is to send a confirmation email — if it arrives, the address is valid. For URLs, use the URL constructor: new URL(str) throws on invalid URLs.',
+                },
+                {
+                  mistake: 'Not anchoring patterns that should match the whole string',
+                  desc: '/\\d{4}/ matches "ab1234cd" because there are four digits somewhere in the string. If you want to verify the entire string is a 4-digit number, you must anchor: /^\\d{4}$/.',
+                  fix: 'Use ^ (start of string) and $ (end of string) anchors when your pattern should match the complete input, not a substring within it. With the m flag, use \\A and \\Z in languages that support them for true string boundaries.',
+                },
+              ].map(({ mistake, desc, fix }, i) => (
+                <div key={mistake} style={{ padding: '14px 16px', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)' }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 6 }}>{mistake}</div>
+                  <p style={{ fontSize: 13, color: 'var(--ink-2)', lineHeight: 1.65, marginBottom: 6 }}>{desc}</p>
+                  <p style={{ fontSize: 13, color: 'var(--green)', lineHeight: 1.55, margin: 0 }}><strong>Fix:</strong> {fix}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              Regex across programming languages — key differences
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 16 }}>
+              Regex syntax is largely standardised but not identical across languages. This tester uses the JavaScript ECMAScript engine. Here is what changes when you move between environments:
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {[
+                { lang: 'Python (re module)',  notes: 'Uses raw strings r"..." to avoid double-escaping backslashes. Supports named groups (?P<name>...). re.match() anchors at start automatically; use re.search() for substring matching. The re.VERBOSE flag allows comments and whitespace inside patterns.' },
+                { lang: 'Go (regexp)',          notes: 'Uses RE2 syntax — no backreferences, no lookahead, no lookbehind. Guaranteed linear-time matching prevents catastrophic backtracking by design. Named groups use (?P<name>...). All patterns compiled with regexp.Compile() are goroutine-safe.' },
+                { lang: 'Java (java.util.regex)', notes: 'Requires double-escaping backslashes in string literals: "\\d+" for \d+. Supports possessive quantifiers (a++) and atomic groups ((?>...)) for preventing backtracking. Pattern objects are thread-safe and should be compiled once and cached.' },
+                { lang: 'PHP (PCRE)',            notes: 'Patterns are strings with delimiters: /pattern/flags or #pattern#flags. Supports all PCRE features including atomic groups, possessive quantifiers, and conditionals. preg_match() returns the count of matches, not a boolean — check with === 1.' },
+                { lang: 'Ruby',                 notes: 'Regex is a first-class type: /pattern/. Supports named captures with (?<name>...). The =~ operator matches and sets $~ to the MatchData. String#match returns nil on no match, making conditional use idiomatic.' },
+              ].map(({ lang, notes }, i) => (
+                <div key={lang} style={{ padding: '12px 16px', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)' }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--ink)', marginBottom: 4 }}>{lang}</div>
+                  <p style={{ fontSize: 13, lineHeight: 1.65, color: 'var(--ink-2)', margin: 0 }}>{notes}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
         </div>
       </div>
   );
