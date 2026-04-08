@@ -49,6 +49,11 @@ const TOOL_DATA: Record<string, () => Promise<{ faq: FaqItem[]; [key: string]: u
     'timestamp-converter':      () => import('@/tools/timestamp-converter'),
     'cron-generator':           () => import('@/tools/cron-generator'),
     'favicon-generator':        () => import('@/tools/favicon-generator'),
+    'jwt-decoder':              () => import('@/tools/jwt-decoder'),
+    'password-strength-checker':() => import('@/tools/password-strength-checker'),
+    'hmac-generator':           () => import('@/tools/hmac-generator'),
+    'random-token-generator':   () => import('@/tools/random-token-generator'),
+    'api-key-generator':        () => import('@/tools/api-key-generator'),
 };
 
 const TOOL_WIDGETS: Record<string, React.ComponentType> = {
@@ -74,7 +79,12 @@ const TOOL_WIDGETS: Record<string, React.ComponentType> = {
     'random-text-generator':    dynamic(() => import('@/tools/random-text-generator/component'),    { ssr: false }) as React.ComponentType,
     'timestamp-converter':      dynamic(() => import('@/tools/timestamp-converter/component'),      { ssr: false }) as React.ComponentType,
     'cron-generator':           dynamic(() => import('@/tools/cron-generator/component'),           { ssr: false }) as React.ComponentType,
-    'favicon-generator':        dynamic(() => import('@/tools/favicon-generator/component'),        { ssr: false }) as React.ComponentType,
+    'favicon-generator':             dynamic(() => import('@/tools/favicon-generator/component'),             { ssr: false }) as React.ComponentType,
+    'jwt-decoder':                   dynamic(() => import('@/tools/jwt-decoder/component'),                   { ssr: false }) as React.ComponentType,
+    'password-strength-checker':     dynamic(() => import('@/tools/password-strength-checker/component'),     { ssr: false }) as React.ComponentType,
+    'hmac-generator':                dynamic(() => import('@/tools/hmac-generator/component'),                { ssr: false }) as React.ComponentType,
+    'random-token-generator':        dynamic(() => import('@/tools/random-token-generator/component'),        { ssr: false }) as React.ComponentType,
+    'api-key-generator':             dynamic(() => import('@/tools/api-key-generator/component'),             { ssr: false }) as React.ComponentType,
 };
 
 /* ── Password generator sidebar ────────────────────────── */
@@ -906,7 +916,12 @@ const TOOL_CONTENT: Record<string, React.ComponentType> = {
     'random-text-generator':    dynamic(() => import('@/tools/random-text-generator/content'),    { ssr: false }) as React.ComponentType,
     'timestamp-converter':      dynamic(() => import('@/tools/timestamp-converter/content'),      { ssr: false }) as React.ComponentType,
     'cron-generator':           dynamic(() => import('@/tools/cron-generator/content'),           { ssr: false }) as React.ComponentType,
-    'favicon-generator':        dynamic(() => import('@/tools/favicon-generator/content'),        { ssr: false }) as React.ComponentType,
+    'favicon-generator':             dynamic(() => import('@/tools/favicon-generator/content'),             { ssr: false }) as React.ComponentType,
+    'jwt-decoder':                   dynamic(() => import('@/tools/jwt-decoder/content'),                   { ssr: false }) as React.ComponentType,
+    'password-strength-checker':     dynamic(() => import('@/tools/password-strength-checker/content'),     { ssr: false }) as React.ComponentType,
+    'hmac-generator':                dynamic(() => import('@/tools/hmac-generator/content'),                { ssr: false }) as React.ComponentType,
+    'random-token-generator':        dynamic(() => import('@/tools/random-token-generator/content'),        { ssr: false }) as React.ComponentType,
+    'api-key-generator':             dynamic(() => import('@/tools/api-key-generator/content'),             { ssr: false }) as React.ComponentType,
 };
 
 function ToolContent({ slug }: { slug: string }) {
