@@ -192,30 +192,7 @@ export default function ColorPaletteContent() {
               ))}
             </div>
           </section>
-
-          {/* ── FAQ ─────────────────────────────────────── */}
-          <section style={{ marginBottom: 48 }}>
-            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>
-              Frequently asked questions
-            </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', overflow: 'hidden' }}>
-              {[
-                { q: 'What is the difference between analogous and monochromatic palettes?', a: 'Analogous palettes use neighboring hues on the color wheel (e.g. blue, teal, green) — multiple colors but a unified feel. Monochromatic palettes use a single hue at different lightness and saturation levels (e.g. light blue, medium blue, dark blue). Monochromatic is easier to keep accessible and cohesive; analogous gives more tonal variety while still feeling harmonious.' },
-                { q: 'How do I choose the right harmony mode for my project?', a: 'Match the harmony to the emotional tone of the brand. Analogous works for calm, natural, wellness brands. Complementary works for bold, high-contrast retail and sports brands. Triadic works for playful, creative, children\'s brands. Monochromatic works for premium, minimal, corporate brands. Tetradic offers maximum variety but is the hardest to execute — best left to experienced designers.' },
-                { q: 'Can I use the generated colors directly in my CSS?', a: 'Yes. Click "Copy CSS" to get a :root {} block with CSS custom properties (--color-1 through --color-5) ready to paste into your stylesheet. You can then use var(--color-1) anywhere in your CSS. For a more complete design token system, use the Color Converter to generate HSL values for each color and create lightness scales.' },
-                { q: 'How many colors should a UI color palette have?', a: 'Most UI design systems define 2–3 brand colors (primary, secondary, accent) plus a full neutral gray scale. This gives you 30–60 named color tokens when you include all lightness steps. Five harmonious colors from a generator are a good starting point for exploring combinations — not the final production palette.' },
-                { q: 'What does "locking" a color do?', a: 'Locking a color prevents it from changing when you click Generate. This is useful when you have a fixed brand color (e.g. your company\'s logo blue) and need to find harmonious companions for it. Lock your brand color, select a harmony mode, and regenerate the remaining slots until you find a combination that works.' },
-                { q: 'How do I ensure my generated colors are accessible?', a: 'After generating your palette, check each color\'s contrast ratio against your text color (usually dark gray or black) and background color (usually white or light gray). WCAG AA requires at least 4.5:1 contrast for normal text. Adjust lightness in the Color Converter until the ratio passes. Monochromatic palettes are the easiest to make accessible because you control lightness directly.' },
-                { q: 'What is the difference between a tint, shade, and tone?', a: 'These terms describe how you modify a pure color. A tint adds white (lighter version). A shade adds black (darker version). A tone adds gray (more muted version). Monochromatic palettes use tints and shades of a single hue. Understanding these terms helps when communicating with print designers and when building lightness scales for design systems.' },
-                { q: 'Can I generate a palette starting from a specific color?', a: 'Not directly in this tool — the generator creates harmonious palettes from a randomly chosen base color. To start from a specific color, generate a few palettes, lock colors manually, or use the Color Converter to find the HSL values of your target color and manually select harmony colors at the appropriate angular offsets (e.g. +120° and +240° for triadic).' },
-              ].map(({ q, a }, i, arr) => (
-                <div key={q} style={{ padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid var(--border)' : 'none', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)' }}>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>{q}</div>
-                  <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.65, margin: 0 }}>{a}</p>
-                </div>
-              ))}
-            </div>
-          </section>
+
 
         </div>
       </div>

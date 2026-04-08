@@ -172,30 +172,7 @@ export default function LoremIpsumContent() {
               ))}
             </div>
           </section>
-
-          {/* ── FAQ ─────────────────────────────────────── */}
-          <section style={{ marginBottom: 48 }}>
-            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>
-              Frequently asked questions
-            </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', overflow: 'hidden' }}>
-              {[
-                { q: 'Where does Lorem Ipsum come from?', a: 'Lorem Ipsum is derived from Cicero\'s "De Finibus Bonorum et Malorum" written in 45 BC. The passage is scrambled and altered from the original Latin text, making it meaningless as prose while preserving a natural distribution of letters and word lengths. It has been used as standard placeholder text in publishing since the 1960s.' },
-                { q: 'Why is Lorem Ipsum better than repeating "text here" or "abc abc abc"?', a: 'Real text has natural word length variation — a mix of short and long words creates authentic line breaks and hyphenation patterns. Repeating a single word or short phrase creates artificial uniform patterns that make it impossible to evaluate how real content will flow. Lorem Ipsum\'s pseudo-Latin has word length distribution similar to English, making it a better stand-in for layout purposes.' },
-                { q: 'How many words is a standard Lorem Ipsum paragraph?', a: 'A standard Lorem Ipsum paragraph contains approximately 50–75 words. When this generator creates paragraphs, each one is randomly assembled to be approximately that length. For layout mockups, 1 paragraph ≈ 60 words ≈ 5 lines at standard body text size and column width.' },
-                { q: 'Does Lorem Ipsum affect SEO if published on a live page?', a: 'Yes — publishing Lorem Ipsum on a live website is an SEO mistake. Search engines index placeholder text as content. Latin gibberish signals low-quality content, can trigger thin content penalties, and provides no semantic value. Always replace placeholder text before publishing. If you need SEO-friendly placeholder content, use the Random Text Generator to create English filler text.' },
-                { q: 'Can I use Lorem Ipsum in a client presentation?', a: 'It depends on the context. For technical stakeholders reviewing a wireframe, Lorem Ipsum is standard and accepted. For business stakeholders evaluating a design for approval, real or realistic representative content is strongly preferred. The text color, layout, and visual hierarchy are what you\'re presenting — but stakeholders often cannot look past placeholder text and focus on what it says instead of how it looks.' },
-                { q: 'What is the difference between "paragraphs", "sentences", and "words" modes?', a: 'Paragraphs generate full blocks of 4–7 sentences, ideal for body copy in articles and blog post mockups. Sentences generate individual sentences of 10–20 words, useful for subtitles, card descriptions, and testimonials. Words generate 1–10 words, useful for headings, button labels, navigation items, and tags.' },
-                { q: 'Why does the "Start with Lorem ipsum..." toggle matter?', a: 'The opening "Lorem ipsum dolor sit amet, consectetur adipiscing elit" is instantly recognizable. When sharing designs with non-designers, this recognizable phrase signals that the text is placeholder — which can be helpful or distracting depending on context. Disabling this option generates fully randomized text without the tell-tale opening, which looks more like real content.' },
-                { q: 'How do I generate Lorem Ipsum in my code or build process?', a: 'Multiple libraries exist for every language: lorem-ipsum (npm/Node.js), faker.js (JavaScript), Faker (Python/PHP/Ruby), and others. These are useful for seeding databases, generating realistic test fixtures, and populating mock API responses during development. For quick one-off generation in the browser, this tool is faster than setting up a library.' },
-              ].map(({ q, a }, i, arr) => (
-                <div key={q} style={{ padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid var(--border)' : 'none', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)' }}>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>{q}</div>
-                  <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.65, margin: 0 }}>{a}</p>
-                </div>
-              ))}
-            </div>
-          </section>
+
 
         </div>
       </div>

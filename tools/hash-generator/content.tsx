@@ -181,30 +181,7 @@ export default function HashGeneratorContent() {
               <strong style={{ color: 'var(--ink)' }}>For passwords</strong>: Use bcrypt, Argon2id, or scrypt — never SHA-256 or any fast hash. Password hashing algorithms are deliberately slow and use salting to prevent rainbow table attacks. A GPU can compute billions of SHA-256 hashes per second, making unsalted SHA-256 passwords trivially crackable. Argon2id is the current OWASP recommendation for new projects.
             </p>
           </section>
-
-          {/* ── FAQ ─────────────────────────────────────── */}
-          <section style={{ marginBottom: 48 }}>
-            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>
-              Frequently asked questions
-            </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', overflow: 'hidden' }}>
-              {[
-                { q: 'Can I reverse a SHA hash to get the original text?', a: 'No. SHA hashing is a one-way function — it is computationally infeasible to reverse. You cannot reconstruct the input from the hash. However, for short or common inputs (like simple words or weak passwords), an attacker can use rainbow tables or dictionary attacks to find the matching preimage. This is why SHA should not be used for password storage without additional protections like salting.' },
-                { q: 'What is the difference between a hash and a checksum?', a: 'The terms are often used interchangeably, but they differ in intent. A checksum (like CRC32 or Adler-32) is designed to detect accidental corruption — fast to compute but easily forged. A cryptographic hash (like SHA-256) is designed to resist intentional manipulation — much slower but collision-resistant. Use checksums for error detection in data transmission; use cryptographic hashes for security applications.' },
-                { q: 'Why is SHA-1 deprecated?', a: 'Researchers demonstrated the first practical SHA-1 collision in 2017 (the SHAttered attack) — two different PDF files with the same SHA-1 hash. This breaks the fundamental collision-resistance property. Google announced deprecation of SHA-1 in Chrome certificate validation in 2017. Do not use SHA-1 for new projects — use SHA-256 or stronger.' },
-                { q: 'What is HMAC and how is it different from a plain hash?', a: 'HMAC (Hash-based Message Authentication Code) combines a hash function with a secret key: HMAC(key, message). Unlike a plain hash, HMAC verifies both integrity (the message has not been changed) and authenticity (the sender knows the secret key). Plain hashes prove only integrity. HMAC-SHA256 is used for API request signing, JWT signature verification, and cookie authentication.' },
-                { q: 'Is SHA-512 always stronger than SHA-256?', a: 'SHA-512 has a larger output (512 vs 256 bits) and is theoretically more secure against brute force. However, for practical purposes both are computationally secure against current attacks. SHA-512 is actually faster than SHA-256 on 64-bit processors because it uses 64-bit operations. The difference matters for very high-security applications like long-term document archiving, not for typical web application needs.' },
-                { q: 'How do I generate a SHA-256 hash in JavaScript?', a: 'Use the Web Crypto API\'s SubtleCrypto.digest() method, which is the same API this tool uses: const msgBuffer = new TextEncoder().encode(text); const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer); const hashArray = Array.from(new Uint8Array(hashBuffer)); const hash = hashArray.map(b => b.toString(16).padStart(2, "0")).join(""). This runs entirely in the browser and requires no external library.' },
-                { q: 'What does "uppercase vs lowercase" toggle change?', a: 'Nothing about the hash value itself — only the representation. A SHA-256 hash is a sequence of bytes, conventionally displayed as lowercase hexadecimal. The uppercase toggle simply converts a through f to A through F. Some systems (particularly older ones and certain APIs) require the uppercase form. Both representations decode to identical bytes.' },
-                { q: 'Can two different inputs produce the same SHA-256 hash?', a: 'Theoretically yes — this is called a collision — but no SHA-256 collision has ever been found. With 2^256 possible outputs, the probability of accidental collision is approximately 1 in 10^77. By comparison, there are an estimated 10^80 atoms in the observable universe. For practical purposes, SHA-256 collisions do not exist.' },
-              ].map(({ q, a }, i, arr) => (
-                <div key={q} style={{ padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid var(--border)' : 'none', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)' }}>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>{q}</div>
-                  <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.65, margin: 0 }}>{a}</p>
-                </div>
-              ))}
-            </div>
-          </section>
+
 
         </div>
       </div>

@@ -22,6 +22,18 @@ export const faq: FaqItem[] = [
         q: 'What color formats are supported?',
         a: 'Each color is shown in HEX, RGB, and HSL. Click any HEX value in the color table to copy it instantly.',
     },
+    {
+        q: 'What is the 60-30-10 color rule?',
+        a: 'Use your dominant color for 60% of the visual space (large areas, backgrounds), your secondary color for 30% (cards, sidebars, secondary UI), and your accent color for 10% (buttons, links, highlights). This ratio creates visual hierarchy without overwhelming the eye. It applies equally to interior design, fashion, and UI design.',
+    },
+    {
+        q: 'How many colors should a UI palette have?',
+        a: 'A typical design system defines 2–3 brand colors (primary, secondary, accent) plus a neutral gray scale. In practice this grows to 30–50 named tokens when you include all lightness steps. For a simple project, start with 5 harmonious colors, then add neutrals and semantic colors (green for success, red for error, yellow for warning).',
+    },
+    {
+        q: 'Why do colors look different on screen versus in print?',
+        a: 'Screens use RGB (additive color — mixing light), while print uses CMYK (subtractive color — mixing ink). Vivid RGB colors like bright blues and electric greens often fall outside the CMYK gamut and cannot be reproduced accurately on paper. If your palette will be printed, use the Color Converter to check CMYK values and discuss gamut limitations with your print shop.',
+    },
 ];
 
 export const harmonySidebar = [

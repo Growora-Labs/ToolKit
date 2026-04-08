@@ -22,6 +22,18 @@ export const faq: FaqItem[] = [
     q: 'Does it work with non-English text?',
     a: 'Word and character counts work for any language. Keyword density and reading time estimates are calibrated for English text.',
   },
+  {
+    q: 'What is the ideal word count for an SEO blog post?',
+    a: 'There is no universal answer, but data from multiple studies suggests 1,500–2,500 words for competitive topics. Long-form posts (2,000+ words) tend to rank better for informational queries because they cover topics more thoroughly. However, word count is not a direct ranking factor — topic coverage, E-E-A-T signals, and backlinks matter more. Write what fully answers the question, then check if the length is appropriate.',
+  },
+  {
+    q: 'What is keyword density and how much is too much?',
+    a: 'Keyword density is the percentage of words in a text that match a specific keyword. A density above 2–3% for any single keyword is generally considered keyword stuffing and can negatively affect SEO. Modern search engines focus on topic coverage and semantic relevance rather than exact keyword repetition. Use the keyword density panel to identify over-used words, not to optimize for a target percentage.',
+  },
+  {
+    q: 'How do reading time estimates work and how accurate are they?',
+    a: 'Reading time is calculated by dividing the word count by the average adult silent reading speed — typically 200–250 words per minute. This tool uses 200 wpm, which is a conservative estimate. Actual reading speed varies widely: technical content is read more slowly (100–150 wpm), fiction and news more quickly (250–300 wpm). Treat the estimate as a useful approximation rather than a precise measurement.',
+  },
 ];
 
 export const whatsMeasured = [

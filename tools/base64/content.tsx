@@ -200,30 +200,7 @@ export default function Base64Content() {
             Note: the <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12 }}>-n</code> flag in the <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12 }}>echo</code> command prevents a trailing newline from being included in the encoded output. Without it, the result will include the newline character and produce unexpected padding.
           </p>
         </section>
-
-        {/* ── FAQ ─────────────────────────────────────── */}
-        <section style={{ marginBottom: 48 }}>
-          <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>
-            Frequently asked questions
-          </h2>
-          <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', overflow: 'hidden' }}>
-            {[
-              { q: 'What is the difference between Base64 and Base64url?', a: 'Standard Base64 uses + and / characters, which have special meaning in URLs and cannot appear unescaped in query strings or paths. Base64url replaces + with - and / with _ to make the output URL-safe without percent-encoding. JWT tokens use Base64url. This encoder uses standard Base64 — if you need Base64url, replace + with - and / with _ in the output.' },
-              { q: 'Does Base64 encoding compress data?', a: 'No — Base64 increases size by approximately 33%. Three bytes of input become four characters of output. It is a transport encoding, not a compression algorithm. If you need to reduce payload size, compress first (gzip, Brotli) and then Base64-encode the compressed bytes.' },
-              { q: 'Why does my Base64 string end with == or =?', a: 'Padding characters (=) are appended to make the output length a multiple of 4. If the input byte count is divisible by 3, no padding is needed. One leftover byte produces ==; two leftover bytes produce =. The padding is part of the standard and must be preserved when decoding.' },
-              { q: 'Can Base64 encode binary files like images or PDFs?', a: 'Yes. Any binary data can be Base64-encoded. This encoder works with UTF-8 text input — to encode a binary file, you would need to read the raw bytes first. In a browser, the FileReader API\'s readAsDataURL() method produces a Base64 data URI from a binary file automatically.' },
-              { q: 'Is it safe to Base64-encode passwords or API keys?', a: 'Base64 provides no security — anyone can decode it instantly. Never use it to "protect" secrets. For passwords, use bcrypt or Argon2. For transmitting API keys, always use HTTPS. Base64 is useful for encoding secrets as single-line strings in config files (environment variables), but it must be transmitted over encrypted channels.' },
-              { q: 'Why does atob() in JavaScript throw an error on my string?', a: 'The built-in atob() only handles ASCII input. If your original string contains non-ASCII characters (accented letters, emoji, CJK characters), you must decode the UTF-8 bytes correctly: use decodeURIComponent(escape(atob(str))) or a proper TextDecoder. This encoder handles UTF-8 correctly on both encode and decode.' },
-              { q: 'What is the maximum input size this tool can handle?', a: 'There is no hard limit enforced by this tool — it runs entirely in your browser. Practical limits depend on your device memory. For very large inputs (megabytes of text), performance may slow down, and you would be better served by a command-line tool like the built-in base64 command on macOS/Linux.' },
-              { q: 'How is Base64 used in JSON Web Tokens (JWT)?', a: 'A JWT consists of three parts separated by dots: header.payload.signature. Both the header and payload are JSON objects encoded with URL-safe Base64 (no padding). This means any user can decode and read the payload without a secret key. The signature is what proves authenticity — it is a cryptographic hash of the header and payload, signed with a secret. Never store sensitive data in JWT payloads without separate encryption.' },
-            ].map(({ q, a }, i, arr) => (
-              <div key={q} style={{ padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid var(--border)' : 'none', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)' }}>
-                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>{q}</div>
-                <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.65, margin: 0 }}>{a}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+
 
       </div>
     </div>

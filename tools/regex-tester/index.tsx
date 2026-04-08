@@ -21,6 +21,18 @@ export const faq: FaqItem[] = [
     q: 'Why does my regex cause an infinite loop?',
     a: 'Zero-length matches (like \\b or a* on empty input) can cause infinite loops with the global flag. This tester automatically advances the cursor to prevent hanging. If you get unexpected results, try removing the g flag.',
   },
+  {
+    q: 'What is the difference between greedy and lazy quantifiers?',
+    a: 'Greedy quantifiers (*, +, {n,m}) match as much as possible. Lazy quantifiers (*?, +?, {n,m}?) match as little as possible. Example: given "<b>bold</b>", the pattern <.*> greedily matches the entire string, while <.*?> matches only "<b>". Use lazy quantifiers when you need the shortest possible match between delimiters.',
+  },
+  {
+    q: 'How do lookaheads and lookbehinds work?',
+    a: 'Lookaheads and lookbehinds are zero-width assertions — they check a position without consuming characters. Positive lookahead (?=...) asserts what follows. Negative lookahead (?!...) asserts what does not follow. Positive lookbehind (?<=...) asserts what precedes. Example: \\d+(?= dollars) matches a number only when followed by " dollars".',
+  },
+  {
+    q: 'How do I match a literal dot, bracket, or other special character?',
+    a: 'Escape it with a backslash: \\. matches a literal dot, \\( matches a literal parenthesis, \\$ matches a dollar sign. Inside a character class [ ], most special characters lose their meaning — [.] matches a literal dot without escaping. Characters that must always be escaped outside a class: . * + ? ^ $ { } [ ] ( ) | \\.',
+  },
 ];
 
 export const cheatSheet = [

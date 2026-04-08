@@ -202,30 +202,7 @@ export default function CaseConverterContent() {
             <strong style={{ color: 'var(--ink)' }}>File rename migrations</strong> occasionally require batch case conversion. Renaming a directory of React components from kebab-case to PascalCase, or standardizing a Python package's module files to snake_case, can be done with a shell script using <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>rename</code> (Linux/macOS) or the <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>rename-cli</code> npm package. Always run these with a dry-run flag first and update your import statements with a global find-and-replace afterward.
           </p>
         </section>
-
-        {/* ── FAQ ─────────────────────────────────────── */}
-        <section style={{ marginBottom: 48 }}>
-          <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>
-            Frequently asked questions
-          </h2>
-          <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', overflow: 'hidden' }}>
-            {[
-              { q: 'What is the difference between camelCase and PascalCase?', a: 'Both join multiple words without separators, but PascalCase capitalizes the first letter of every word (including the first), while camelCase keeps the first letter lowercase and capitalizes each subsequent word. Example: getUserData (camelCase) vs GetUserData (PascalCase). Use camelCase for variables and functions in JavaScript/TypeScript; use PascalCase for class names and React components.' },
-              { q: 'Why does Python use snake_case instead of camelCase?', a: 'PEP 8, the official Python style guide, specifies snake_case for variable and function names. This convention was chosen because Python values readability and snake_case is easier to read for names with multiple words. Class names in Python use PascalCase, and constants use UPPER_SNAKE_CASE — the same distinction found in most languages.' },
-              { q: 'What is CONSTANT_CASE and when should I use it?', a: 'CONSTANT_CASE (also written SCREAMING_SNAKE_CASE) uses all uppercase letters with underscores between words. It signals that a value should never be reassigned at runtime. Use it for true constants: configuration values, magic numbers, error codes, environment variable names, and enum members. Examples: MAX_RETRIES, DATABASE_URL, HTTP_STATUS_OK.' },
-              { q: 'How does kebab-case differ from snake_case?', a: 'Both separate words with a single character, but snake_case uses underscores (_) and kebab-case uses hyphens (-). Kebab-case is preferred for URLs, CSS class names, HTML data attributes, and file names because hyphens are URL-safe and conventional in web contexts. Snake_case is preferred in Python, Ruby, SQL, and database schemas.' },
-              { q: 'Can I convert multi-word text with numbers?', a: 'Yes. This converter handles numbers as word separators in most cases. For example, "user123 profile" converts to user123Profile (camelCase) or user123-profile (kebab-case). The exact behavior with numbers depends on how the original text is tokenized — words are split on spaces, hyphens, underscores, and case transitions.' },
-              { q: 'What is alternating case used for?', a: 'aLtErNaTiNg CaSe is primarily used for humor, mocking (the "mocking SpongeBob" internet meme), or emphasis in informal contexts like social media. It has no practical use in programming or professional writing. This converter includes it for completeness — and because occasionally it is exactly what you need.' },
-              { q: 'Does the converter handle accented characters and Unicode?', a: 'Yes. The converter works with the full Unicode range including accented Latin characters (é, ñ, ü), Cyrillic, and other scripts for the text-based formats. For code naming conventions (camelCase, snake_case, etc.), non-ASCII characters may cause issues in some programming languages — always verify your language\'s identifier rules.' },
-              { q: 'What is Sentence case vs Title Case?', a: 'Sentence case capitalizes only the first word of a sentence and proper nouns, exactly like normal English writing. Title case capitalizes most words following specific rules about articles, prepositions, and conjunctions. Sentence case is preferred in modern UI design (buttons, labels, navigation items) because it feels more natural and conversational. Title case is used for article headlines and formal headings.' },
-            ].map(({ q, a }, i, arr) => (
-              <div key={q} style={{ padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid var(--border)' : 'none', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)' }}>
-                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>{q}</div>
-                <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.65, margin: 0 }}>{a}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+
 
       </div>
     </div>

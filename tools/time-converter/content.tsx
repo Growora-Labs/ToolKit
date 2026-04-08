@@ -200,30 +200,7 @@ export default function TimeConverterContent() {
                         Based on 365.25 days per year average (accounting for leap years).
                     </p>
                 </section>
-
-                {/* ── FAQ ─────────────────────────────────────── */}
-                <section style={{ marginBottom: 48 }}>
-                    <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>
-                        Frequently asked questions
-                    </h2>
-                    <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', overflow: 'hidden' }}>
-                        {[
-                            { q: 'How many seconds are in a day, week, and year?', a: 'These are the values developers reach for most often: 1 day = 86,400 seconds (24 × 60 × 60). 1 week = 604,800 seconds (7 × 86,400). 1 year (non-leap) = 31,536,000 seconds (365 × 86,400). 1 year (accounting for leap years) = 31,557,600 seconds on average (365.25 × 86,400). For TTLs and expiry windows, use the non-leap values. For long-horizon elapsed time calculations, use 365.25 days/year to account for leap years.' },
-                            { q: 'How many hours of downtime does 99.9% uptime allow per year?', a: '99.9% uptime (three nines) allows 0.1% downtime = 0.001 × 8,760 hours/year = 8.76 hours/year, or about 43.8 minutes/month, or about 10 minutes/week. 99.99% (four nines) allows 52.6 minutes/year. 99.999% (five nines) allows 5.26 minutes/year. These are annual budgets — a single 6-hour outage burns the entire three-nines budget for the year. The SLA uptime reference table above lists all common values.' },
-                            { q: 'What is the difference between a duration and a timestamp?', a: 'A duration (elapsed time) is a span of time measured in seconds, minutes, hours, or days — for example, "the session expires in 3,600 seconds". A timestamp is a specific point in time — for example, "the session was created at Unix timestamp 1704067200". This tool converts durations between units. To convert timestamps (Unix epoch ↔ human-readable date), use the Timestamp Converter tool. Confusing duration and timestamp is a common source of bugs, especially when calculating expiry: you add a duration (in seconds) to a timestamp (also in seconds) to get the expiry timestamp.' },
-                            { q: 'Why does this converter use 365 days per year instead of 365.25?', a: 'This converter uses 365 days as one non-leap year because that is the value most commonly used in software for TTLs, expiry windows, and duration calculations. Using 365.25 (the average Gregorian year accounting for leap years) is more astronomically accurate for long-duration calculations, but introduces a fractional day that complicates most practical use cases. The SLA uptime table at the bottom of this page uses 365.25 to give a more accurate annual downtime budget.' },
-                            { q: 'How do I convert milliseconds to seconds and vice versa?', a: 'Divide by 1,000 to convert milliseconds to seconds. Multiply by 1,000 to convert seconds to milliseconds. This converter currently handles units from seconds upward. For millisecond conversions in code: JavaScript Date.now() returns milliseconds — divide by 1000 and floor to get seconds: Math.floor(Date.now() / 1000). Python time.time() returns seconds as a float — multiply by 1000 to get milliseconds.' },
-                            { q: 'How many working days are in a year?', a: 'A standard working year in most countries is approximately 260 working days (52 weeks × 5 days). Subtracting public holidays (typically 8–13 days in the US, 8 in the UK, 9 in Germany) gives approximately 247–252 actual working days per year. For project planning purposes, 250 working days per year is a common round-number approximation. In seconds: 250 × 86,400 = 21,600,000 seconds per working year (excluding overtime and 24/7 operations).' },
-                            { q: 'What is the most common source of off-by-one errors in time calculations?', a: 'Inclusive vs exclusive boundary handling causes most off-by-one errors in time intervals. "Between day 1 and day 7 inclusive" is 7 days; "from day 1 to day 7 exclusive" is 6 days. In software: a 7-day trial that starts at Unix timestamp T and expires at T + 7 × 86400 expires exactly 7 days later — but is the start day counted as day 1 or day 0? Always define whether intervals are open [start, end), closed [start, end], or half-open — and be explicit in your code.' },
-                            { q: 'How do I handle months and years in duration calculations?', a: 'Months and years are variable-length units — February has 28 or 29 days, most months have 30 or 31. This converter does not include months because there is no fixed second value for a month. For calendar-aware calculations (billing cycles, subscription renewals, anniversary dates), use a date library that understands calendar months: date-fns addMonths(), Luxon plus({ months: 1 }), or JavaScript\'s Temporal.PlainDate.add({ months: 1 }). Never approximate a month as 30 days in financial calculations — the error compounds.' },
-                        ].map(({ q, a }, i, arr) => (
-                            <div key={q} style={{ padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid var(--border)' : 'none', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)' }}>
-                                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>{q}</div>
-                                <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.65, margin: 0 }}>{a}</p>
-                            </div>
-                        ))}
-                    </div>
-                </section>
+
 
                 {/* ── Tips for accurate conversions ────────────── */}
                 <section style={{ marginBottom: 48 }}>

@@ -163,30 +163,7 @@ export default function JsonFormatterContent() {
               ))}
             </div>
           </section>
-
-          {/* ── FAQ ─────────────────────────────────────── */}
-          <section style={{ marginBottom: 48 }}>
-            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>
-              Frequently asked questions
-            </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', overflow: 'hidden' }}>
-              {[
-                { q: 'What is the difference between JSON and JavaScript object literals?', a: 'JSON is a strict text format derived from JavaScript but with tighter rules: all keys must be double-quoted strings, there are no trailing commas, no comments, no undefined, no functions, and no NaN/Infinity. A JavaScript object literal is runtime code that can omit key quotes, include trailing commas, and reference variables. JSON.parse() validates these rules strictly — it will throw SyntaxError on any JavaScript-specific syntax.' },
-                { q: 'Why does JSON.stringify() drop some properties?', a: 'JSON.stringify() omits properties with undefined values, function values, and Symbol keys. If a value is undefined (e.g. {key: undefined}), the key is dropped entirely from the output. If a value is a function, it is also dropped. This can produce unexpected results when serializing class instances or objects with computed properties. Pass a replacer function as the second argument to control exactly which properties are included.' },
-                { q: 'How do I handle dates in JSON?', a: 'JSON has no Date type. The standard approach is to serialize dates as ISO 8601 strings (e.g. "2024-01-15T14:30:00.000Z"), which is what new Date().toISOString() produces. When deserializing, you must convert these strings back to Date objects manually — JSON.parse() does not do this automatically. Libraries like date-fns and Luxon can parse ISO 8601 strings reliably.' },
-                { q: 'What is the maximum nesting depth JSON supports?', a: 'The JSON specification has no nesting limit. Practical limits depend on the parser. Node.js and most browsers handle deeply nested JSON (thousands of levels) without issues. Some older or embedded-system parsers have stack-depth limits. For production APIs, very deep nesting (beyond 10–15 levels) is generally a sign of poor data modeling, not a technical necessity.' },
-                { q: 'What is JSON5 and when should I use it?', a: 'JSON5 is a superset of JSON that allows comments, trailing commas, unquoted keys, single-quoted strings, and hexadecimal numbers — making it feel more like a JavaScript object literal. It is useful for hand-authored configuration files where comments and readability matter (e.g. tsconfig.json, which VS Code parses as JSON5). Never use JSON5 for API responses or machine-generated data — use standard JSON.' },
-                { q: 'Why is my JSON showing "circular reference" errors?', a: 'JSON.stringify() throws "Converting circular structure to JSON" when an object references itself directly or through a chain of properties. Example: const a = {}; a.self = a; JSON.stringify(a). To handle circular references, either restructure the data, use a replacer function that detects cycles, or use a library like flatted which supports circular JSON serialization.' },
-                { q: 'How do I diff two JSON objects to find what changed?', a: 'First normalize both JSONs using this formatter (Prettify with the same indentation), then paste them into the Text Diff tool for a line-by-line comparison. This ensures that formatting differences do not appear as content changes. For programmatic diffing, libraries like deep-diff or just-diff can produce a list of changed paths and values.' },
-                { q: 'Is there a size limit for JSON in APIs and browsers?', a: 'There is no universal limit — it depends on the server, client, and transport. Node.js\'s http module defaults to a 1 MB body size limit (configurable). AWS API Gateway limits request bodies to 10 MB. Browser fetch() and XMLHttpRequest have no hard size limits but very large responses (tens of MB) cause memory pressure. For large data, use pagination, streaming JSON (NDJSON), or binary formats like Protocol Buffers.' },
-              ].map(({ q, a }, i, arr) => (
-                <div key={q} style={{ padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid var(--border)' : 'none', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)' }}>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>{q}</div>
-                  <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.65, margin: 0 }}>{a}</p>
-                </div>
-              ))}
-            </div>
-          </section>
+
 
           {/* ── JSON vs alternatives ────────────────────── */}
           <section style={{ marginBottom: 48 }}>

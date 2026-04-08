@@ -22,6 +22,18 @@ export const faq: FaqItem[] = [
     q: 'Does this tool work with multi-line text?',
     a: 'Yes. All conversions handle multi-line input correctly. Each line is converted independently for Sentence case and Capitalized modes.',
   },
+  {
+    q: 'What is PascalCase and where is it used?',
+    a: 'PascalCase capitalizes the first letter of every word with no separators: UserProfile, InvoiceService, HttpRequest. It is the standard for class names and constructor functions in almost every language (JavaScript, TypeScript, Python, Java, C#, Go). In React, every component must be PascalCase — lowercase names are interpreted as HTML elements.',
+  },
+  {
+    q: 'How does the converter handle numbers and special characters?',
+    a: 'Numbers are preserved in place. Special characters like @, #, and ! are stripped when converting to code-style formats (camelCase, snake_case, kebab-case) since they are not valid in identifiers. For prose formats (Title Case, Sentence case), punctuation is preserved. Accented characters (é, ñ, ü) are kept as-is in all formats.',
+  },
+  {
+    q: 'What is dot.case and when is it used?',
+    a: 'dot.case joins words with a period: user.profile.name. It is rarely used for programming identifiers, but appears in configuration keys (Spring Boot properties files), JavaScript object path strings, and some logging frameworks. It is also the format for domain names and package namespaces like com.example.app.',
+  },
 ];
 
 export const useCases = [

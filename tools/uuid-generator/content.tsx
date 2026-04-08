@@ -105,30 +105,7 @@ export default function UuidGeneratorContent() {
               </div>
             ))}
           </div>
-        </section>
-
-        <section style={{ marginBottom: 48 }}>
-          <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>
-            Frequently asked questions
-          </h2>
-          <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', overflow: 'hidden' }}>
-            {[
-              { q: 'Is it truly impossible to generate two identical UUIDs?', a: 'Not impossible — but statistically negligible. UUID v4 has 122 bits of randomness, giving 5.3 × 10³⁶ possible values. To have a 50% chance of a collision, you would need to generate approximately 2.71 × 10¹⁸ UUIDs. At a rate of one billion UUIDs per second, that would take about 86 years. For all practical purposes in software engineering, UUID v4 collisions do not happen. The security of the random number generator matters more than the theoretical collision probability.' },
-              { q: 'Should I store UUIDs as strings or binary in databases?', a: 'Binary (16 bytes) is more efficient than string (36 characters for the standard hyphenated format, or 32 without hyphens). In MySQL and MariaDB, use BINARY(16) or the UNHEX/HEX functions. In PostgreSQL, use the native UUID type which stores 16 bytes internally. In SQLite, store as BLOB(16) or TEXT. The string representation is convenient for logging and debugging, but the binary representation is 2–3× more storage-efficient and faster to index and compare.' },
-              { q: 'Why do UUIDs have hyphens in them?', a: 'The hyphen grouping (8-4-4-4-12) is a formatting convention defined in RFC 4122 to make UUIDs readable. The groups correspond to different fields in the UUID structure: the first group is time_low, the next is time_mid, then time_hi_and_version, clock_seq, and node. For UUID v4, these field names are historical artifacts — the bits are random regardless of their group position. The hyphens serve no functional purpose and are stripped in many storage and transmission contexts.' },
-              { q: 'Can I use a UUID as a password or secret key?', a: 'UUID v4 provides about 122 bits of entropy, which is strong enough for many purposes. However, UUIDs are not the right tool for secrets because: (1) The hyphenated format is recognisable as a UUID and may invite targeted attacks. (2) UUIDs are commonly logged by frameworks and middleware, creating a risk of accidental secret exposure. For secrets, API keys, and tokens, use a dedicated cryptographic random byte generator (crypto.randomBytes() in Node.js, secrets.token_hex() in Python) and encode the output in hex or Base64.' },
-              { q: 'What is the difference between UUID and GUID?', a: 'Functionally, they are the same thing. GUID (Globally Unique Identifier) is Microsoft\'s term for the same concept, used in .NET, COM, and Windows APIs. The underlying structure and format are identical to RFC 4122 UUIDs. Some Microsoft tools generate GUIDs in uppercase; some in lowercase — the UUID spec is case-insensitive but conventionally uses lowercase. If you need to interoperate between Microsoft and non-Microsoft systems, any hyphenated 32-hex-digit identifier in the 8-4-4-4-12 format is valid on both sides.' },
-              { q: 'Is UUID v7 better than UUID v4 for database primary keys?', a: 'Yes, for most database workloads. UUID v4 is random, which means new rows are inserted at random positions in a B-tree index. This causes page splits, index fragmentation, and poor cache locality — all of which degrade write performance at scale. UUID v7 has a timestamp prefix, so new rows are inserted near the end of the index (sequential writes), which is much more efficient. If you are starting a new project and your database or UUID library supports v7, prefer it for primary keys. UUID v4 is fine for all other use cases.' },
-              { q: 'How do I generate UUID v4 in code without this tool?', a: 'Most modern languages have built-in support. JavaScript/Node.js: crypto.randomUUID() (built-in since Node 15). Python: import uuid; str(uuid.uuid4()). Go: import "github.com/google/uuid"; uuid.New(). Java: UUID.randomUUID().toString(). PHP: sprintf(\'%04x%04x-%04x-%04x-%04x-%04x%04x%04x\', ...) or use ramsey/uuid package. PostgreSQL: gen_random_uuid() (built-in). For production code, always prefer the language or database built-in over a third-party library when available — built-ins use the OS CSPRNG directly.' },
-              { q: 'What does the version and variant field in a UUID mean?', a: 'Every UUID contains two special fields. The version field occupies the most significant nibble of the 7th byte (characters 15–16 in the standard representation) and indicates the UUID generation algorithm: 4 means random. You can spot a v4 UUID by the "4" in position 15: xxxxxxxx-xxxx-4xxx-xxxx-xxxxxxxxxxxx. The variant field occupies the top 2–3 bits of the 9th byte (first character of the 4th group) and indicates the layout standard: a value of 8, 9, a, or b means RFC 4122 (standard). The "y" in xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx where y is 8, 9, a, or b.' },
-            ].map(({ q, a }, i, arr) => (
-              <div key={q} style={{ padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid var(--border)' : 'none', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)' }}>
-                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>{q}</div>
-                <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.65, margin: 0 }}>{a}</p>
-              </div>
-            ))}
-          </div>
-        </section>
+        </section>
 
       </div>
     </div>

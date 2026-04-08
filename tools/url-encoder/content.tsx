@@ -166,30 +166,7 @@ export default function UrlEncoderContent() {
                 </div>
               ))}
             </div>
-          </section>
-
-          <section style={{ marginBottom: 48 }}>
-            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>
-              Frequently asked questions
-            </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', overflow: 'hidden' }}>
-              {[
-                { q: 'What is the difference between %20 and + for spaces in URLs?', a: 'Both represent a space, but they are used in different contexts. %20 is the RFC 3986 percent-encoding for a space and is valid everywhere in a URL. The + sign for spaces is only valid in the query string when using the application/x-www-form-urlencoded format (the format used by HTML forms). When in doubt, use %20 — it is unambiguous. Many servers decode both, but strictly speaking + as a space only applies to form-encoded data, not arbitrary URL parameters.' },
-                { q: 'Should I encode the entire URL or just parts of it?', a: 'Encode only the dynamic parts — values that come from user input or external data. Never encode the structural parts of a URL (the scheme, slashes, question mark, ampersands between parameters, equals signs between keys and values). Use encodeURIComponent() on each individual key and value, then join them yourself: key1=encodeURIComponent(val1)&key2=encodeURIComponent(val2). Encoding the whole URL at once with encodeURI() preserves structure but may miss values that contain reserved characters.' },
-                { q: 'Does URL encoding affect the path or only the query string?', a: 'URL encoding is relevant in all parts of the URL where arbitrary data appears. Path segments containing special characters — like a user-uploaded filename with spaces or slashes — must be encoded: /files/my%20photo.jpg. Query parameter values are the most common place to encode, but path segments, fragment identifiers, and even subdomains (via Punycode for non-ASCII) require encoding in their respective forms.' },
-                { q: 'Why does decoding %2F not produce a slash in some servers?', a: 'By default, most web servers — Apache, Nginx, and IIS — block or reject paths containing encoded slashes (%2F) because they can be used to bypass path traversal protections. The server interprets the path before decoding, sees a literal %2F, and either rejects the request or treats it as a non-separator character. If you legitimately need to pass a slash in a path segment (for example, a base64url-encoded value), use %2F in the query string instead, or configure your server to allow encoded slashes explicitly.' },
-                { q: 'How does URL encoding handle Unicode characters like emoji or Chinese text?', a: 'Unicode characters are first encoded to UTF-8 bytes, then each byte is percent-encoded. The emoji 🚀 is U+1F680, which encodes to the UTF-8 bytes F0 9F 9A 80, which percent-encodes to %F0%9F%9A%80. JavaScript\'s encodeURIComponent() handles this automatically and correctly. When decoding, decodeURIComponent() reverses the process. This is why URLs containing emoji or non-Latin characters look like long sequences of percent-signs in the address bar.' },
-                { q: 'What characters are always safe in URLs and never need encoding?', a: 'RFC 3986 defines "unreserved characters" that are always safe and never need encoding: uppercase and lowercase letters (A–Z, a–z), digits (0–9), and four symbols: hyphen (-), underscore (_), period (.), and tilde (~). These 66 characters can appear anywhere in a URL without ambiguity. All other characters — including common symbols like @, !, $, (, ) — are either reserved (have structural meaning in URLs) or must be encoded.' },
-                { q: 'Does URL encoding affect SEO?', a: 'URL encoding itself does not directly affect search engine rankings, but URL readability does influence click-through rates. Search engines display URLs in results pages, and a URL like /search?q=coffee+shops+near+me is more clickable than /search?q=coffee%20shops%20near%20me, even though both are equivalent. Best practice: use human-readable slugs in paths (/products/blue-running-shoes) and encode only query parameter values that cannot be made human-readable.' },
-                { q: 'Can URL encoding be used for security?', a: 'URL encoding is not a security mechanism — it is a data transport convention. It does not prevent cross-site scripting (XSS), SQL injection, or command injection. Attackers can easily decode percent-encoded input before an injection attack takes effect. True security requires context-aware output encoding (HTML escaping for HTML, parameterised queries for SQL) and input validation. URL encoding query parameters serves correctness (preventing request parsing errors), not security.' },
-              ].map(({ q, a }, i, arr) => (
-                <div key={q} style={{ padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid var(--border)' : 'none', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)' }}>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>{q}</div>
-                  <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.65, margin: 0 }}>{a}</p>
-                </div>
-              ))}
-            </div>
-          </section>
+          </section>
 
         </div>
       </div>
