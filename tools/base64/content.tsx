@@ -149,6 +149,58 @@ export default function Base64Content() {
           </div>
         </section>
 
+        {/* ── Base64 in web development ─────────────────── */}
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+            Base64 in web development — data URIs and email
+          </h2>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+            Base64 encoding appears in several specific contexts in web development. Understanding each one helps you use it correctly and avoid common mistakes:
+          </p>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+            <strong style={{ color: 'var(--ink)' }}>Data URIs for inline assets.</strong> A data URI embeds file content directly in a URL string: <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>data:image/png;base64,iVBORw0KGgo...</code>. This lets you embed small images, fonts, or SVGs directly in CSS or HTML without an extra HTTP request. The tradeoff is file size: Base64 increases the asset size by ~33%, and data URIs cannot be cached separately by the browser. Use them only for very small assets (icons under 1 KB) where the saved HTTP request outweighs the size penalty.
+          </p>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+            <strong style={{ color: 'var(--ink)' }}>Email attachments and MIME encoding.</strong> SMTP (email) was originally designed for ASCII-only text. To send binary files (images, PDFs, documents) over email, MIME encodes them as Base64 within a multipart message body. The Content-Transfer-Encoding: base64 header signals this encoding. Email libraries like Nodemailer, SendGrid, and Mailgun handle this automatically — you rarely need to encode attachments yourself.
+          </p>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+            <strong style={{ color: 'var(--ink)' }}>HTTP Basic Authentication.</strong> The HTTP Authorization header for Basic Auth carries credentials as Base64: <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>Authorization: Basic dXNlcjpwYXNzd29yZA==</code>. This is the Base64 encoding of <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>user:password</code>. This provides no security beyond HTTPS — anyone can decode it. Always use Basic Auth over HTTPS only, and prefer token-based authentication for production APIs.
+          </p>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)' }}>
+            <strong style={{ color: 'var(--ink)' }}>JSON Web Tokens (JWT) headers and payloads.</strong> Both the header and payload sections of a JWT are Base64url-encoded JSON objects (URL-safe Base64 without padding). This means the contents are readable by anyone — paste the token on jwt.io to decode it instantly. The security comes entirely from the signature section, not from the encoding. Never put sensitive data (passwords, SSNs, payment info) in a JWT payload.
+          </p>
+        </section>
+
+        {/* ── Base64 at the command line ─────────────────── */}
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+            Base64 encoding at the command line
+          </h2>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 16 }}>
+            Most operating systems include a built-in Base64 utility. These commands are useful for quick encoding in scripts, CI/CD pipelines, and server-side tasks:
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {[
+              { os: 'macOS / Linux (encode)', cmd: 'echo -n "hello world" | base64' },
+              { os: 'macOS / Linux (decode)', cmd: 'echo "aGVsbG8gd29ybGQ=" | base64 --decode' },
+              { os: 'macOS / Linux (encode file)', cmd: 'base64 -i image.png -o image.b64' },
+              { os: 'Windows PowerShell (encode)', cmd: '[Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes("hello"))' },
+              { os: 'Windows PowerShell (decode)', cmd: '[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String("aGVsbG8="))' },
+              { os: 'Node.js (encode)', cmd: 'Buffer.from("hello world").toString("base64")' },
+              { os: 'Node.js (decode)', cmd: 'Buffer.from("aGVsbG8gd29ybGQ=", "base64").toString("utf-8")' },
+              { os: 'Python 3 (encode)', cmd: 'import base64; base64.b64encode(b"hello world").decode()' },
+            ].map(({ os, cmd }, i) => (
+              <div key={os} style={{ display: 'flex', gap: 0, border: '1px solid var(--border)', borderRadius: 'var(--r-l)', overflow: 'hidden' }}>
+                <div style={{ padding: '10px 14px', fontSize: 13, fontWeight: 600, color: 'var(--ink)', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', minWidth: 200, flexShrink: 0 }}>{os}</div>
+                <div style={{ padding: '10px 14px', fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--green)', background: 'var(--green-lt)', flex: 1, borderLeft: '1px solid var(--border)', wordBreak: 'break-all' }}>{cmd}</div>
+              </div>
+            ))}
+          </div>
+          <p style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--ink-3)', marginTop: 12 }}>
+            Note: the <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12 }}>-n</code> flag in the <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12 }}>echo</code> command prevents a trailing newline from being included in the encoded output. Without it, the result will include the newline character and produce unexpected padding.
+          </p>
+        </section>
+
         {/* ── FAQ ─────────────────────────────────────── */}
         <section style={{ marginBottom: 48 }}>
           <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>

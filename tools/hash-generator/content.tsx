@@ -135,6 +135,53 @@ export default function HashGeneratorContent() {
             </div>
           </section>
 
+          {/* ── Hash functions in web development ────────── */}
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              Hash functions in everyday web development
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              Cryptographic hashes appear throughout the web stack in ways that are easy to overlook. Understanding where and why hashes are used helps you make better security and architecture decisions:
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
+              {[
+                { area: 'Git version control', how: 'Every commit, tree, blob, and tag in Git is identified by a SHA-1 hash of its content. This is why commit IDs look like 3a1b9f4... — they are SHA-1 digests. Git is migrating to SHA-256 for new repositories to address SHA-1\'s theoretical vulnerabilities.' },
+                { area: 'Browser caching (ETags)', how: 'HTTP ETags often contain an MD5 or SHA hash of the response body. When a browser makes a conditional GET request with If-None-Match, the server computes the current hash and compares it to the ETag. If they match, the server returns 304 Not Modified and saves bandwidth.' },
+                { area: 'Content-addressable storage (CAS)', how: 'Platforms like npm, Docker, and IPFS identify packages and files by their SHA hash rather than by name and version alone. This makes it impossible to silently modify content at a URL — the hash of the file must match the expected hash, or the download is rejected. It prevents supply chain attacks.' },
+                { area: 'Subresource Integrity (SRI)', how: 'When loading external JavaScript or CSS from a CDN, the integrity attribute contains a Base64-encoded SHA-384 or SHA-512 hash: <script src="..." integrity="sha384-...">. Browsers verify the downloaded file against this hash before execution. If the CDN is compromised, the modified file\'s hash will not match and the script will not run.' },
+                { area: 'API request signing (HMAC)', how: 'APIs like AWS, Stripe, and GitHub use HMAC-SHA256 to sign requests. The client computes HMAC(secret_key, request_content) and includes the result in a header. The server recomputes the HMAC and verifies it matches, proving the request came from someone with the secret key and that the body was not tampered with in transit.' },
+                { area: 'CSS/JS asset fingerprinting', how: 'Build tools like Webpack, Vite, and Parcel append a content hash to asset filenames: main.3b82f6a.js. This enables aggressive caching (the file\'s URL changes only when its content changes) while ensuring users always get the latest version after a deployment.' },
+              ].map(({ area, how }, i) => (
+                <div key={area} style={{ padding: '12px 16px', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)' }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 6 }}>{area}</div>
+                  <p style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--ink-2)', margin: 0 }}>{how}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ── Choosing the right hash algorithm ────────── */}
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              How to choose the right hash algorithm
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              Not all hash functions serve the same purpose. The right choice depends on your threat model, performance requirements, and the ecosystem you are working in:
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              <strong style={{ color: 'var(--ink)' }}>For data integrity verification</strong> (file checksums, download verification, ETags): SHA-256 is the standard. It is fast, universally supported, and provides strong collision resistance. SHA-512 offers marginally more security with similar performance on 64-bit hardware. MD5 and SHA-1 are acceptable only for non-security checksums in a trusted internal system, never for integrity guarantees against a malicious actor.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              <strong style={{ color: 'var(--ink)' }}>For API request signing and token verification</strong>: Use HMAC-SHA256. Plain SHA-256 without a key is vulnerable to length extension attacks — an attacker can append data to a message and forge a valid hash without knowing the secret. HMAC prevents this by incorporating the key into the computation in a way that resists extension.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              <strong style={{ color: 'var(--ink)' }}>For deduplication and content addressing</strong>: SHA-256 is the default. If performance is critical and collision resistance requirements are lower (non-adversarial context), faster non-cryptographic hashes like xxHash or MurmurHash can be used, but these should never be used where security is a concern.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)' }}>
+              <strong style={{ color: 'var(--ink)' }}>For passwords</strong>: Use bcrypt, Argon2id, or scrypt — never SHA-256 or any fast hash. Password hashing algorithms are deliberately slow and use salting to prevent rainbow table attacks. A GPU can compute billions of SHA-256 hashes per second, making unsalted SHA-256 passwords trivially crackable. Argon2id is the current OWASP recommendation for new projects.
+            </p>
+          </section>
+
           {/* ── FAQ ─────────────────────────────────────── */}
           <section style={{ marginBottom: 48 }}>
             <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>

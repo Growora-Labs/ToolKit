@@ -132,6 +132,67 @@ export default function ColorPaletteContent() {
             </div>
           </section>
 
+          {/* ── Building a color token system ────────────── */}
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              From palette to design token system
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              A generated 5-color palette is a starting point, not a final design system. Production interfaces typically need dozens of named color tokens — semantic roles that map abstract names like "primary" or "danger" to specific values. Here is how to scale a palette into a full token system:
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
+              {[
+                { step: '1', title: 'Assign semantic roles', desc: 'Map each palette color to a purpose: Primary (main brand actions), Secondary (supporting elements), Accent (highlights, CTAs), Neutral (text, backgrounds, borders), Semantic (success green, warning yellow, error red, info blue). Semantic names let you change the underlying color without updating every component.' },
+                { step: '2', title: 'Build a lightness scale for each hue', desc: 'For each brand color, generate a 9-stop lightness ramp from 10% to 90% in HSL. Label them 100 through 900 (like Tailwind CSS or Material Design). Light stops (100–300) work for backgrounds and tints; medium stops (400–600) work for UI elements; dark stops (700–900) work for text on light backgrounds.' },
+                { step: '3', title: 'Define component-level tokens', desc: 'Component tokens reference semantic tokens: --button-bg: var(--primary-500); --button-hover: var(--primary-600); --button-text: var(--neutral-50). This two-level system means changing your brand color updates all components at once, and individual component tweaks do not require touching the base palette.' },
+                { step: '4', title: 'Add dark mode variants', desc: 'For each semantic token, define a dark mode value. Often this is the inverse lightness: --surface-bg is neutral-50 in light mode and neutral-900 in dark mode. CSS custom properties make this clean: put light values in :root and dark values in [data-theme="dark"] or @media (prefers-color-scheme: dark).' },
+                { step: '5', title: 'Document usage guidelines', desc: 'A color system without documentation is a palette that developers use inconsistently. Write usage guidelines: "Primary 500 is for interactive elements only. Never use Primary as a background for large areas." Even a short README prevents color drift across a growing codebase.' },
+              ].map(({ step, title, desc }) => (
+                <div key={step} style={{ display: 'flex', gap: 14, padding: '14px 16px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)' }}>
+                  <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'var(--green)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, flexShrink: 0 }}>{step}</div>
+                  <div>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 4 }}>{title}</div>
+                    <p style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--ink-2)', margin: 0 }}>{desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ── Dark mode color strategy ──────────────────── */}
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              Dark mode color strategy
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              Dark mode is not just inverting your light palette — that approach consistently produces poor results. Colors that look balanced on a white background become garish and oversaturated when placed on a dark background. Here is how to approach dark mode color design correctly:
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              <strong style={{ color: 'var(--ink)' }}>Reduce saturation in dark mode.</strong> Vivid colors that work on white backgrounds feel harsh against dark backgrounds. Reduce saturation by 10–20% for most brand colors in dark mode. The exception is interactive colors like links and buttons, which benefit from slightly higher saturation to remain visible.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              <strong style={{ color: 'var(--ink)' }}>Never use pure black as your dark background.</strong> Pure black (#000000) creates extreme contrast with any content, causing eye strain. Instead, use very dark neutral grays (HSL lightness 7–12%) with a subtle hue tint that matches your brand color. Material Design uses #121212; GitHub uses #0d1117; Linear uses #1b1b1f.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 16 }}>
+              <strong style={{ color: 'var(--ink)' }}>Use elevation through lightness.</strong> In dark mode, higher surfaces (modals, cards, tooltips) should be lighter, not darker. This mimics real-world ambient occlusion and creates a clear visual hierarchy without shadows. Increment lightness by 4–8% for each elevation level above your base background.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {[
+                { rule: 'Brand color in dark mode', light: 'HSL(220, 80%, 55%)', dark: 'HSL(220, 65%, 65%) — higher L, lower S' },
+                { rule: 'Text color in dark mode', light: 'HSL(220, 10%, 10%)', dark: 'HSL(220, 10%, 90%) — near-white, never pure white' },
+                { rule: 'Surface background', light: 'HSL(0, 0%, 100%)', dark: 'HSL(220, 8%, 10%) — tinted near-black' },
+                { rule: 'Card / elevated surface', light: 'HSL(220, 8%, 97%)', dark: 'HSL(220, 8%, 15%) — lighter than base' },
+                { rule: 'Border color', light: 'HSL(220, 10%, 88%)', dark: 'HSL(220, 10%, 22%) — subtle, not invisible' },
+              ].map(({ rule, light, dark }, i) => (
+                <div key={rule} style={{ display: 'flex', gap: 0, border: '1px solid var(--border)', borderRadius: 'var(--r-l)', overflow: 'hidden' }}>
+                  <div style={{ padding: '10px 14px', fontSize: 13, fontWeight: 600, color: 'var(--ink)', background: 'var(--white)', minWidth: 160, flexShrink: 0 }}>{rule}</div>
+                  <div style={{ padding: '10px 14px', fontSize: 12, color: 'var(--ink-3)', background: 'var(--page-bg)', flex: 1, fontFamily: 'JetBrains Mono, monospace', borderLeft: '1px solid var(--border)', borderRight: '1px solid var(--border)' }}>{light}</div>
+                  <div style={{ padding: '10px 14px', fontSize: 12, color: 'var(--green)', background: 'var(--page-bg)', flex: 1, fontFamily: 'JetBrains Mono, monospace' }}>{dark}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
           {/* ── FAQ ─────────────────────────────────────── */}
           <section style={{ marginBottom: 48 }}>
             <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>

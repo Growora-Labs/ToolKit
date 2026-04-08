@@ -221,6 +221,61 @@ export default function ColorConverterContent() {
           </p>
         </section>
 
+        {/* ── Color spaces beyond the browser ─────────── */}
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+            Color spaces beyond the browser — LAB, LCH, and P3
+          </h2>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+            HEX, RGB, HSL, HSV, and CMYK cover the majority of developer workflows, but modern CSS is expanding into perceptually uniform color spaces that were previously limited to professional design software. Understanding the landscape helps you choose the right tool for the job.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
+            {[
+              { name: 'sRGB', note: 'The standard color space for web and most screens. HEX, RGB, and HSL operate in sRGB. Covers about 35% of visible colors.', tag: 'Standard' },
+              { name: 'Display P3', note: 'Apple\'s wide-gamut color space, available on iPhone, iPad, and Mac displays since 2015. Covers ~50% of visible colors — 25% wider than sRGB. Supported in CSS via color(display-p3 r g b).', tag: 'Wide gamut' },
+              { name: 'LAB / OKLAB', note: 'Perceptually uniform: equal numeric steps produce equal perceived color changes. OKLAB is an improved version used by tools like Figma and the CSS oklch() function. Great for generating smooth gradients and color scales.', tag: 'Perceptual' },
+              { name: 'LCH / OKLCH', note: 'The cylindrical form of LAB — Lightness, Chroma, Hue. More intuitive than LAB for designers. CSS oklch() is now supported in all modern browsers and is the recommended format for new design systems.', tag: 'Modern CSS' },
+              { name: 'Rec. 2020', note: 'Ultra-wide gamut color space used in 4K HDR video production. Not yet practical for web UI design but increasingly relevant for video streaming and high-end displays.', tag: 'HDR / Video' },
+            ].map(({ name, note, tag }) => (
+              <div key={name} style={{ display: 'flex', gap: 14, padding: '12px 16px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', flexWrap: 'wrap' }}>
+                <div style={{ minWidth: 100 }}>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--green)', fontFamily: 'JetBrains Mono, monospace', background: 'var(--green-lt)', padding: '2px 8px', borderRadius: 4 }}>{name}</span>
+                  <div style={{ fontSize: 11, color: 'var(--ink-4)', marginTop: 4 }}>{tag}</div>
+                </div>
+                <div style={{ flex: 1, minWidth: 200, fontSize: 14, lineHeight: 1.65, color: 'var(--ink-2)' }}>{note}</div>
+              </div>
+            ))}
+          </div>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)' }}>
+            For new projects targeting modern browsers, consider using <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>oklch()</code> in your CSS for its superior perceptual uniformity and wide-gamut capability. Use this converter to get the sRGB values for cross-browser fallbacks.
+          </p>
+        </section>
+
+        {/* ── Practical CSS color workflows ────────────── */}
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+            Practical color workflow tips for web developers
+          </h2>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 16 }}>
+            Color conversion is rarely a one-off task — it is part of a repeatable workflow. Here are the patterns that experienced developers follow to avoid inconsistency and save time:
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {[
+              { title: 'Store design tokens in HSL', body: 'Define your brand colors as CSS custom properties in HSL: --brand-hue: 220; --brand: hsl(var(--brand-hue), 80%, 55%). This lets you generate tints, shades, and tones with a single hue value. Changing the hue updates your entire palette in one edit.' },
+              { title: 'Convert HEX to HSL for theme scaling', body: 'When a designer hands you a HEX color (#3b82f6), convert it to HSL to understand its hue, saturation, and lightness. Then build your full color scale by adjusting only the L value in 10% increments from 10% to 90%. The result is a consistent 9-stop color ramp ready for a design system.' },
+              { title: 'Use RGB for JavaScript manipulation', body: 'RGB is the easiest format to manipulate mathematically in JavaScript. Lightening a color is as simple as increasing all three channels by the same amount. For canvas drawing, WebGL shaders, and the Canvas 2D API, RGB values map directly to the underlying data model.' },
+              { title: 'Always specify CMYK with an ICC profile for print', body: 'A raw CMYK conversion (C=20, M=5, Y=0, K=0) means nothing to a print shop without specifying the ICC profile. The same CMYK values produce different printed colors on coated versus uncoated paper. Always send RGB source files to professional printers and let them convert using the target ICC profile.' },
+              { title: 'Test color contrast during design, not after', body: 'Convert your color combinations early and check WCAG contrast ratios before you get attached to a palette. Failing contrast is more painful to fix after a design is approved and sliced into components. Use this converter to check HSL lightness values — a minimum lightness difference of ~40% between text and background is a useful rough heuristic for passing AA.' },
+              { title: 'Use browser DevTools as a secondary converter', body: 'Chrome and Firefox DevTools let you click any CSS color value to cycle between HEX, RGB, and HSL representations in the inspector. This is useful for quick conversions when reviewing a live page. For batch conversion or CMYK output, a dedicated tool is more reliable.' },
+            ].map(({ title, body }, i) => (
+              <div key={title} style={{ padding: '14px 16px', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)' }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 6 }}>{title}</div>
+                <p style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--ink-2)', margin: 0 }}>{body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* ── FAQ ─────────────────────────────────────── */}
         <section style={{ marginBottom: 48 }}>
           <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>

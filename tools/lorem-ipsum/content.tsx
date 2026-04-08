@@ -125,6 +125,54 @@ export default function LoremIpsumContent() {
             </div>
           </section>
 
+          {/* ── Lorem Ipsum in design systems ─────────────── */}
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              Lorem Ipsum in design systems and component libraries
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              When building reusable component libraries and design systems, placeholder text serves a specific purpose: it lets you test component robustness across different content lengths before real content exists. Here is how to use it strategically:
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              <strong style={{ color: 'var(--ink)' }}>Test edge cases, not just the happy path.</strong> Components break on boundary content — very short text (a single word), very long text (400+ characters), text with special characters, text with line breaks. Use generated placeholder text at various lengths to stress-test truncation, overflow handling, and wrapping in cards, buttons, tooltips, and badges. A component that only looks good with medium-length Lorem Ipsum will fail in production.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              <strong style={{ color: 'var(--ink)' }}>Use real content structure in Storybook stories.</strong> In component documentation (Storybook, Ladle, Histoire), the "Default" story should show Lorem Ipsum that realistically represents the intended use case. A "LongContent" story should show text long enough to trigger overflow. A "ShortContent" story should show minimal text. This documents implicit content assumptions and prevents regressions when the component is refactored.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              <strong style={{ color: 'var(--ink)' }}>Never ship Lorem Ipsum in production builds.</strong> Add a CI check or linter rule that fails if Lorem Ipsum text is detected in rendered output. The string "Lorem ipsum dolor sit amet" appearing in a production deployment is a signal that placeholder content was not replaced — and a potential embarrassment in client demos or live environments.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)' }}>
+              <strong style={{ color: 'var(--ink)' }}>Internationalization (i18n) testing requires language-specific placeholders.</strong> If your application supports multiple languages, test your UI with text in those languages — not Latin. Right-to-left languages (Arabic, Hebrew) require mirrored layout. CJK languages (Chinese, Japanese, Korean) have different word-wrap rules and no spaces between words. Placeholder Latin text will not expose these layout bugs.
+            </p>
+          </section>
+
+          {/* ── Placeholder content strategy ─────────────── */}
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              Choosing the right placeholder content strategy
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 16 }}>
+              Not every situation calls for Lorem Ipsum. Different project phases and audience types call for different placeholder strategies:
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {[
+                { strategy: 'Lorem Ipsum (Latin placeholder)', when: 'Early wireframes, internal prototypes, component library development', why: 'Instantly recognizable as placeholder — prevents stakeholders from commenting on copy instead of design' },
+                { strategy: 'Realistic dummy content', when: 'Client presentations, usability testing, stakeholder reviews', why: 'Helps reviewers evaluate whether the design solves the actual use case — copy affects readability and hierarchy judgements' },
+                { strategy: 'Production-representative content', when: 'Final design approval, content audits, editorial design', why: 'The only way to validate line lengths, heading hierarchy, image aspect ratios, and reading flow for the actual content' },
+                { strategy: 'Random English text', when: 'SEO testing, readability tools, NLP/text processing testing', why: 'Latin text bypasses word count, readability scores, and language detection — English placeholder avoids false tool readings' },
+                { strategy: 'Seed data from production', when: 'Load testing, performance profiling, end-to-end tests', why: 'Realistic data volume and distribution — synthetic data can mask performance issues that only appear at real scale' },
+                { strategy: 'Redacted/anonymized production data', when: 'Staging environments, developer demos, bug reproduction', why: 'Preserves data structure and edge cases while protecting user privacy — best for reproducing production-specific layout bugs' },
+              ].map(({ strategy, when, why }, i) => (
+                <div key={strategy} style={{ padding: '14px 16px', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)' }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 4 }}>{strategy}</div>
+                  <div style={{ fontSize: 13, color: 'var(--ink-3)', marginBottom: 4 }}><strong>When:</strong> {when}</div>
+                  <div style={{ fontSize: 13, color: 'var(--ink-2)' }}><strong>Why:</strong> {why}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
           {/* ── FAQ ─────────────────────────────────────── */}
           <section style={{ marginBottom: 48 }}>
             <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>

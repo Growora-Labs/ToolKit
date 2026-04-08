@@ -138,6 +138,71 @@ export default function CaseConverterContent() {
           </div>
         </section>
 
+        {/* ── Naming conventions across tech stacks ─────── */}
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+            Naming conventions across popular tech stacks
+          </h2>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 20 }}>
+            Each ecosystem has community-wide conventions baked into linters, code review expectations, and standard library design. Following them makes your code feel native to the stack and avoids friction during code review:
+          </p>
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
+              <thead>
+                <tr style={{ background: 'var(--ink)', color: '#fff' }}>
+                  {['Tech stack', 'Variables / Functions', 'Classes / Types', 'Constants', 'Files'].map(h => (
+                    <th key={h} style={{ padding: '10px 14px', textAlign: 'left', fontWeight: 600, fontFamily: 'Outfit, sans-serif' }}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ['JavaScript / TypeScript', 'camelCase', 'PascalCase', 'UPPER_SNAKE_CASE', 'kebab-case'],
+                  ['React components', 'camelCase', 'PascalCase', 'UPPER_SNAKE_CASE', 'PascalCase.tsx'],
+                  ['Python (PEP 8)', 'snake_case', 'PascalCase', 'UPPER_SNAKE_CASE', 'snake_case.py'],
+                  ['Go', 'camelCase', 'PascalCase (exported)', 'camelCase or UPPER', 'snake_case.go'],
+                  ['Rust', 'snake_case', 'PascalCase', 'UPPER_SNAKE_CASE', 'snake_case.rs'],
+                  ['Java / Kotlin', 'camelCase', 'PascalCase', 'UPPER_SNAKE_CASE', 'PascalCase.java'],
+                  ['C# (.NET)', 'camelCase (local), PascalCase (members)', 'PascalCase', 'PascalCase', 'PascalCase.cs'],
+                  ['Ruby on Rails', 'snake_case', 'PascalCase', 'UPPER_SNAKE_CASE', 'snake_case.rb'],
+                  ['CSS / SCSS classes', 'kebab-case', '—', '—', 'kebab-case.css'],
+                  ['SQL (PostgreSQL)', 'snake_case', '—', 'UPPER_SNAKE_CASE', 'snake_case.sql'],
+                ].map(([stack, vars, classes, consts, files], i) => (
+                  <tr key={stack} style={{ background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', borderBottom: '1px solid var(--border)' }}>
+                    <td style={{ padding: '10px 14px', fontWeight: 600, color: 'var(--ink)' }}>{stack}</td>
+                    <td style={{ padding: '10px 14px', fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--green)' }}>{vars}</td>
+                    <td style={{ padding: '10px 14px', fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--ink-2)' }}>{classes}</td>
+                    <td style={{ padding: '10px 14px', fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--ink-3)' }}>{consts}</td>
+                    <td style={{ padding: '10px 14px', fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--ink-4)' }}>{files}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* ── Automated case transformation ─────────────── */}
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+            Automating case transformations in your codebase
+          </h2>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+            Manual case conversion does not scale. When you are building APIs, transforming database schemas to JavaScript objects, or processing user-generated content, you need programmatic solutions. Here are the standard approaches:
+          </p>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+            <strong style={{ color: 'var(--ink)' }}>API response normalization</strong> is one of the most common use cases. REST APIs from different backends use different conventions — a Python/Django API returns snake_case keys, a Java API returns camelCase or PascalCase, and some legacy APIs return UPPER_CASE. Libraries like <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>camelcase-keys</code> (npm) automatically convert all keys in a JSON response to camelCase, preventing inconsistent property names in your frontend codebase.
+          </p>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+            <strong style={{ color: 'var(--ink)' }}>Linters enforce naming conventions</strong> automatically during development. ESLint's <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>camelcase</code> and <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>@typescript-eslint/naming-convention</code> rules report violations in your IDE as you type. Python's Flake8 and Pylint enforce PEP 8 naming. Setting these up once ensures all team members follow the same conventions without code review comments about naming.
+          </p>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+            <strong style={{ color: 'var(--ink)' }}>Database-to-code mapping</strong> is another friction point. SQL tables and columns use snake_case by convention, but JavaScript objects typically use camelCase. ORMs like Prisma handle this automatically (a column <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>created_at</code> becomes <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>createdAt</code> in the Prisma client). If you write raw SQL, consider a lightweight mapping utility to keep both layers idiomatic.
+          </p>
+          <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)' }}>
+            <strong style={{ color: 'var(--ink)' }}>File rename migrations</strong> occasionally require batch case conversion. Renaming a directory of React components from kebab-case to PascalCase, or standardizing a Python package's module files to snake_case, can be done with a shell script using <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>rename</code> (Linux/macOS) or the <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>rename-cli</code> npm package. Always run these with a dry-run flag first and update your import statements with a global find-and-replace afterward.
+          </p>
+        </section>
+
         {/* ── FAQ ─────────────────────────────────────── */}
         <section style={{ marginBottom: 48 }}>
           <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>

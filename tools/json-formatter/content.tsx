@@ -216,6 +216,65 @@ export default function JsonFormatterContent() {
             </div>
           </section>
 
+          {/* ── JSON Schema ──────────────────────────────── */}
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              JSON Schema — validating structure and types
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              JSON has no built-in type enforcement — any valid JSON can contain any structure. JSON Schema is a separate vocabulary (itself written in JSON) that describes the expected structure of a JSON document. It is used for API documentation, form validation, config file validation, and code generation.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              A JSON Schema document specifies the <strong style={{ color: 'var(--ink)' }}>type</strong> of each property, whether properties are <strong style={{ color: 'var(--ink)' }}>required</strong>, constraints like <strong style={{ color: 'var(--ink)' }}>minLength</strong>, <strong style={{ color: 'var(--ink)' }}>minimum</strong>, and <strong style={{ color: 'var(--ink)' }}>pattern</strong>, and the structure of nested objects and arrays. Validators like Ajv (JavaScript) and jsonschema (Python) use the schema to validate payloads at runtime — rejecting malformed data before it reaches your business logic.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 16 }}>
+              OpenAPI (formerly Swagger) uses JSON Schema as its type system for API definitions. TypeScript tools like <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>json-schema-to-typescript</code> generate TypeScript interfaces directly from a JSON Schema, keeping your API types and validation rules in sync automatically.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {[
+                { keyword: 'type', purpose: 'Specifies the expected JSON type', example: '"type": "string" | "number" | "boolean" | "array" | "object" | "null"' },
+                { keyword: 'required', purpose: 'Lists properties that must be present in an object', example: '"required": ["id", "name", "email"]' },
+                { keyword: 'properties', purpose: 'Defines the schema for each named property in an object', example: '"properties": { "age": { "type": "integer", "minimum": 0 } }' },
+                { keyword: 'items', purpose: 'Defines the schema for each element in an array', example: '"items": { "type": "string" }' },
+                { keyword: 'enum', purpose: 'Restricts a value to a fixed set of allowed values', example: '"enum": ["active", "inactive", "pending"]' },
+                { keyword: '$ref', purpose: 'References a reusable schema definition', example: '"$ref": "#/$defs/Address"' },
+              ].map(({ keyword, purpose, example }, i) => (
+                <div key={keyword} style={{ display: 'flex', gap: 0, border: '1px solid var(--border)', borderRadius: 'var(--r-l)', overflow: 'hidden' }}>
+                  <div style={{ padding: '10px 14px', fontFamily: 'JetBrains Mono, monospace', fontSize: 13, fontWeight: 700, color: 'var(--green)', background: 'var(--green-lt)', minWidth: 110, flexShrink: 0 }}>{keyword}</div>
+                  <div style={{ padding: '10px 14px', fontSize: 13, color: 'var(--ink-2)', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', flex: 1, borderLeft: '1px solid var(--border)' }}>
+                    <div style={{ fontWeight: 600, color: 'var(--ink)', marginBottom: 3 }}>{purpose}</div>
+                    <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--ink-3)' }}>{example}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ── JSON in the real world ────────────────────── */}
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              JSON in the real world — APIs, config files, databases
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              JSON is everywhere in modern software. Understanding the common patterns helps you work with it more confidently across different contexts:
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {[
+                { ctx: 'REST API responses', detail: 'The dominant format for web API payloads. Content-Type: application/json signals JSON encoding. Most HTTP client libraries (Axios, Fetch API, requests, Guzzle) parse JSON responses automatically. Pagination typically uses a wrapper object with "data", "meta", and "links" keys (JSON:API spec) or a flat response with "items" and "nextCursor".' },
+                { ctx: 'package.json (npm)', detail: 'Node.js project configuration and dependency manifest. Uses JSON5-extended rules in some tooling but must be strictly valid JSON. The scripts object defines npm run commands; dependencies and devDependencies use semver ranges. Processed by the npm CLI — never needs to be parsed manually by your code.' },
+                { ctx: 'tsconfig.json', detail: 'TypeScript compiler configuration. Unusually, this file supports JavaScript-style comments (// and /* */) and trailing commas despite using the .json extension. TypeScript\'s parser handles these JSON5 extensions internally. This is why linters sometimes complain about tsconfig.json being "invalid JSON".' },
+                { ctx: 'localStorage and sessionStorage', detail: 'Browser storage only holds string values. Storing objects requires JSON.stringify() on write and JSON.parse() on read. A common bug is forgetting to parse on retrieval — comparing a stored boolean with true will always fail if the value was stored as the string "true". Always pair storage and retrieval with the same serialization approach.' },
+                { ctx: 'PostgreSQL JSONB columns', detail: 'PostgreSQL natively stores and indexes JSON in JSONB (binary JSON) columns. You can query nested properties with -> and ->> operators, index specific keys with GIN indexes, and update individual paths. JSONB is preferred over the older JSON type because it stores data in binary form (faster queries) and deduplicates object keys.' },
+                { ctx: 'WebSocket and SSE messages', detail: 'Real-time protocols commonly use JSON-encoded messages. WebSocket frames carry raw bytes — JSON.stringify/parse handles encoding. Server-Sent Events use a "data: {...}\\n\\n" format where the data field contains a JSON string. For high-frequency messages (gaming, financial data), consider MessagePack or Protocol Buffers as more compact binary alternatives.' },
+              ].map(({ ctx, detail }, i) => (
+                <div key={ctx} style={{ padding: '14px 16px', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', border: '1px solid var(--border)', borderRadius: 'var(--r-l)' }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 6 }}>{ctx}</div>
+                  <p style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--ink-2)', margin: 0 }}>{detail}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
         </div>
       </div>
   );
