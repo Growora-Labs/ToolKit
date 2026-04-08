@@ -184,7 +184,7 @@ export const TOOLS: ToolMeta[] = [
     seoDescription: 'Decode and inspect JWT tokens instantly. View header, payload and signature. Verify expiration. Free online JWT decoder — no data sent to servers.',
     category:       'Security',
     keywords:       ['jwt decoder', 'jwt decoder online', 'decode jwt token', 'json web token decoder', 'jwt inspector'],
-    live:           false,
+    live:           true,
   },
   {
     slug:           'password-strength-checker',
@@ -196,7 +196,7 @@ export const TOOLS: ToolMeta[] = [
     seoDescription: 'Analyse password strength instantly. See entropy bits, estimated crack time and specific improvement tips. 100% browser-based — your password never leaves your device.',
     category:       'Security',
     keywords:       ['password strength checker', 'password strength meter', 'how strong is my password', 'password entropy calculator'],
-    live:           false,
+    live:           true,
   },
   {
     slug:           'encryption-tool',
@@ -220,7 +220,7 @@ export const TOOLS: ToolMeta[] = [
     seoDescription: 'Generate HMAC-SHA256 and HMAC-SHA512 signatures from a message and secret key. Fully browser-based via Web Crypto API. Free, no data stored.',
     category:       'Security',
     keywords:       ['hmac generator', 'hmac sha256 online', 'hmac sha512', 'message authentication code', 'hmac calculator'],
-    live:           false,
+    live:           true,
   },
   {
     slug:           'totp-generator',
@@ -244,7 +244,7 @@ export const TOOLS: ToolMeta[] = [
     seoDescription: 'Generate cryptographically secure random tokens, API secrets and keys. Choose length and format: hex, base64 or alphanumeric. Uses Web Crypto API. Free, no signup.',
     category:       'Security',
     keywords:       ['random token generator', 'secure token generator', 'crypto random generator', 'secret key generator', 'random secret generator'],
-    live:           false,
+    live:           true,
   },
   {
     slug:           'api-key-generator',
@@ -256,7 +256,7 @@ export const TOOLS: ToolMeta[] = [
     seoDescription: 'Generate API keys instantly in multiple formats — UUID-style, hex, base64 or custom prefix. All keys are cryptographically random. Free, browser-based, no signup.',
     category:       'Security',
     keywords:       ['api key generator', 'generate api key', 'random api key', 'api key creator online'],
-    live:           false,
+    live:           true,
   },
   {
     slug:           'ssl-certificate-decoder',
