@@ -41,6 +41,91 @@ export default function RegexTesterContent() {
 
           <section style={{ marginBottom: 48 }}>
             <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              Regex flags explained
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 20 }}>
+              Flags modify the behaviour of a regex pattern without changing the pattern itself. In JavaScript, flags are appended after the closing slash: <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 13, background: 'var(--border)', padding: '1px 5px', borderRadius: 3 }}>/pattern/flags</code>. The most important flags to understand:
+            </p>
+            <div style={{ overflowX: 'auto' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
+                <thead>
+                <tr style={{ background: 'var(--ink)', color: '#fff' }}>
+                  {['Flag', 'Name', 'Effect'].map(h => (
+                      <th key={h} style={{ padding: '10px 14px', textAlign: 'left', fontWeight: 600, fontFamily: 'Outfit, sans-serif' }}>{h}</th>
+                  ))}
+                </tr>
+                </thead>
+                <tbody>
+                {[
+                  ['g', 'Global',      'Find all matches in the string. Without g, only the first match is returned.'],
+                  ['i', 'Ignore case', 'Case-insensitive matching. /hello/i matches "Hello", "HELLO", "hElLo".'],
+                  ['m', 'Multiline',   'Makes ^ and $ match start/end of each line, not the whole string. Useful for line-by-line processing.'],
+                  ['s', 'Dotall',      'Makes . match newline characters too. Without s, . matches any character except \\n.'],
+                  ['u', 'Unicode',     'Enables full Unicode matching. Required for matching emoji and characters outside the BMP (> U+FFFF).'],
+                  ['y', 'Sticky',      'Matches only from lastIndex — does not search forward. Useful for tokenizers that process a string sequentially.'],
+                  ['d', 'Indices',     'Adds start/end character indices to each match result. Useful when you need precise cursor positions.'],
+                ].map(([flag, name, effect], i) => (
+                    <tr key={flag} style={{ background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', borderBottom: '1px solid var(--border)' }}>
+                      <td style={{ padding: '10px 14px', fontFamily: 'JetBrains Mono, monospace', fontSize: 15, fontWeight: 700, color: 'var(--green)' }}>{flag}</td>
+                      <td style={{ padding: '10px 14px', fontWeight: 600, color: 'var(--ink)' }}>{name}</td>
+                      <td style={{ padding: '10px 14px', color: 'var(--ink-3)' }}>{effect}</td>
+                    </tr>
+                ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              Regex metacharacters cheat sheet
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 20 }}>
+              These are the building blocks of every regular expression. Memorising them lets you read and write most patterns without needing a reference:
+            </p>
+            <div style={{ overflowX: 'auto' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
+                <thead>
+                <tr style={{ background: 'var(--ink)', color: '#fff' }}>
+                  {['Token', 'Matches', 'Example'].map(h => (
+                      <th key={h} style={{ padding: '10px 14px', textAlign: 'left', fontWeight: 600, fontFamily: 'Outfit, sans-serif' }}>{h}</th>
+                  ))}
+                </tr>
+                </thead>
+                <tbody>
+                {[
+                  ['.', 'Any character except newline (unless s flag)', '/c.t/ matches "cat", "cut", "c3t"'],
+                  ['\\d', 'Any digit 0–9', '/\\d+/ matches "42", "100"'],
+                  ['\\w', 'Word character [a-zA-Z0-9_]', '/\\w+/ matches "hello_world"'],
+                  ['\\s', 'Whitespace (space, tab, newline)', '/a\\sb/ matches "a b"'],
+                  ['\\D \\W \\S', 'Uppercase = inverse of lowercase version', '/\\D/ matches any non-digit'],
+                  ['^', 'Start of string (or line with m flag)', '/^hello/ matches only at line start'],
+                  ['$', 'End of string (or line with m flag)', '/end$/ matches only at line end'],
+                  ['*', 'Zero or more of previous token', '/a*/ matches "", "a", "aaa"'],
+                  ['+', 'One or more of previous token', '/a+/ matches "a", "aaa" (not "")'],
+                  ['?', 'Zero or one (makes previous optional)', '/colou?r/ matches "color" and "colour"'],
+                  ['{n,m}', 'Between n and m repetitions', '/\\d{2,4}/ matches 2 to 4 digits'],
+                  ['[abc]', 'Character class — any of a, b, c', '/[aeiou]/ matches any vowel'],
+                  ['[^abc]', 'Negated class — any except a, b, c', '/[^0-9]/ matches any non-digit'],
+                  ['(…)', 'Capture group', '/(\\w+)@/ captures username in email'],
+                  ['(?:…)', 'Non-capturing group', '/(?:https?):\\/\\// groups without capturing'],
+                  ['(?=…)', 'Lookahead — match if followed by', '/\\w+(?=\\()/ matches function names'],
+                  ['(?<=…)', 'Lookbehind — match if preceded by', '/(?<=\\$)\\d+/ matches amount after $'],
+                  ['a|b', 'Alternation — a or b', '/cat|dog/ matches "cat" or "dog"'],
+                ].map(([token, desc, example], i) => (
+                    <tr key={token} style={{ background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', borderBottom: '1px solid var(--border)' }}>
+                      <td style={{ padding: '10px 14px', fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--green)', fontWeight: 600 }}>{token}</td>
+                      <td style={{ padding: '10px 14px', color: 'var(--ink-2)' }}>{desc}</td>
+                      <td style={{ padding: '10px 14px', fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--ink-3)' }}>{example}</td>
+                    </tr>
+                ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
               Most useful regex patterns
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -60,6 +145,30 @@ export default function RegexTesterContent() {
                     </div>
                     <p style={{ fontSize: 13, color: 'var(--ink-4)', margin: 0 }}>{note}</p>
                   </div>
+              ))}
+            </div>
+          </section>
+
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>
+              Frequently asked questions
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', overflow: 'hidden' }}>
+              {[
+                { q: 'What is the difference between greedy and lazy quantifiers?', a: 'Greedy quantifiers (*, +, {n,m}) match as much text as possible while still allowing the overall pattern to succeed. Lazy quantifiers (*?, +?, {n,m}?) match as little as possible. For example, given the string <b>hello</b><b>world</b>, the greedy pattern <b>.*</b> matches the entire string from the first < to the last >, while the lazy pattern <b>.*?</b> matches only <b>hello</b>. The lazy version finds the shortest possible match at each position.' },
+                { q: 'How do I match a literal dot or asterisk in a regex?', a: 'In regex, ., *, +, ?, (, ), [, ], {, }, ^, $, |, and \\ are metacharacters with special meaning. To match any of them literally, prefix with a backslash: \\. matches a literal dot, \\* matches a literal asterisk. In JavaScript string literals you also need to escape the backslash: new RegExp("\\\\d") to match \\d in a string. In regex literal syntax /\\d/ is sufficient.' },
+                { q: 'What is a named capture group and why use it?', a: 'A named capture group uses (?<name>...) syntax and gives the captured text a name instead of just a number. For example, /(?<year>\\d{4})-(?<month>\\d{2})-(?<day>\\d{2})/ lets you access match.groups.year instead of match[1]. Named groups make complex patterns self-documenting and are essential when patterns are long or when capture order might change during refactoring.' },
+                { q: 'Why does my regex work in the tester but fail in my code?', a: 'The most common causes: (1) String escaping — in JavaScript string literals, backslashes must be doubled: write "\\\\d" to get the regex \\d, or use regex literal syntax /\\d/ which does not need doubling. (2) Missing g flag — without global, String.match() returns only the first match. (3) lastIndex state — a regex with the g or y flag has a stateful lastIndex property that advances with each exec() call; calling exec() twice on the same string without resetting lastIndex is a frequent source of bugs.' },
+                { q: 'What is the difference between test(), match(), exec(), and search()?', a: 'RegExp.prototype.test(str) returns a boolean — true if the pattern matches. String.prototype.match(regex) returns an array of matches (all matches with g flag, or the first match with groups otherwise). RegExp.prototype.exec(str) returns one match at a time with full group information; call it in a loop with g flag to iterate all matches. String.prototype.search(regex) returns the index of the first match or -1. For most use cases, test() to check existence, match() to get all matches, and exec() when you need per-match group data.' },
+                { q: 'How do I match across multiple lines?', a: 'Without flags, . does not match newlines and ^ / $ match the start and end of the entire string. Enable the m (multiline) flag to make ^ and $ match per-line boundaries. Enable the s (dotall) flag to make . match newline characters too. To match text spanning multiple lines, use [\\s\\S]* instead of .* if the s flag is unavailable — [\\s\\S] matches any character including newlines.' },
+                { q: 'Can regex match nested structures like balanced parentheses?', a: 'Traditional (non-recursive) regular expressions cannot match arbitrarily nested structures. A regex can match one fixed level of nesting — \\([^()]*\\) matches a pair of parentheses with no nesting inside — but counting balanced pairs to any depth requires a recursive grammar, which is outside what finite automata (the computational model behind regex) can express. For HTML, JSON, or programming language parsing, use a proper parser instead of regex.' },
+                { q: 'What is catastrophic backtracking and how do I avoid it?', a: 'Catastrophic backtracking happens when a regex with nested quantifiers — like (a+)+ or (a|aa)+ — takes exponential time on certain inputs because the engine explores a combinatorial explosion of ways to satisfy the pattern. The classic symptom is a regex that hangs on a long string of repeated characters. Avoid it by: not nesting quantifiers that can match the same characters, using atomic groups (?>...) or possessive quantifiers (++, *+) in engines that support them, and testing patterns against adversarial inputs before deploying them to production.' },
+                { q: 'Does this tester support lookahead and lookbehind?', a: 'Yes. This tester uses the JavaScript ECMAScript RegExp engine, which fully supports lookahead (?=...) and negative lookahead (?!...). Lookbehind (?<=...) and negative lookbehind (?<!...) are supported in all modern browsers (Chrome 62+, Firefox 78+, Safari 16.4+). If your pattern uses lookbehind and fails in older browsers, consider replacing it with an alternative or polyfilling with a different matching approach.' },
+              ].map(({ q, a }, i, arr) => (
+                <div key={q} style={{ padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid var(--border)' : 'none', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)' }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>{q}</div>
+                  <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.65, margin: 0 }}>{a}</p>
+                </div>
               ))}
             </div>
           </section>

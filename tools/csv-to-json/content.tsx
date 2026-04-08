@@ -297,6 +297,28 @@ export default function CsvToJsonContent() {
           </div>
         </section>
 
+        {/* ── FAQ ─────────────────────────────────────── */}
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ ...h2Style, marginBottom: 24 }}>Frequently asked questions</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', overflow: 'hidden' }}>
+            {[
+              { q: 'What is the difference between CSV and TSV?', a: 'CSV (Comma-Separated Values) uses a comma as the field delimiter; TSV (Tab-Separated Values) uses a tab character. TSV is often preferred for data that naturally contains commas — like addresses, product descriptions, or financial figures with thousands separators — because it eliminates the need to quote fields. Both formats follow similar rules for quoting and line endings. This converter supports both: select "Tab" as your delimiter when pasting TSV data.' },
+              { q: 'Why does my CSV export from Excel use semicolons instead of commas?', a: 'Excel uses your operating system\'s regional list separator setting as the CSV delimiter, not always a comma. In European locales where the comma is the decimal separator (Germany, France, Spain, etc.), Excel defaults to semicolons to avoid ambiguity between "3,14" (the number 3.14) and "3" followed by "14" (two separate fields). When converting CSV exported from European Excel, select "Semicolon" as your delimiter in this tool.' },
+              { q: 'What happens to empty cells when converting CSV to JSON?', a: 'An empty field — two consecutive delimiters or a trailing delimiter — is converted to an empty string "" in the JSON output. It is not converted to null because CSV has no native way to distinguish between "empty string" and "null" — both appear as an empty field. If your consuming application needs to distinguish between the two, post-process the JSON and replace empty strings with null for fields where the distinction matters.' },
+              { q: 'Can I convert a CSV file with no header row?', a: 'Yes. Toggle off the "Headers" option in the converter. Without headers, the output will be an array of arrays instead of an array of objects — each row becomes a sub-array of values: [["Alice","30"],["Bob","25"]]. If you want object-style output but your CSV has no headers, add a header row manually to your CSV before pasting it into the converter.' },
+              { q: 'My CSV contains special characters like accented letters — will they convert correctly?', a: 'This converter handles UTF-8 encoding, which covers the full Unicode character set including accented Latin characters (é, ü, ñ), Cyrillic, Chinese, Japanese, Arabic, and emoji. If your CSV was exported from older software as ISO-8859-1 (Latin-1) or Windows-1252, you may see garbled characters. Open the file in VS Code, check the encoding in the bottom-right status bar, convert to UTF-8 (Save with Encoding → UTF-8), and then paste into the converter.' },
+              { q: 'Does the converter handle CSV files with thousands of rows?', a: 'Yes — there is no row limit enforced by the converter. Performance depends on the size of the text and your device\'s JavaScript engine. In practice, CSV files up to a few megabytes (tens of thousands of rows) convert instantly in modern browsers. For very large files (100MB+), the browser may pause or run out of memory. For large-volume data processing, use a server-side tool: the Node.js csv-parse package, Python\'s built-in csv module, or a database COPY command are all better choices for processing millions of rows.' },
+              { q: 'How do I handle CSV data where values contain newlines?', a: 'RFC 4180 allows multi-line field values if the field is wrapped in double quotes: the quoted field can span multiple lines, and the line breaks inside are part of the field value. This converter correctly handles quoted multi-line fields. The output JSON will contain the embedded newlines as \\n in the string value. If your CSV was not generated with proper quoting around multi-line fields, the parser will misinterpret the embedded newlines as row separators — in that case, pre-process the file to add proper quoting first.' },
+              { q: 'Can I convert JSON back to CSV?', a: 'This tool only converts CSV → JSON. To go the other direction (JSON → CSV), you need a JSON to CSV converter. The conversion is straightforward for flat arrays of objects — each key becomes a column header and each object becomes a row. Nested JSON (objects within objects, or arrays as field values) cannot be directly represented in CSV\'s flat tabular structure; you need to decide how to flatten or stringify nested values before conversion.' },
+            ].map(({ q, a }, i, arr) => (
+              <div key={q} style={{ padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid var(--border)' : 'none', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)' }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>{q}</div>
+                <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.65, margin: 0 }}>{a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* ── Common pitfalls ──────────────────────────── */}
         <section style={{ marginBottom: 48 }}>
           <h2 style={h2Style}>Common pitfalls and how to avoid them</h2>

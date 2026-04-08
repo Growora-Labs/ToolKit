@@ -58,6 +58,83 @@ export default function UsernameGeneratorContent() {
             </div>
           </section>
 
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              Platform-specific username rules
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 20 }}>
+              Each platform enforces its own rules for what constitutes a valid username. Knowing these constraints before you commit to a handle prevents the frustration of choosing a name you cannot actually register:
+            </p>
+            <div style={{ overflowX: 'auto' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
+                <thead>
+                <tr style={{ background: 'var(--ink)', color: '#fff' }}>
+                  {['Platform', 'Max length', 'Allowed characters', 'Notes'].map(h => (
+                      <th key={h} style={{ padding: '10px 14px', textAlign: 'left', fontWeight: 600, fontFamily: 'Outfit, sans-serif' }}>{h}</th>
+                  ))}
+                </tr>
+                </thead>
+                <tbody>
+                {[
+                  ['GitHub',     '39',  'Letters, digits, hyphens',     'Cannot start or end with hyphen; no consecutive hyphens'],
+                  ['Twitter / X','15',  'Letters, digits, underscores',  'Case-insensitive; unique globally'],
+                  ['Instagram',  '30',  'Letters, digits, underscores, periods', 'Cannot start/end with period; no consecutive periods'],
+                  ['Discord',    '32',  'Most characters',               'Display name; separate from discriminator (deprecated) or numeric ID'],
+                  ['LinkedIn',   '100', 'Letters, digits, hyphens',      'Public profile URL slug; shown in search results'],
+                  ['TikTok',     '24',  'Letters, digits, underscores, periods', 'Must be at least 2 characters'],
+                  ['Reddit',     '20',  'Letters, digits, hyphens, underscores', 'Case-insensitive; cannot be changed after creation'],
+                  ['npm',        '214', 'Lowercase letters, digits, hyphens, underscores, periods', 'Scoped packages use @username/package format'],
+                ].map(([platform, max, chars, notes], i) => (
+                    <tr key={platform} style={{ background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)', borderBottom: '1px solid var(--border)' }}>
+                      <td style={{ padding: '10px 14px', fontWeight: 600, color: 'var(--ink)' }}>{platform}</td>
+                      <td style={{ padding: '10px 14px', fontFamily: 'JetBrains Mono, monospace', fontSize: 13, color: 'var(--green)', fontWeight: 600 }}>{max}</td>
+                      <td style={{ padding: '10px 14px', color: 'var(--ink-2)' }}>{chars}</td>
+                      <td style={{ padding: '10px 14px', color: 'var(--ink-3)', fontSize: 13 }}>{notes}</td>
+                    </tr>
+                ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 16 }}>
+              Building a consistent personal brand online
+            </h2>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              For developers, content creators, and professionals building an online presence, username consistency across platforms is a significant strategic advantage. When your GitHub handle, Twitter username, npm package scope, and personal domain all use the same name, you become dramatically easier to find, reference, and link to.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)', marginBottom: 14 }}>
+              Before committing to a username, do a systematic availability check across the platforms that matter to your audience. Tools like Namecheckr and Knowem let you search a username across dozens of platforms simultaneously. Prioritise availability on platforms where your target audience actually is: a game developer should prioritise Discord, Twitch, and itch.io; a web developer should prioritise GitHub, npm, and dev.to.
+            </p>
+            <p style={{ fontSize: 15, lineHeight: 1.75, color: 'var(--ink-2)' }}>
+              If your preferred username is taken on a high-priority platform but available elsewhere, consider slight variations that still feel consistent: adding a craft-specific suffix (devname, namedev), using your full name in a compact format (firstlast or first_last), or registering your personal domain at the chosen name and redirecting from there. The key is to choose a variation you can live with long-term, since changing handles after you have built an audience is disruptive and causes link rot.
+            </p>
+          </section>
+
+          <section style={{ marginBottom: 48 }}>
+            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: 'clamp(18px, 2.5vw, 24px)', color: 'var(--ink)', letterSpacing: '-0.02em', marginBottom: 24 }}>
+              Frequently asked questions
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', border: '1px solid var(--border)', borderRadius: 'var(--r-l)', overflow: 'hidden' }}>
+              {[
+                { q: 'How do I check if a username is available across multiple platforms at once?', a: 'This generator creates username ideas but does not check availability — no tool can guarantee availability because platform username databases are private. For availability checking, use a service like Namecheckr.com, Knowem.com, or Namecheckup.com, which query multiple platforms simultaneously. Always check before committing to a name, especially for professional profiles where consistency matters.' },
+                { q: 'Should I use my real name or a pseudonym?', a: 'Both are valid strategies and the right choice depends on your goals. Using your real name (or a consistent abbreviation) is better for professional networking, career visibility, and contexts where you want employers or collaborators to find you. A pseudonym offers privacy protection, creative freedom, and separation between personal and professional identity — valuable for gaming, creative work, or security research. The most important principle either way: be consistent across the platforms where your audience overlaps.' },
+                { q: 'Can I change my username later on most platforms?', a: 'Most platforms allow username changes, but the implications vary. Twitter/X, Instagram, and GitHub allow changes but old URLs pointing to your previous handle may break or redirect (GitHub redirects old username URLs temporarily). Reddit does not allow username changes at all. NPM username changes require contacting support. Before changing a well-established handle, consider the link rot cost — every article, README, or tweet that references your old handle becomes a broken or misleading reference.' },
+                { q: 'Are usernames on the same platform case-sensitive?', a: 'Almost all major platforms treat usernames as case-insensitive for uniqueness purposes — meaning you cannot register "JohnDoe" if "johndoe" is already taken. However, the display of the username may preserve the case you registered with. GitHub, Twitter, Instagram, and Reddit are all case-insensitive for availability but may display the capitalisation you chose during registration.' },
+                { q: 'What characters should I avoid in usernames for maximum compatibility?', a: 'Stick to letters, digits, hyphens (-), and underscores (_) for maximum cross-platform compatibility. Avoid periods (.) even when technically allowed — they are invisible in some display contexts and confusing in URLs. Avoid starting or ending with a hyphen or underscore, as many platforms forbid this. Avoid non-ASCII characters (accented letters, emoji) entirely — they cause problems in URLs, are hard to type for international audiences, and are rejected by most developer-facing platforms.' },
+                { q: 'How long should a good username be?', a: 'The sweet spot is 6–15 characters. Short enough to be easily remembered and typed, long enough to be distinctive and available. Very short usernames (1–4 characters) are almost universally taken on major platforms and those that remain are typically squatted. Very long usernames (20+ characters) are hard to remember, get truncated in UI contexts, and make @-mentions unwieldy in conversations. At 6–12 characters you have the best chance of finding something available and memorable.' },
+                { q: 'Is it worth buying a domain with my chosen username?', a: 'Yes, for anyone building a professional or creative online presence. A personal domain (yourname.com or username.dev) serves as the canonical hub for your identity — it is the one URL that cannot be taken away by a platform changing its policies or going out of business. It also allows you to set up professional email (you@yourdomain.com), host a portfolio or blog, and create redirects to all your social profiles from a single branded URL. Domain registration costs $10–$15/year, which is a modest investment for permanent control of your online identity.' },
+                { q: 'What if all variations of my preferred username are taken everywhere?', a: 'When a name is thoroughly taken, the most effective strategies are: (1) Add your craft as a suffix — appending "dev", "hq", "io", or "labs" often clears up availability. (2) Use your first name and last initial instead of full name. (3) Find a meaningful word from your field that resonates with your work (for a designer: "pixelname", for a security researcher: "nameinfosec"). (4) Generate variations with this tool using the Fun or Minimal style, which often combines words that happen to be available. The goal is a name that feels genuinely yours, not just one that was available.' },
+              ].map(({ q, a }, i, arr) => (
+                <div key={q} style={{ padding: '16px 20px', borderBottom: i < arr.length - 1 ? '1px solid var(--border)' : 'none', background: i % 2 === 0 ? 'var(--white)' : 'var(--page-bg)' }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--ink)', marginBottom: 8 }}>{q}</div>
+                  <p style={{ fontSize: 14, color: 'var(--ink-3)', lineHeight: 1.65, margin: 0 }}>{a}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
         </div>
       </div>
   );
