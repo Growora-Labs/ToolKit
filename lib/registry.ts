@@ -294,7 +294,7 @@ export const TOOLS: ToolMeta[] = [
     seoDescription: 'Convert text to URL-friendly slugs instantly. Handles accented characters, spaces, symbols and mixed case. Free online slug generator — no signup.',
     category:       'Text & Writing',
     keywords:       ['text to slug', 'slug generator', 'url slug converter', 'slugify text online', 'permalink generator'],
-    live:           false,
+    live:           true,
   },
   {
     slug:           'duplicate-line-remover',
@@ -306,7 +306,7 @@ export const TOOLS: ToolMeta[] = [
     seoDescription: 'Remove duplicate lines from any text instantly. Choose case-sensitive or insensitive matching, sort results, and keep or discard blank lines. Free, no signup.',
     category:       'Text & Writing',
     keywords:       ['duplicate line remover', 'remove duplicate lines online', 'remove duplicates text', 'unique lines extractor'],
-    live:           false,
+    live:           true,
   },
   {
     slug:           'sort-lines',
@@ -318,7 +318,7 @@ export const TOOLS: ToolMeta[] = [
     seoDescription: 'Sort lines of text alphabetically, by length, numerically or in reverse order. Remove duplicates while sorting. Free online line sorter — no signup.',
     category:       'Text & Writing',
     keywords:       ['sort lines online', 'sort text lines alphabetically', 'line sorter', 'sort list online', 'alphabetical sorter'],
-    live:           false,
+    live:           true,
   },
   {
     slug:           'reverse-text',
@@ -330,7 +330,7 @@ export const TOOLS: ToolMeta[] = [
     seoDescription: 'Reverse text instantly — flip characters, words or entire lines. Useful for mirror text, fun messages and development testing. Free, no signup.',
     category:       'Text & Writing',
     keywords:       ['reverse text', 'reverse text generator', 'flip text online', 'backwards text generator', 'mirror text'],
-    live:           false,
+    live:           true,
   },
   {
     slug:           'text-repeater',
@@ -354,7 +354,7 @@ export const TOOLS: ToolMeta[] = [
     seoDescription: 'Find and replace text online with plain text or regex patterns. Supports case-sensitive matching, global replace and regex flags. Free, no signup.',
     category:       'Text & Writing',
     keywords:       ['find and replace online', 'text find replace tool', 'regex find replace', 'bulk text replace online'],
-    live:           false,
+    live:           true,
   },
   {
     slug:           'remove-whitespace',

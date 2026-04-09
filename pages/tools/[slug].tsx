@@ -54,6 +54,11 @@ const TOOL_DATA: Record<string, () => Promise<{ faq: FaqItem[]; [key: string]: u
     'hmac-generator':           () => import('@/tools/hmac-generator'),
     'random-token-generator':   () => import('@/tools/random-token-generator'),
     'api-key-generator':        () => import('@/tools/api-key-generator'),
+    'text-to-slug':             () => import('@/tools/text-to-slug'),
+    'duplicate-line-remover':   () => import('@/tools/duplicate-line-remover'),
+    'sort-lines':               () => import('@/tools/sort-lines'),
+    'reverse-text':             () => import('@/tools/reverse-text'),
+    'find-and-replace':         () => import('@/tools/find-and-replace'),
 };
 
 const TOOL_WIDGETS: Record<string, React.ComponentType> = {
@@ -85,6 +90,11 @@ const TOOL_WIDGETS: Record<string, React.ComponentType> = {
     'hmac-generator':                dynamic(() => import('@/tools/hmac-generator/component'),                { ssr: false }) as React.ComponentType,
     'random-token-generator':        dynamic(() => import('@/tools/random-token-generator/component'),        { ssr: false }) as React.ComponentType,
     'api-key-generator':             dynamic(() => import('@/tools/api-key-generator/component'),             { ssr: false }) as React.ComponentType,
+    'text-to-slug':                  dynamic(() => import('@/tools/text-to-slug/component'),                  { ssr: false }) as React.ComponentType,
+    'duplicate-line-remover':        dynamic(() => import('@/tools/duplicate-line-remover/component'),        { ssr: false }) as React.ComponentType,
+    'sort-lines':                    dynamic(() => import('@/tools/sort-lines/component'),                    { ssr: false }) as React.ComponentType,
+    'reverse-text':                  dynamic(() => import('@/tools/reverse-text/component'),                  { ssr: false }) as React.ComponentType,
+    'find-and-replace':              dynamic(() => import('@/tools/find-and-replace/component'),              { ssr: false }) as React.ComponentType,
 };
 
 /* ── Password generator sidebar ────────────────────────── */
@@ -362,6 +372,117 @@ const RegexSidebar = dynamic(
     }), { ssr: false }
 ) as React.ComponentType;
 
+/* ── Text-to-slug sidebar ───────────────────────────────── */
+const TextToSlugSidebar = dynamic(
+    () => import('@/tools/text-to-slug').then(m => {
+        const { slugRules } = m as { slugRules: { rule: string; desc: string }[] };
+        return function Sidebar() {
+            return (
+                <div className="tool-sidebar">
+                    <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 16 }}>Slug rules</p>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        {slugRules.map(({ rule, desc }) => (
+                            <div key={rule} style={{ padding: '10px 0', borderBottom: '1px solid var(--border)' }}>
+                                <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 2 }}>{rule}</div>
+                                <div style={{ fontSize: 12, color: 'var(--ink-3)', lineHeight: 1.5 }}>{desc}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+    }), { ssr: false }
+) as React.ComponentType;
+
+/* ── Duplicate-line-remover sidebar ────────────────────── */
+const DuplicateLineRemoverSidebar = dynamic(
+    () => import('@/tools/duplicate-line-remover').then(m => {
+        const { useCases } = m as { useCases: { label: string; desc: string }[] };
+        return function Sidebar() {
+            return (
+                <div className="tool-sidebar">
+                    <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 16 }}>Use cases</p>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        {useCases.map(({ label, desc }) => (
+                            <div key={label} style={{ padding: '10px 0', borderBottom: '1px solid var(--border)' }}>
+                                <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 2 }}>{label}</div>
+                                <div style={{ fontSize: 12, color: 'var(--ink-3)', lineHeight: 1.5 }}>{desc}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+    }), { ssr: false }
+) as React.ComponentType;
+
+/* ── Sort-lines sidebar ─────────────────────────────────── */
+const SortLinesSidebar = dynamic(
+    () => import('@/tools/sort-lines').then(m => {
+        const { sortModes } = m as { sortModes: { mode: string; desc: string }[] };
+        return function Sidebar() {
+            return (
+                <div className="tool-sidebar">
+                    <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 16 }}>Sort modes</p>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        {sortModes.map(({ mode, desc }) => (
+                            <div key={mode} style={{ padding: '10px 0', borderBottom: '1px solid var(--border)' }}>
+                                <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--green)', fontFamily: 'JetBrains Mono, monospace', marginBottom: 2 }}>{mode}</div>
+                                <div style={{ fontSize: 12, color: 'var(--ink-3)', lineHeight: 1.5 }}>{desc}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+    }), { ssr: false }
+) as React.ComponentType;
+
+/* ── Reverse-text sidebar ───────────────────────────────── */
+const ReverseTextSidebar = dynamic(
+    () => import('@/tools/reverse-text').then(m => {
+        const { reverseModes } = m as { reverseModes: { mode: string; example: string; desc: string }[] };
+        return function Sidebar() {
+            return (
+                <div className="tool-sidebar">
+                    <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 16 }}>Reversal modes</p>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        {reverseModes.map(({ mode, example, desc }) => (
+                            <div key={mode} style={{ padding: '11px 0', borderBottom: '1px solid var(--border)' }}>
+                                <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 2 }}>{mode}</div>
+                                <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--green)', display: 'block', marginBottom: 3 }}>{example}</code>
+                                <div style={{ fontSize: 12, color: 'var(--ink-3)', lineHeight: 1.5 }}>{desc}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+    }), { ssr: false }
+) as React.ComponentType;
+
+/* ── Find-and-replace sidebar ───────────────────────────── */
+const FindAndReplaceSidebar = dynamic(
+    () => import('@/tools/find-and-replace').then(m => {
+        const { regexCheatSheet } = m as { regexCheatSheet: { pattern: string; desc: string }[] };
+        return function Sidebar() {
+            return (
+                <div className="tool-sidebar">
+                    <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink)', marginBottom: 14 }}>Regex cheatsheet</p>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        {regexCheatSheet.map(({ pattern, desc }) => (
+                            <div key={pattern} style={{ display: 'flex', alignItems: 'baseline', gap: 10, padding: '7px 0', borderBottom: '1px solid var(--border)' }}>
+                                <code style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'var(--green)', background: 'var(--green-lt)', padding: '1px 6px', borderRadius: 4, flexShrink: 0, minWidth: 64, textAlign: 'center' }}>{pattern}</code>
+                                <span style={{ fontSize: 12, color: 'var(--ink-3)' }}>{desc}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+    }), { ssr: false }
+) as React.ComponentType;
+
 /* ── Sidebar router ────────────────────────────────────── */
 function ToolSidebar({ slug }: { slug: string }) {
     if (slug === 'password-generator') return <PasswordGeneratorSidebar />;
@@ -387,6 +508,11 @@ function ToolSidebar({ slug }: { slug: string }) {
     if (slug === 'timestamp-converter')     return <TimestampSidebar />;
     if (slug === 'cron-generator')          return <CronSidebar />;
     if (slug === 'favicon-generator')       return <FaviconSidebar />;
+    if (slug === 'text-to-slug')            return <TextToSlugSidebar />;
+    if (slug === 'duplicate-line-remover')  return <DuplicateLineRemoverSidebar />;
+    if (slug === 'sort-lines')              return <SortLinesSidebar />;
+    if (slug === 'reverse-text')            return <ReverseTextSidebar />;
+    if (slug === 'find-and-replace')        return <FindAndReplaceSidebar />;
     return null;
 }
 
@@ -922,6 +1048,11 @@ const TOOL_CONTENT: Record<string, React.ComponentType> = {
     'hmac-generator':                dynamic(() => import('@/tools/hmac-generator/content'),                { ssr: false }) as React.ComponentType,
     'random-token-generator':        dynamic(() => import('@/tools/random-token-generator/content'),        { ssr: false }) as React.ComponentType,
     'api-key-generator':             dynamic(() => import('@/tools/api-key-generator/content'),             { ssr: false }) as React.ComponentType,
+    'text-to-slug':                  dynamic(() => import('@/tools/text-to-slug/content'),                  { ssr: false }) as React.ComponentType,
+    'duplicate-line-remover':        dynamic(() => import('@/tools/duplicate-line-remover/content'),        { ssr: false }) as React.ComponentType,
+    'sort-lines':                    dynamic(() => import('@/tools/sort-lines/content'),                    { ssr: false }) as React.ComponentType,
+    'reverse-text':                  dynamic(() => import('@/tools/reverse-text/content'),                  { ssr: false }) as React.ComponentType,
+    'find-and-replace':              dynamic(() => import('@/tools/find-and-replace/content'),              { ssr: false }) as React.ComponentType,
 };
 
 function ToolContent({ slug }: { slug: string }) {
